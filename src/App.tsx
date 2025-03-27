@@ -34,7 +34,7 @@ function App() {
       date: "2025",
       image: "/IEM.jpg",
       imageSizes: {
-        thumbnail: "/certificates/web-dev-cert-thumb.jpg",
+        thumbnail: "/IEM.jpg",
         full: "/IEM.jpg",
       },
     },
