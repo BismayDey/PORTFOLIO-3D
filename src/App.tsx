@@ -28,10 +28,10 @@ function App() {
       title: "Participation Certificate",
       issuer: "Iemhacks 3.0",
       date: "2025",
-      image: "/certificates/IEM.jpg",
+      image: "/IEM.jpg",
       imageSizes: {
         thumbnail: "/certificates/web-dev-cert-thumb.jpg",
-        full: "/certificates/IEM.jpg",
+        full: "/IEM.jpg",
       },
     },
     {
