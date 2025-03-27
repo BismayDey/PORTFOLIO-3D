@@ -32,7 +32,7 @@ function App() {
   const certificates = [
     {
       id: 1,
-      title: "Participation Certificate",
+      title: "Iemhacks 3.0 Hackathon",
       issuer: "Iemhacks 3.0",
       date: "2025",
       image: "/certificates/IEM.jpg",
@@ -43,8 +43,8 @@ function App() {
     },
     {
       id: 2,
-      title: "React Development",
-      issuer: "Meta",
+      title: "SIH-Smart India Hackathon",
+      issuer: "IIC",
       date: "2024",
       image: "/certificates/SIH.jpg",
       imageSizes: {
