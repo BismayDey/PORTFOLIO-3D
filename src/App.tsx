@@ -138,7 +138,7 @@ function App() {
           </motion.div>
         </nav>
       </div>
-      <div className="flex justify-center">
+      <div className="fixed bottom-8 left-0 right-0 z-50 flex justify-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -156,11 +156,11 @@ function App() {
               onClick={handleDownloadResume}
               disabled={isDownloading}
               className={`flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-semibold shadow-lg
-          ${
-            isDownloading
-              ? "opacity-75 cursor-wait"
-              : "hover:shadow-purple-500/25 hover:shadow-xl"
-          }`}
+                ${
+                  isDownloading
+                    ? "opacity-75 cursor-wait"
+                    : "hover:shadow-purple-500/25 hover:shadow-xl"
+                }`}
             >
               <motion.div
                 animate={isDownloading ? { rotate: 360 } : {}}
@@ -192,7 +192,7 @@ function App() {
             whileTap={{ scale: 0.95 }}
             onClick={handleViewResume}
             className="flex items-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-sm rounded-full text-white font-semibold
-        hover:bg-white/20 transition-colors"
+              hover:bg-white/20 transition-colors"
           >
             <FileText className="w-6 h-6" />
             <span>View Resume</span>
