@@ -46,10 +46,10 @@ function App() {
       title: "React Development",
       issuer: "Meta",
       date: "2024",
-      image: "/certificates/react-cert.jpg",
+      image: "/certificates/SIH.jpg",
       imageSizes: {
-        thumbnail: "/certificates/react-cert-thumb.jpg",
-        full: "/certificates/react-cert.jpg",
+        thumbnail: "/certificates/SIH.jpg",
+        full: "/certificates/SIH.jpg",
       },
     },
     {
