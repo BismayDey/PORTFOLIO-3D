@@ -1,6 +1,6 @@
-import React, { Suspense, useRef } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { Scene } from './components/Scene';
+import React, { Suspense, useRef } from "react";
+import { Canvas } from "@react-three/fiber";
+import { Scene } from "./components/Scene";
 import {
   Brain,
   Code2,
@@ -12,17 +12,53 @@ import {
   Linkedin,
   Phone,
   Instagram,
+  Award,
   ExternalLink,
-} from 'lucide-react';
-import { motion } from 'framer-motion';
+} from "lucide-react";
+import { motion } from "framer-motion";
 
 function App() {
   const aboutRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
-
+  const certificatesRef = useRef<HTMLDivElement>(null);
+  const certificates = [
+    {
+      id: 1,
+      title: "Participation Certificate",
+      issuer: "Iemhacks 3.0",
+      date: "2025",
+      image: "/certificates/IEM.jpg",
+      imageSizes: {
+        thumbnail: "/certificates/web-dev-cert-thumb.jpg",
+        full: "/certificates/IEM.jpg",
+      },
+    },
+    {
+      id: 2,
+      title: "React Development",
+      issuer: "Meta",
+      date: "2024",
+      image: "/certificates/react-cert.jpg",
+      imageSizes: {
+        thumbnail: "/certificates/react-cert-thumb.jpg",
+        full: "/certificates/react-cert.jpg",
+      },
+    },
+    {
+      id: 3,
+      title: "Full Stack Development",
+      issuer: "Udacity",
+      date: "2023",
+      image: "/certificates/fullstack-cert.jpg",
+      imageSizes: {
+        thumbnail: "/certificates/fullstack-cert-thumb.jpg",
+        full: "/certificates/fullstack-cert.jpg",
+      },
+    },
+  ];
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
-    ref.current?.scrollIntoView({ behavior: 'smooth' });
+    ref.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -62,6 +98,12 @@ function App() {
               Projects
             </button>
             <button
+              onClick={() => scrollToSection(certificatesRef)}
+              className="hover:text-purple-400 transition-colors"
+            >
+              Certificates
+            </button>
+            <button
               onClick={() => scrollToSection(contactRef)}
               className="hover:text-purple-400 transition-colors"
             >
@@ -88,7 +130,7 @@ function App() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               <div className="space-y-6">
                 <p className="text-lg text-gray-300">
-                  Hi, I'm{' '}
+                  Hi, I'm{" "}
                   <span className="text-purple-400 font-semibold">
                     Bismay Dey
                   </span>
@@ -499,6 +541,56 @@ function App() {
           </motion.div>
         </div>
 
+        <div
+          ref={certificatesRef}
+          className="min-h-screen bg-gradient-to-b from-black via-blue-900/20 to-black px-8 py-24"
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-6xl mx-auto text-white"
+          >
+            <h2 className="text-3xl font-bold mb-12">
+              Certifications & Achievements
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {certificates.map((certificate) => (
+                <motion.div
+                  key={certificate.id}
+                  whileHover={{ scale: 1.02 }}
+                  className="bg-white/5 rounded-xl overflow-hidden backdrop-blur-sm border border-white/10 cursor-pointer"
+                  onClick={() => setSelectedCertificate(certificate.id)}
+                >
+                  <div className="relative aspect-[4/3]">
+                    <img
+                      src={certificate.imageSizes.thumbnail}
+                      alt={certificate.title}
+                      className="w-full h-full object-contain bg-black/40"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Award className="w-5 h-5 text-blue-400" />
+                        <span className="text-sm text-blue-300">
+                          {certificate.issuer}
+                        </span>
+                      </div>
+                      <h3 className="text-lg font-semibold text-white">
+                        {certificate.title}
+                      </h3>
+                      <p className="text-sm text-gray-300 mt-1">
+                        {certificate.date}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
         <div
           ref={contactRef}
           className="min-h-screen bg-gradient-to-b from-black via-green-900/20 to-black px-8 py-24"
