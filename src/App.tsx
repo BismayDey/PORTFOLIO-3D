@@ -14,6 +14,8 @@ import {
   Instagram,
   Award,
   ExternalLink,
+  FileText,
+  FileDown,
   X,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -26,16 +28,17 @@ function App() {
   const [selectedCertificate, setSelectedCertificate] = useState<number | null>(
     null
   );
+  const [isDownloading, setIsDownloading] = useState(false);
   const certificates = [
     {
       id: 1,
       title: "Participation Certificate",
       issuer: "Iemhacks 3.0",
       date: "2025",
-      image: "/IEM.jpg",
+      image: "/certificates/IEM.jpg",
       imageSizes: {
-        thumbnail: "/IEM.jpg",
-        full: "/IEM.jpg",
+        thumbnail: "/certificates/IEM.jpg",
+        full: "/certificates/IEM.jpg",
       },
     },
     {
@@ -64,7 +67,26 @@ function App() {
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
+  const handleDownloadResume = () => {
+    setIsDownloading(true);
 
+    setTimeout(() => {
+      const link = document.createElement("a");
+      link.href = "/resume.pdf";
+      link.download = "bismay-dey-resume.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      setTimeout(() => {
+        setIsDownloading(false);
+      }, 1000);
+    }, 800);
+  };
+
+  const handleViewResume = () => {
+    window.open("/resume.pdf", "_blank");
+  };
   return (
     <div className="relative w-full min-h-screen bg-black overflow-x-hidden">
       <div className="fixed inset-0">
@@ -116,7 +138,67 @@ function App() {
           </motion.div>
         </nav>
       </div>
+      <div className="flex justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center gap-4"
+        >
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.5 }}
+            className="relative"
+          >
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleDownloadResume}
+              disabled={isDownloading}
+              className={`flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-semibold shadow-lg
+          ${
+            isDownloading
+              ? "opacity-75 cursor-wait"
+              : "hover:shadow-purple-500/25 hover:shadow-xl"
+          }`}
+            >
+              <motion.div
+                animate={isDownloading ? { rotate: 360 } : {}}
+                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+              >
+                <FileDown className="w-6 h-6" />
+              </motion.div>
+              <span>
+                {isDownloading ? "Downloading..." : "Download Resume"}
+              </span>
+            </motion.button>
 
+            <motion.div
+              initial={{ scale: 0, opacity: 0 }}
+              animate={
+                isDownloading
+                  ? { scale: 1.2, opacity: 1 }
+                  : { scale: 0, opacity: 0 }
+              }
+              className="absolute inset-0 rounded-full border-2 border-purple-500 border-t-transparent animate-spin"
+            />
+          </motion.div>
+
+          <motion.button
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleViewResume}
+            className="flex items-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-sm rounded-full text-white font-semibold
+        hover:bg-white/20 transition-colors"
+          >
+            <FileText className="w-6 h-6" />
+            <span>View Resume</span>
+          </motion.button>
+        </motion.div>
+      </div>
       <div className="relative z-10">
         <div className="h-screen" />
 
