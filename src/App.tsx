@@ -1,4 +1,4 @@
-import React, { Suspense, useRef } from "react";
+import React, { Suspense, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Scene } from "./components/Scene";
 import {
@@ -14,14 +14,18 @@ import {
   Instagram,
   Award,
   ExternalLink,
+  X,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 function App() {
   const aboutRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const certificatesRef = useRef<HTMLDivElement>(null);
+  const [selectedCertificate, setSelectedCertificate] = useState<number | null>(
+    null
+  );
   const certificates = [
     {
       id: 1,
@@ -688,6 +692,67 @@ function App() {
           </motion.div>
         </div>
       </div>
+      <AnimatePresence>
+        {selectedCertificate && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative w-[95vw] h-[95vh] bg-white/5 rounded-2xl overflow-hidden backdrop-blur-sm"
+            >
+              <div className="absolute top-4 left-4 right-4 z-10 flex justify-between items-center">
+                <button
+                  onClick={() => setSelectedCertificate(null)}
+                  className="p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+
+              <div className="h-full w-full flex items-center justify-center p-12">
+                <img
+                  src={
+                    certificates.find((c) => c.id === selectedCertificate)
+                      ?.imageSizes.full
+                  }
+                  alt={
+                    certificates.find((c) => c.id === selectedCertificate)
+                      ?.title
+                  }
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black via-black/80 to-transparent">
+                <div className="flex items-center gap-2 mb-2">
+                  <Award className="w-6 h-6 text-blue-400" />
+                  <span className="text-lg text-blue-300">
+                    {
+                      certificates.find((c) => c.id === selectedCertificate)
+                        ?.issuer
+                    }
+                  </span>
+                </div>
+                <h3 className="text-2xl font-semibold text-white">
+                  {
+                    certificates.find((c) => c.id === selectedCertificate)
+                      ?.title
+                  }
+                </h3>
+                <p className="text-lg text-gray-300 mt-2">
+                  {certificates.find((c) => c.id === selectedCertificate)?.date}
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
