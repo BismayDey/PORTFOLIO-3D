@@ -52,17 +52,6 @@ function App() {
         full: "/certificates/SIH.jpg",
       },
     },
-    {
-      id: 3,
-      title: "Full Stack Development",
-      issuer: "Udacity",
-      date: "2023",
-      image: "/certificates/fullstack-cert.jpg",
-      imageSizes: {
-        thumbnail: "/certificates/fullstack-cert-thumb.jpg",
-        full: "/certificates/fullstack-cert.jpg",
-      },
-    },
   ];
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
@@ -327,6 +316,46 @@ function App() {
                     </a>
                     <a
                       href="https://ecom4-0.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-red-400 transition-colors"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                      <span>Live Demo</span>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-white/5 rounded-lg overflow-hidden"
+              >
+                <img
+                  src="https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp"
+                  alt="E-Commerce Project"
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="font-semibold text-xl mb-2">Health Track</h3>
+                  <p className="text-gray-400 mb-4">
+                    Health Track is an AI-powered wellness app that offers
+                    health monitoring, AI diagnostics, mental health support,
+                    emergency assistance, and personalized recommendations. With
+                    real-time insights and a smart entertainment recommender, it
+                    provides a seamless and data-driven approach to well-being.
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <a
+                      href="https://github.com/BismayDey/HEALTH-TRACK"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-purple-400 transition-colors"
+                    >
+                      <Github className="w-5 h-5" />
+                      <span>Code</span>
+                    </a>
+                    <a
+                      href="https://health-track-theta.vercel.app/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center space-x-2 hover:text-red-400 transition-colors"
