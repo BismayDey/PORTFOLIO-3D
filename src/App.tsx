@@ -276,7 +276,7 @@ function App() {
                       <Briefcase className="w-4 h-4 text-purple-400" />
                       SDE Intern at{" "}
                       <a
-                        href="https://riseapply.com" // replace with correct URL
+                        href="https://riseapply.netlify.app/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-purple-400 underline hover:text-purple-300"
@@ -303,7 +303,7 @@ function App() {
                       <BarChart3 className="w-4 h-4 text-purple-400" />
                       Data Analyst at{" "}
                       <a
-                        href="https://datatechsolutions.com" // replace with correct URL
+                        href="https://datatechsolutions.com"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-purple-400 underline hover:text-purple-300"
@@ -331,7 +331,7 @@ function App() {
                       <Globe className="w-4 h-4 text-purple-400" />
                       Freelance Web Developer –{" "}
                       <a
-                        href="https://consulteasily.com" // replace with correct URL
+                        href="https://consulteasily.com"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-purple-400 underline hover:text-purple-300"
