@@ -211,63 +211,79 @@ function App() {
             viewport={{ once: true }}
             className="max-w-6xl mx-auto text-white"
           >
-            <h2 className="text-3xl font-bold mb-8">About Me</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div className="space-y-6">
-                <p className="text-lg text-gray-300">
-                  Hi, I'm{" "}
-                  <span className="text-purple-400 font-semibold">
-                    Bismay Dey
-                  </span>
-                  , a passionate Web Developer with a creative eye for design
-                  and a love for building immersive digital experiences. I
-                  specialize in crafting beautiful and functional web
-                  applications using cutting-edge technologies and modern design
-                  principles.
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-sky-900/50 transition-colors cursor-default">
-                    Next.js
-                  </div>
-                  <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-blue-900/50 transition-colors cursor-default">
-                    React.js
-                  </div>
-                  <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-red-900/50 transition-colors cursor-default">
-                    Three.js
-                  </div>
-                  <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-sky-900/50 transition-colors cursor-default">
-                    TypeScript
-                  </div>
-                  <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-pink-900/50 transition-colors cursor-default">
-                    Tailwind CSS
-                  </div>
-                  <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-yellow-900/50 transition-colors cursor-default">
-                    JavaScript
-                  </div>
-                  <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-green-900/50 transition-colors cursor-default">
-                    Node.js
-                  </div>
-                  <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-green-900/50 transition-colors cursor-default">
-                    MongoDB
-                  </div>
-                  <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-blue-900/50 transition-colors cursor-default">
-                    MySQL
-                  </div>
-                  <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-blue-900/50 transitblueion-colors cursor-default">
-                    Python
-                  </div>
-                  <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-orange-900/50 transition-colors cursor-default">
-                    Java
-                  </div>
-                  <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-blue-900/50 transition-colors cursor-default">
-                    C
+              {/* About Section */}
+              <div className="space-y-6 flex flex-col">
+                <h2
+                  className="text-3xl font-bold mb-6 cursor-pointer
+                       transition-transform transition-colors duration-300
+                       hover:text-purple-400 hover: hover:underline underline-offset-4"
+                >
+                  About Me
+                </h2>
+                <div>
+                  <p className="text-lg text-gray-300">
+                    Hi, I'm{" "}
+                    <span className="text-purple-400 font-semibold">
+                      Bismay Dey
+                    </span>
+                    , a passionate Web Developer with a creative eye for design
+                    and a love for building immersive digital experiences. I
+                    specialize in crafting beautiful and functional web
+                    applications using cutting-edge technologies and modern
+                    design principles.
+                  </p>
+                  <div className="flex flex-wrap gap-4 mt-4">
+                    <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-sky-900/50 transition-colors cursor-default">
+                      Next.js
+                    </div>
+                    <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-blue-900/50 transition-colors cursor-default">
+                      React.js
+                    </div>
+                    <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-red-900/50 transition-colors cursor-default">
+                      Three.js
+                    </div>
+                    <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-sky-900/50 transition-colors cursor-default">
+                      TypeScript
+                    </div>
+                    <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-pink-900/50 transition-colors cursor-default">
+                      Tailwind CSS
+                    </div>
+                    <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-yellow-900/50 transition-colors cursor-default">
+                      JavaScript
+                    </div>
+                    <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-green-900/50 transition-colors cursor-default">
+                      Node.js
+                    </div>
+                    <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-green-900/50 transition-colors cursor-default">
+                      MongoDB
+                    </div>
+                    <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-blue-900/50 transition-colors cursor-default">
+                      MySQL
+                    </div>
+                    <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-blue-900/50 transition-colors cursor-default">
+                      Python
+                    </div>
+                    <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-orange-900/50 transition-colors cursor-default">
+                      Java
+                    </div>
+                    <div className="bg-purple-900/30 px-4 py-2 rounded-lg hover:bg-blue-900/50 transition-colors cursor-default">
+                      C
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="space-y-6">
-                <h3 className="text-xl font-semibold">Experience</h3>
+
+              {/* Experience Section */}
+              <div className="space-y-6 flex flex-col">
+                <h2
+                  className="text-3xl font-bold mb-6 cursor-pointer
+                       transition-transform transition-colors duration-300
+                       hover:text-purple-400 hover:hover:underline underline-offset-4"
+                >
+                  Experience
+                </h2>
                 <div className="space-y-4">
-                  {/* SDE Intern at RiseApply */}
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     className="bg-white/5 p-6 rounded-lg backdrop-blur-sm"
@@ -294,7 +310,6 @@ function App() {
                     </p>
                   </motion.div>
 
-                  {/* Data Analyst at DataTech Solutions */}
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     className="bg-white/5 p-6 rounded-lg backdrop-blur-sm"
@@ -322,7 +337,6 @@ function App() {
                     </p>
                   </motion.div>
 
-                  {/* Freelance Web Developer – Consult Easily */}
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     className="bg-white/5 p-6 rounded-lg backdrop-blur-sm"
