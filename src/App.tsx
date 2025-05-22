@@ -387,6 +387,87 @@ function App() {
                 className="bg-white/5 rounded-lg overflow-hidden"
               >
                 <img
+                  src="https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp"
+                  alt="E-Commerce Project"
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="font-semibold text-xl mb-2">Health Track</h3>
+                  <p className="text-gray-400 mb-4">
+                    Health Track is an AI-powered wellness app that offers
+                    health monitoring, AI diagnostics, mental health support,
+                    emergency assistance, and personalized recommendations. With
+                    real-time insights and a smart entertainment recommender, it
+                    provides a seamless and data-driven approach to well-being.
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <a
+                      href="https://github.com/BismayDey/HEALTH-TRACK"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-purple-400 transition-colors"
+                    >
+                      <Github className="w-5 h-5" />
+                      <span>Code</span>
+                    </a>
+                    <a
+                      href="https://health-track-theta.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-red-400 transition-colors"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                      <span>Live Demo</span>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-white/5 rounded-lg overflow-hidden"
+              >
+                <img
+                  src="https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp"
+                  alt="Glow Project"
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="font-semibold text-xl mb-2">Glow</h3>
+                  <p className="text-gray-400 mb-4">
+                    Glow is a sleek, AI-powered mental wellness app that helps
+                    you track moods, reflect through journaling, and receive
+                    personalized insights. Designed for simplicity and clarity,
+                    it offers a calming space to support your emotional
+                    well-being.
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <a
+                      href="https://github.com/BismayDey/Glow-2"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-purple-400 transition-colors"
+                    >
+                      <Github className="w-5 h-5" />
+                      <span>Code</span>
+                    </a>
+                    <a
+                      href="https://glow-2-o.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-red-400 transition-colors"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                      <span>Live Demo</span>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-white/5 rounded-lg overflow-hidden"
+              >
+                <img
                   src="https://i.postimg.cc/KzBCpq7z/938d8d08-d966-4f84-9a64-156fb136883d.webp"
                   alt="AI Project"
                   className="w-full h-48 object-cover"
@@ -429,21 +510,20 @@ function App() {
               >
                 <img
                   src="https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp"
-                  alt="E-Commerce Project"
+                  alt="MindTrack Project"
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-6">
-                  <h3 className="font-semibold text-xl mb-2">Health Track</h3>
+                  <h3 className="font-semibold text-xl mb-2">MindTrack</h3>
                   <p className="text-gray-400 mb-4">
-                    Health Track is an AI-powered wellness app that offers
-                    health monitoring, AI diagnostics, mental health support,
-                    emergency assistance, and personalized recommendations. With
-                    real-time insights and a smart entertainment recommender, it
-                    provides a seamless and data-driven approach to well-being.
+                    MindTrack is a comprehensive mental health platform designed
+                    to empower users in understanding and improving their
+                    emotional well-being. It offers personalized mood tracking,
+                    secure journaling, and treatment monitoring tools.
                   </p>
                   <div className="flex justify-between items-center">
                     <a
-                      href="https://github.com/BismayDey/HEALTH-TRACK"
+                      href="https://github.com/BismayDey/MindTrack"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center space-x-2 hover:text-purple-400 transition-colors"
@@ -452,7 +532,47 @@ function App() {
                       <span>Code</span>
                     </a>
                     <a
-                      href="https://health-track-theta.vercel.app/"
+                      href="https://mind-rosy.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-red-400 transition-colors"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                      <span>Live Demo</span>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-white/5 rounded-lg overflow-hidden"
+              >
+                <img
+                  src="https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp"
+                  alt="RAGE EFFECT Project"
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="font-semibold text-xl mb-2">RAGE EFFECT</h3>
+                  <p className="text-gray-400 mb-4">
+                    RAGE EFFECT is a cross-platform FPS/TPS game delivering
+                    intense tactical combat, dynamic battlefields, and multiple
+                    game modes like Deathmatch and Rage Royale. Experience
+                    high-quality graphics and seamless cross-play on PC and
+                    mobile.
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <a
+                      href="https://github.com/BismayDey/RAGE-EFFECT"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-purple-400 transition-colors"
+                    >
+                      <Github className="w-5 h-5" />
+                      <span>Code</span>
+                    </a>
+                    <a
+                      href="https://rage-effect-six.vercel.app/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center space-x-2 hover:text-red-400 transition-colors"
@@ -502,6 +622,286 @@ function App() {
                   </div>
                 </div>
               </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-white/5 rounded-lg overflow-hidden"
+              >
+                <img
+                  src="https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp"
+                  alt="Shadow Nexus Project"
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="font-semibold text-xl mb-2">Shadow Nexus</h3>
+                  <p className="text-gray-400 mb-4">
+                    Shadow Nexus is a sleek gaming hub offering a curated
+                    library of top-rated titles across genres. Discover,
+                    download, and play standout games like{" "}
+                    <em>Shadow Protocol</em> and <em>Neon Drift</em>—all in one
+                    immersive platform.
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <a
+                      href="https://github.com/BismayDey/ShadowNexus"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-purple-400 transition-colors"
+                    >
+                      <Github className="w-5 h-5" />
+                      <span>Code</span>
+                    </a>
+                    <a
+                      href="https://shadownexus.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-red-400 transition-colors"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                      <span>Live Demo</span>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-white/5 rounded-lg overflow-hidden"
+              >
+                <img
+                  src="https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp"
+                  alt="BLACKSTREAM Project"
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="font-semibold text-xl mb-2">BLACKSTREAM</h3>
+                  <p className="text-gray-400 mb-4">
+                    BLACKSTREAM is a modern streaming platform offering a
+                    diverse selection of movies, TV shows, and original content.
+                    Enjoy ad-free streaming, exclusive releases, and offline
+                    downloads—all in one place.
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <a
+                      href="https://github.com/BismayDey/BLACKSTREAM"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-purple-400 transition-colors"
+                    >
+                      <Github className="w-5 h-5" />
+                      <span>Code</span>
+                    </a>
+                    <a
+                      href="https://blackstream-one.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-red-400 transition-colors"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                      <span>Live Demo</span>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-white/5 rounded-lg overflow-hidden"
+              >
+                <img
+                  src="https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp"
+                  alt="Let's Draw Project"
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="font-semibold text-xl mb-2">Let's Draw</h3>
+                  <p className="text-gray-400 mb-4">
+                    Let's Draw is a real-time collaborative drawing app built
+                    with JavaScript and WebSockets. It allows multiple users to
+                    sketch together on a shared canvas, making it perfect for
+                    creative collaboration, brainstorming, or just having fun
+                    with friends online.
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <a
+                      href="https://github.com/BismayDey/Lets-draw"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-purple-400 transition-colors"
+                    >
+                      <Github className="w-5 h-5" />
+                      <span>Code</span>
+                    </a>
+                    <a
+                      href="https://lets-draw.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-red-400 transition-colors"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                      <span>Live Demo</span>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-white/5 rounded-lg overflow-hidden"
+              >
+                <img
+                  src="https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp"
+                  alt="PokéServer Project"
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="font-semibold text-xl mb-2">PokéServer</h3>
+                  <p className="text-gray-400 mb-4">
+                    PokéServer is a dynamic Pokémon battle simulator that allows
+                    users to engage in real-time battles using their favorite
+                    Pokémon. With an intuitive interface and seamless gameplay,
+                    it offers an immersive experience for Pokémon enthusiasts.
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <a
+                      href="https://github.com/BismayDey/PokeServer"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-purple-400 transition-colors"
+                    >
+                      <Github className="w-5 h-5" />
+                      <span>Code</span>
+                    </a>
+                    <a
+                      href="https://pokeserver-beta.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-red-400 transition-colors"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                      <span>Live Demo</span>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-white/5 rounded-lg overflow-hidden"
+              >
+                <img
+                  src="https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp"
+                  alt="VALORANT AGENTS Project"
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="font-semibold text-xl mb-2">
+                    VALORANT AGENTS
+                  </h3>
+                  <p className="text-gray-400 mb-4">
+                    VALORANT AGENTS is a sleek web application showcasing
+                    detailed profiles of all VALORANT agents. Explore each
+                    agent's abilities, roles, and backgrounds in an interactive
+                    and user-friendly interface.
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <a
+                      href="https://github.com/BismayDey/valorant"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-purple-400 transition-colors"
+                    >
+                      <Github className="w-5 h-5" />
+                      <span>Code</span>
+                    </a>
+                    <a
+                      href="https://valorant-chi-blue.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-red-400 transition-colors"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                      <span>Live Demo</span>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-white/5 rounded-lg overflow-hidden"
+              >
+                <img
+                  src="https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp"
+                  alt="PaisaOP Project"
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="font-semibold text-xl mb-2">PaisaOP</h3>
+                  <p className="text-gray-400 mb-4">
+                    PaisaOP simplifies UPI payments by generating instant QR
+                    codes and shareable links. Ideal for creators and small
+                    businesses, it enables quick, secure, and hassle-free
+                    transactions without any coding.
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <a
+                      href="https://github.com/BismayDey/PaisaOP"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-purple-400 transition-colors"
+                    >
+                      <Github className="w-5 h-5" />
+                      <span>Code</span>
+                    </a>
+                    <a
+                      href="https://upi-ashen.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-red-400 transition-colors"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                      <span>Live Demo</span>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-white/5 rounded-lg overflow-hidden"
+              >
+                <img
+                  src="https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp"
+                  alt="Ask Bro Project"
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="font-semibold text-xl mb-2">Ask Bro</h3>
+                  <p className="text-gray-400 mb-4">
+                    Ask Bro is a community-driven Q&A platform where users can
+                    ask questions and share knowledge. Built with React,
+                    Next.js, TypeScript, and Firebase, it offers a seamless
+                    experience for learning and collaboration.
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <a
+                      href="https://github.com/BismayDey/AskBro"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-purple-400 transition-colors"
+                    >
+                      <Github className="w-5 h-5" />
+                      <span>Code</span>
+                    </a>
+                    <a
+                      href="https://ask-bro.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-red-400 transition-colors"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                      <span>Live Demo</span>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+
               <motion.div
                 whileHover={{ scale: 1.02 }}
                 className="bg-white/5 rounded-lg overflow-hidden"
@@ -729,7 +1129,7 @@ function App() {
                   </p>
                   <div className="flex justify-between items-center">
                     <a
-                      href="https://github.com/BismayDey/OS"
+                      href="https://bismaydey.github.io/FREEZZZ/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center space-x-2 hover:text-purple-400 transition-colors"
@@ -738,7 +1138,87 @@ function App() {
                       <span>Code</span>
                     </a>
                     <a
-                      href="https://os-swart.vercel.app/"
+                      href="https://bismaydey.github.io/FREEZZZ/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-red-400 transition-colors"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                      <span>Live Demo</span>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-white/5 rounded-lg overflow-hidden"
+              >
+                <img
+                  src="https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp"
+                  alt="Advanced Math Solver Project"
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="font-semibold text-xl mb-2">
+                    Advanced Math Solver
+                  </h3>
+                  <p className="text-gray-400 mb-4">
+                    Advanced Math Solver is a comprehensive tool offering
+                    calculators, graphing capabilities, unit conversions,
+                    formula references, and quizzes to enhance mathematical
+                    learning and problem-solving.
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <a
+                      href="https://github.com/BismayDey/maths"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-purple-400 transition-colors"
+                    >
+                      <Github className="w-5 h-5" />
+                      <span>Code</span>
+                    </a>
+                    <a
+                      href="https://maths-five.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-red-400 transition-colors"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                      <span>Live Demo</span>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-white/5 rounded-lg overflow-hidden"
+              >
+                <img
+                  src="https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp"
+                  alt="KAALO GAAN Project"
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="font-semibold text-xl mb-2">Spotify Clone</h3>
+                  <p className="text-gray-400 mb-4">
+                    KAALO GAAN is a minimalist music player that allows users to
+                    search, play, and manage their favorite tracks seamlessly.
+                    With a clean interface and intuitive controls, it offers a
+                    smooth listening experience.
+                  </p>
+                  <div className="flex justify-between items-center">
+                    <a
+                      href="https://github.com/BismayDey/music-player"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 hover:text-purple-400 transition-colors"
+                    >
+                      <Github className="w-5 h-5" />
+                      <span>Code</span>
+                    </a>
+                    <a
+                      href="https://music-player-zeta-pearl.vercel.app/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center space-x-2 hover:text-red-400 transition-colors"
