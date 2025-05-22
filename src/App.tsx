@@ -1,4 +1,7 @@
-import React, { Suspense, useRef, useState } from "react";
+"use client";
+
+import type React from "react";
+import { Suspense, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Scene } from "./components/Scene";
 import {
@@ -9,9 +12,12 @@ import {
   SquareCode,
   Mail,
   Github,
+  BarChart3,
   Linkedin,
   Phone,
   Instagram,
+  Globe,
+  Briefcase,
   Award,
   ExternalLink,
   FileText,
@@ -153,7 +159,11 @@ function App() {
             >
               <motion.div
                 animate={isDownloading ? { rotate: 360 } : {}}
-                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                transition={{
+                  duration: 1,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "linear",
+                }}
               >
                 <FileDown className="w-6 h-6" />
               </motion.div>
@@ -257,14 +267,87 @@ function App() {
               <div className="space-y-6">
                 <h3 className="text-xl font-semibold">Experience</h3>
                 <div className="space-y-4">
+                  {/* SDE Intern at RiseApply */}
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     className="bg-white/5 p-6 rounded-lg backdrop-blur-sm"
                   >
-                    <h4 className="font-semibold">Web Developer</h4>
-                    <p className="text-gray-400">
-                      Creating responsive and interactive web applications with
-                      modern frameworks
+                    <h4 className="font-semibold flex items-center gap-2">
+                      <Briefcase className="w-4 h-4 text-purple-400" />
+                      SDE Intern at{" "}
+                      <a
+                        href="https://riseapply.com" // replace with correct URL
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-purple-400 underline hover:text-purple-300"
+                      >
+                        RiseApply
+                      </a>
+                    </h4>
+                    <p className="text-sm font-semibold text-purple-300 mt-1">
+                      May 2025 – Present
+                    </p>
+                    <p className="text-gray-400 mt-2">
+                      Working on full-stack development using React and Node.js,
+                      contributing to the development of innovative recruitment
+                      solutions.
+                    </p>
+                  </motion.div>
+
+                  {/* Data Analyst at DataTech Solutions */}
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    className="bg-white/5 p-6 rounded-lg backdrop-blur-sm"
+                  >
+                    <h4 className="font-semibold flex items-center gap-2">
+                      <BarChart3 className="w-4 h-4 text-purple-400" />
+                      Data Analyst at{" "}
+                      <a
+                        href="https://datatechsolutions.com" // replace with correct URL
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-purple-400 underline hover:text-purple-300"
+                      >
+                        DataTech Solutions
+                      </a>
+                    </h4>
+                    <p className="text-sm font-semibold text-purple-300 mt-1">
+                      May 2025 – Present
+                    </p>
+                    <p className="text-gray-400 mt-2">
+                      Analyzed large datasets to extract meaningful insights,
+                      created interactive dashboards, and generated
+                      comprehensive reports to support business decision-making
+                      processes.
+                    </p>
+                  </motion.div>
+
+                  {/* Freelance Web Developer – Consult Easily */}
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    className="bg-white/5 p-6 rounded-lg backdrop-blur-sm"
+                  >
+                    <h4 className="font-semibold flex items-center gap-2">
+                      <Globe className="w-4 h-4 text-purple-400" />
+                      Freelance Web Developer –{" "}
+                      <a
+                        href="https://consulteasily.com" // replace with correct URL
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-purple-400 underline hover:text-purple-300"
+                      >
+                        Consult Easily
+                      </a>
+                    </h4>
+                    <p className="text-sm font-semibold text-purple-300 mt-1">
+                      April 2025 – June 2025
+                    </p>
+                    <p className="text-gray-400 mt-2">
+                      Designed and developed a comprehensive legal consultancy
+                      service website called "Consult Easily" that connects
+                      clients with legal professionals. Implemented user
+                      authentication, appointment scheduling, and secure payment
+                      processing.
                     </p>
                   </motion.div>
                 </div>
@@ -680,7 +763,9 @@ function App() {
                 >
                   <div className="relative aspect-[4/3]">
                     <img
-                      src={certificate.imageSizes.thumbnail}
+                      src={
+                        certificate.imageSizes.thumbnail || "/placeholder.svg"
+                      }
                       alt={certificate.title}
                       className="w-full h-full object-contain bg-black/40"
                       loading="lazy"
@@ -830,7 +915,7 @@ function App() {
                 <img
                   src={
                     certificates.find((c) => c.id === selectedCertificate)
-                      ?.imageSizes.full
+                      ?.imageSizes.full || "/placeholder.svg"
                   }
                   alt={
                     certificates.find((c) => c.id === selectedCertificate)
