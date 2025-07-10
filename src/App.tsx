@@ -316,24 +316,23 @@ function App() {
                   >
                     <h4 className="font-semibold flex items-center gap-2">
                       <BarChart3 className="w-4 h-4 text-purple-400" />
-                      Data Analyst at{" "}
+                      Data Engineer at{" "}
                       <a
                         href="https://datatechsolutions.com"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-purple-400 underline hover:text-purple-300"
                       >
-                        DataTech Solutions
+                        Tax Deeds
                       </a>
                     </h4>
                     <p className="text-sm font-semibold text-purple-300 mt-1">
                       May 2025 – Present
                     </p>
                     <p className="text-gray-400 mt-2">
-                      Analyzed large datasets to extract meaningful insights,
-                      created interactive dashboards, and generated
-                      comprehensive reports to support business decision-making
-                      processes.
+ Designed and maintained scalable data pipelines to collect, process, and store large volumes of property and
+ auction-related data. Implemented ETL workflows, optimized data infrastructure, and collaborated with analysts
+ to ensure data accuracy and accessibility for real-time reporting and strategic insights.
                     </p>
                   </motion.div>
 
