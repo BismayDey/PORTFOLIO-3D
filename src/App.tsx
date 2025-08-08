@@ -67,7 +67,7 @@ function App() {
 
     setTimeout(() => {
       const link = document.createElement("a");
-      link.href = "/resume.pdf";
+      link.href = "/BISMAY DEY.pdf";
       link.download = "bismay-dey-resume.pdf";
       document.body.appendChild(link);
       link.click();
@@ -80,7 +80,7 @@ function App() {
   };
 
   const handleViewResume = () => {
-    window.open("/resume.pdf", "_blank");
+    window.open("/BISMAY DEY.pdf", "_blank");
   };
   return (
     <div className="relative w-full min-h-screen bg-black overflow-x-hidden">
@@ -330,9 +330,12 @@ function App() {
                       May 2025 – Present
                     </p>
                     <p className="text-gray-400 mt-2">
- Designed and maintained scalable data pipelines to collect, process, and store large volumes of property and
- auction-related data. Implemented ETL workflows, optimized data infrastructure, and collaborated with analysts
- to ensure data accuracy and accessibility for real-time reporting and strategic insights.
+                      Designed and maintained scalable data pipelines to
+                      collect, process, and store large volumes of property and
+                      auction-related data. Implemented ETL workflows, optimized
+                      data infrastructure, and collaborated with analysts to
+                      ensure data accuracy and accessibility for real-time
+                      reporting and strategic insights.
                     </p>
                   </motion.div>
 
