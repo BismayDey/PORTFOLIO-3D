@@ -327,7 +327,7 @@ function App() {
                       </a>
                     </h4>
                     <p className="text-sm font-semibold text-purple-300 mt-1">
-                      May 2025 – Present
+                      Jan 2025 – Aug 2025
                     </p>
                     <p className="text-gray-400 mt-2">
                       Designed and maintained scalable data pipelines to
