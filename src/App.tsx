@@ -615,15 +615,8 @@ function App() {
       <div className="relative z-10">
         {/* Hero Section - structured like other sections so it's visually divided */}
         <div className="min-h-screen bg-transparent px-4 md:px-8 py-16 md:py-24 flex items-center relative">
-          {/* Enhanced shadow overlay at the bottom to create smooth transition effect */}
-          <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none z-0">
-            {/* Primary gradient shadow */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
-            {/* Secondary softer gradient for depth */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent backdrop-blur-sm" />
-            {/* Subtle vignette effect on sides */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
-          </div>
+          {/* Shadow overlay at the bottom to create transition effect */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/90 to-transparent pointer-events-none z-0" />
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
