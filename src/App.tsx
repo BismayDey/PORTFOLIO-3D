@@ -56,7 +56,7 @@ function App() {
     let cancelled = false;
     const img = new Image();
     img.crossOrigin = "anonymous";
-    img.src = "/profile.jpg";
+    img.src = "/PROFILE2.png";
 
     img.onload = () => {
       if (cancelled) return;
@@ -615,8 +615,15 @@ function App() {
       <div className="relative z-10">
         {/* Hero Section - structured like other sections so it's visually divided */}
         <div className="min-h-screen bg-transparent px-4 md:px-8 py-16 md:py-24 flex items-center relative">
-          {/* Shadow overlay at the bottom to create transition effect */}
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/90 to-transparent pointer-events-none z-0" />
+          {/* Enhanced shadow overlay at the bottom to create smooth transition effect */}
+          <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none z-0">
+            {/* Primary gradient shadow */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
+            {/* Secondary softer gradient for depth */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent backdrop-blur-sm" />
+            {/* Subtle vignette effect on sides */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
+          </div>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -669,7 +676,10 @@ function App() {
                   >
                     <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-purple-500/50 shadow-2xl shadow-purple-500/30 group-hover:border-pink-500/50 transition-all duration-300 bg-black/10 flex items-center justify-center">
                       <img
-                        src={processedProfile ?? "/profile.jpg"}
+                        src={processedProfile ?? "/PROFILE2.png"}
+                        srcSet={`${processedProfile ?? "/PROFILE2.png"} 1x, ${
+                          processedProfile ?? "/PROFILE2.png"
+                        } 2x`}
                         alt="Bismay Dey"
                         className="w-full h-full object-cover transition-transform duration-500"
                         style={{ objectPosition: "center" }}
@@ -697,8 +707,8 @@ function App() {
 
                     {/* Title with Icon */}
                     <div className="flex items-center justify-center gap-3 mb-2">
-                      <div className="p-2 bg-purple-500/20 rounded-lg">
-                        <Code2 className="w-5 h-5 md:w-6 md:h-6 text-purple-400" />
+                      <div className="p-2 bg-purple-500/20 rounded-lg hidden">
+                        <Code2 className="w-5 h-5 md:w-6 md:h-6 text-purple-400 hidden md:block" />
                       </div>
                       <p className="text-xl md:text-2xl text-purple-300 font-semibold">
                         Full Stack Developer & AI/ML Engineer
