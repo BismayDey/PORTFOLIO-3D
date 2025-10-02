@@ -11,6 +11,7 @@ import {
   Gamepad2,
   SquareCode,
   Mail,
+  Users,
   Github,
   BarChart3,
   Linkedin,
@@ -773,6 +774,18 @@ function App() {
                   <h3 className="text-2xl md:text-3xl font-bold mb-2">6+</h3>
                   <p className="text-sm md:text-base text-gray-300">
                     Intership Completed
+                  </p>
+                </div>
+                <div className="mt-4 pt-4 border-t border-white/10">
+                  <h3 className="text-2xl md:text-3xl font-bold mb-2">12+</h3>
+                  <p className="text-sm md:text-base text-gray-300">
+                    Freelance Projects Delivered
+                  </p>
+                </div>
+                <div className="mt-4 pt-4 border-t border-white/10">
+                  <h3 className="text-2xl md:text-3xl font-bold mb-2">10+</h3>
+                  <p className="text-sm md:text-base text-gray-300">
+                    End-to-End Product Launches
                   </p>
                 </div>
               </motion.div>
@@ -1686,10 +1699,10 @@ function App() {
               className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
             >
               {[
-                { label: "Hackathons", value: "3+", icon: Zap },
-                { label: "Certifications", value: "4+", icon: Award },
-                { label: "Achievements", value: "10+", icon: Target },
-                { label: "Recognition", value: "Multiple", icon: Trophy },
+                { label: "Hackathons Won", value: "10+", icon: Zap },
+                { label: "Clients Served", value: "15+", icon: Users },
+                { label: "Achievements", value: "20+", icon: Target },
+                { label: "Projects Delivered", value: "50+", icon: Trophy },
               ].map((stat, index) => (
                 <motion.div
                   key={index}
