@@ -728,11 +728,14 @@ function App() {
                     transition={{ delay: 0.4 }}
                     className="text-base md:text-lg text-gray-300 leading-relaxed max-w-3xl"
                   >
-                    Hi, I'm a passionate Web Developer with a creative eye for
-                    design and a love for building immersive digital
-                    experiences. I specialize in crafting beautiful and
-                    functional web applications using cutting-edge technologies
-                    and modern design principles.
+                    I’m a results-driven Full Stack Developer and AI/ML
+                    Engineer, passionate about building intelligent, end-to-end
+                    web solutions that blend smart technology with seamless user
+                    experience. With expertise in React, Next.js, Node.js,
+                    Python, and machine learning frameworks, I develop scalable
+                    applications that are both dynamic and data-driven. I thrive
+                    on solving real-world problems, exploring cutting-edge
+                    tools, and pushing the boundaries of what tech can do.
                   </motion.p>
 
                   {/* Quick Highlights */}
@@ -2200,28 +2203,28 @@ function App() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {/* Testimonial 1 */}
+              {/* Testimonial 1 - Prasanta Kar for Consult Easily */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1, type: "spring", stiffness: 100 }}
                 whileHover={{ scale: 1.02, y: -5 }}
-                className="group relative bg-gradient-to-br from-purple-900/50 to-pink-900/50 p-8 rounded-3xl backdrop-blur-md border border-purple-500/40 shadow-2xl shadow-purple-500/20 overflow-hidden"
+                className="group relative bg-gradient-to-br from-indigo-900/50 to-purple-900/50 p-8 rounded-3xl backdrop-blur-md border border-indigo-500/40 shadow-2xl shadow-indigo-500/20 overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-pink-500/0 group-hover:from-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 to-purple-500/0 group-hover:from-indigo-500/10 group-hover:to-purple-500/10 transition-all duration-500" />
 
                 <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">
-                      A
+                    <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-500/30 group-hover:scale-110 transition-transform">
+                      P
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg group-hover:text-purple-200 transition-colors">
-                        Alex Thompson
+                      <h4 className="font-bold text-lg group-hover:text-indigo-200 transition-colors">
+                        Prasanta Kar
                       </h4>
                       <p className="text-sm text-gray-400">
-                        CEO, TechStart Inc
+                        Founder, Consult Easily
                       </p>
                     </div>
                   </div>
@@ -2234,15 +2237,17 @@ function App() {
                     ))}
                   </div>
                   <p className="text-gray-300 text-sm md:text-base leading-relaxed italic group-hover:text-gray-200 transition-colors">
-                    "Outstanding work! Bismay delivered a flawless full-stack
-                    solution that exceeded our expectations. Professional,
-                    responsive, and highly skilled."
+                    "Bismay delivered an exceptional consulting platform that
+                    perfectly captures our vision. The seamless user experience
+                    and robust functionality have significantly improved our
+                    client interactions. His attention to detail and technical
+                    expertise are outstanding."
                   </p>
                 </div>
-                <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-purple-500/20 rounded-full blur-2xl group-hover:bg-purple-500/40 transition-all duration-500" />
+                <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-indigo-500/20 rounded-full blur-2xl group-hover:bg-indigo-500/40 transition-all duration-500" />
               </motion.div>
 
-              {/* Testimonial 2 */}
+              {/* Testimonial 2 - Shiv Saha for Consult Easily */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -2260,50 +2265,10 @@ function App() {
                     </div>
                     <div>
                       <h4 className="font-bold text-lg group-hover:text-blue-200 transition-colors">
-                        Sarah Chen
-                      </h4>
-                      <p className="text-sm text-gray-400">Founder, EduLearn</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-1 mb-6">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-5 h-5 fill-yellow-400 text-yellow-400 drop-shadow-lg"
-                      />
-                    ))}
-                  </div>
-                  <p className="text-gray-300 text-sm md:text-base leading-relaxed italic group-hover:text-gray-200 transition-colors">
-                    "Bismay transformed our vision into reality with incredible
-                    attention to detail. The platform is fast, beautiful, and
-                    user-friendly. Highly recommend!"
-                  </p>
-                </div>
-                <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-blue-500/20 rounded-full blur-2xl group-hover:bg-blue-500/40 transition-all duration-500" />
-              </motion.div>
-
-              {/* Testimonial 3 */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
-                whileHover={{ scale: 1.02, y: -5 }}
-                className="group relative bg-gradient-to-br from-emerald-900/50 to-teal-900/50 p-8 rounded-3xl backdrop-blur-md border border-emerald-500/40 shadow-2xl shadow-emerald-500/20 overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/0 to-teal-500/0 group-hover:from-emerald-500/10 group-hover:to-teal-500/10 transition-all duration-500" />
-
-                <div className="relative z-10">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
-                      M
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-lg group-hover:text-emerald-200 transition-colors">
-                        Michael Roberts
+                        Shiv Saha
                       </h4>
                       <p className="text-sm text-gray-400">
-                        Director, Global Trade Co
+                        Co-Founder, Consult Easily
                       </p>
                     </div>
                   </div>
@@ -2316,12 +2281,58 @@ function App() {
                     ))}
                   </div>
                   <p className="text-gray-300 text-sm md:text-base leading-relaxed italic group-hover:text-gray-200 transition-colors">
-                    "Working with Bismay was a game-changer for our business.
-                    The solution is robust, scalable, and perfectly aligned with
-                    our needs. Excellent developer!"
+                    "Working with Bismay was a fantastic experience. He built
+                    our platform from the ground up with incredible
+                    professionalism and technical skill. The platform has
+                    streamlined our operations and enhanced our service
+                    delivery. Highly recommended!"
                   </p>
                 </div>
-                <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-emerald-500/20 rounded-full blur-2xl group-hover:bg-emerald-500/40 transition-all duration-500" />
+                <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-blue-500/20 rounded-full blur-2xl group-hover:bg-blue-500/40 transition-all duration-500" />
+              </motion.div>
+
+              {/* Testimonial 3 - Sayyed Owais for TCL */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="group relative bg-gradient-to-br from-amber-900/50 to-orange-900/50 p-8 rounded-3xl backdrop-blur-md border border-amber-500/40 shadow-2xl shadow-amber-500/20 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-orange-500/0 group-hover:from-amber-500/10 group-hover:to-orange-500/10 transition-all duration-500" />
+
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-14 h-14 bg-gradient-to-br from-amber-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform">
+                      S
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg group-hover:text-amber-200 transition-colors">
+                        Sayyed Owais
+                      </h4>
+                      <p className="text-sm text-gray-400">
+                        Founder, Trade Care International
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex gap-1 mb-6">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-5 h-5 fill-yellow-400 text-yellow-400 drop-shadow-lg"
+                      />
+                    ))}
+                  </div>
+                  <p className="text-gray-300 text-sm md:text-base leading-relaxed italic group-hover:text-gray-200 transition-colors">
+                    "Bismay developed our international trade platform with
+                    exceptional skill and understanding of our business needs.
+                    The platform has revolutionized our logistics operations
+                    with real-time tracking and management capabilities.
+                    Outstanding work!"
+                  </p>
+                </div>
+                <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-amber-500/20 rounded-full blur-2xl group-hover:bg-amber-500/40 transition-all duration-500" />
               </motion.div>
             </div>
           </motion.div>
