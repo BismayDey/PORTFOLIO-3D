@@ -30,6 +30,10 @@ import {
   Target,
   ChevronDown,
   Trophy,
+  GraduationCap,
+  Sparkles,
+  Home,
+  Star,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -56,7 +60,7 @@ function App() {
     let cancelled = false;
     const img = new Image();
     img.crossOrigin = "anonymous";
-    img.src = "/PROFILE2.png";
+    img.src = "/PROFILE.png";
 
     img.onload = () => {
       if (cancelled) return;
@@ -659,32 +663,39 @@ function App() {
                 className="lg:col-span-2 bg-gradient-to-br from-purple-900/30 to-pink-900/30 p-8 md:p-10 rounded-3xl backdrop-blur-sm border border-white/10 h-full flex flex-col justify-center"
               >
                 <div className="flex flex-col items-center text-center gap-4">
-                  {/* Profile Image */}
+                  {/* Profile Image - Optimized for 771x1024 portrait image */}
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.2, type: "spring" }}
-                    className="relative group"
+                    className="relative group mb-6"
                   >
-                    <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-purple-500/50 shadow-2xl shadow-purple-500/30 group-hover:border-pink-500/50 transition-all duration-300 bg-black/10 flex items-center justify-center">
+                    {/* Main portrait container - reduced height, image maintains scale */}
+                    <div className="relative w-60 h-64 md:w-72 md:h-80 lg:w-80 lg:h-[22rem] rounded-3xl overflow-hidden border-4 border-purple-500/50 shadow-2xl shadow-purple-500/30 group-hover:border-pink-500/50 group-hover:shadow-pink-500/40 transition-all duration-500 bg-gradient-to-br from-purple-900/20 to-pink-900/20">
                       <img
-                        src={processedProfile ?? "/PROFILE2.png"}
-                        srcSet={`${processedProfile ?? "/PROFILE2.png"} 1x, ${
-                          processedProfile ?? "/PROFILE2.png"
+                        src={processedProfile ?? "/PROFILE.png"}
+                        srcSet={`${processedProfile ?? "/PROFILE.png"} 1x, ${
+                          processedProfile ?? "/PROFILE.png"
                         } 2x`}
                         alt="Bismay Dey"
-                        className="w-full h-full object-cover transition-transform duration-500"
-                        style={{ objectPosition: "center" }}
+                        className="w-full h-full object-cover object-top transition-all duration-700 group-hover:scale-[1.02]"
                         onError={(e) => {
                           e.currentTarget.src = `https://ui-avatars.com/api/?name=Bismay+Dey&size=400&background=9333ea&color=fff&bold=true`;
                         }}
                         loading="lazy"
                       />
+                      {/* Gradient overlay on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-purple-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     </div>
-                    {/* Decorative rings */}
-                    <div className="absolute inset-0 rounded-full border-2 border-purple-500/30 animate-ping opacity-0 group-hover:opacity-100" />
-                    <div className="absolute -inset-2 rounded-full border border-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                    {/* Decorative elements */}
+                    <div className="absolute inset-0 rounded-3xl border-2 border-purple-400/40 animate-pulse opacity-0 group-hover:opacity-60 transition-opacity duration-500" />
+                    <div className="absolute -inset-3 rounded-3xl border border-pink-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-sm" />
+
+                    {/* Glowing corner accents */}
+                    <div className="absolute -top-1 -right-1 w-8 h-8 bg-purple-500/50 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute -bottom-1 -left-1 w-8 h-8 bg-pink-500/50 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </motion.div>
 
                   {/* Name */}
@@ -992,7 +1003,154 @@ function App() {
 
               {/* Experience Items */}
               <div className="space-y-12 md:space-y-16">
-                {/* Item 1 - PKL */}
+                {/* Item 1 - Techno India Group */}
+                <motion.div
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="relative md:ml-[50%] md:pl-12"
+                >
+                  <div className="hidden md:block absolute left-0 top-8 w-4 h-4 bg-emerald-500 rounded-full border-4 border-black transform -translate-x-[calc(50%+1.5rem)]" />
+
+                  <motion.div
+                    whileHover={{ scale: 1.02, y: -5 }}
+                    className="bg-gradient-to-br from-emerald-900/40 to-teal-900/40 p-6 md:p-8 rounded-2xl backdrop-blur-sm border border-emerald-500/30 shadow-lg shadow-emerald-500/10"
+                  >
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="p-3 bg-emerald-500/20 rounded-xl">
+                        <Briefcase className="w-6 h-6 text-emerald-400" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-xl md:text-2xl font-bold mb-2">
+                          Tech Lead & Full-Stack Developer
+                        </h3>
+                        <div className="text-emerald-400 font-semibold mb-2">
+                          Techno India Group
+                        </div>
+                        <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
+                          <span className="flex items-center gap-1">
+                            <Calendar className="w-4 h-4" />
+                            Aug 2025 – Present
+                          </span>
+                        </div>
+                        <ul className="text-gray-300 leading-relaxed space-y-3">
+                          <li className="flex gap-3">
+                            <span className="text-emerald-400 mt-1.5 flex-shrink-0">
+                              •
+                            </span>
+                            <span>
+                              Overseeing and managing all technical operations
+                              for Techno India Group, including frontend and
+                              backend development, database design, domain & DNS
+                              configuration, server management, and deployment
+                              pipelines, ensuring seamless performance and
+                              reliability across all projects.
+                            </span>
+                          </li>
+                          <li className="flex gap-3">
+                            <span className="text-emerald-400 mt-1.5 flex-shrink-0">
+                              •
+                            </span>
+                            <span>
+                              Leading a multidisciplinary development team to
+                              plan, architect, and deliver modern, scalable web
+                              platforms — handling everything from wireframing
+                              and system architecture to integration,
+                              optimization, and security.
+                            </span>
+                          </li>
+                          <li className="flex gap-3">
+                            <span className="text-emerald-400 mt-1.5 flex-shrink-0">
+                              •
+                            </span>
+                            <span>
+                              Driving innovation and technical excellence by
+                              implementing best practices, maintaining high
+                              system uptime, and ensuring every project aligns
+                              with the group's long-term digital transformation
+                              goals.
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+
+                {/* Item 2 - SINIM Bridge Corp */}
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="relative md:mr-[50%] md:pr-12"
+                >
+                  <div className="hidden md:block absolute right-0 top-8 w-4 h-4 bg-cyan-500 rounded-full border-4 border-black transform translate-x-[calc(50%+1.5rem)]" />
+
+                  <motion.div
+                    whileHover={{ scale: 1.02, y: -5 }}
+                    className="bg-gradient-to-br from-cyan-900/40 to-blue-900/40 p-6 md:p-8 rounded-2xl backdrop-blur-sm border border-cyan-500/30 shadow-lg shadow-cyan-500/10"
+                  >
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="p-3 bg-cyan-500/20 rounded-xl">
+                        <Code2 className="w-6 h-6 text-cyan-400" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-xl md:text-2xl font-bold mb-2">
+                          Web Developer (Independent Contractor)
+                        </h3>
+                        <div className="text-cyan-400 font-semibold mb-2">
+                          SINIM Bridge Corp.
+                        </div>
+                        <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
+                          <span className="flex items-center gap-1">
+                            <Calendar className="w-4 h-4" />
+                            Aug 2025 – Present
+                          </span>
+                        </div>
+                        <ul className="text-gray-300 leading-relaxed space-y-3">
+                          <li className="flex gap-3">
+                            <span className="text-cyan-400 mt-1.5 flex-shrink-0">
+                              •
+                            </span>
+                            <span>
+                              Developing, maintaining, and publishing SINIM
+                              Bridge's official website, digital platforms, and
+                              web applications, ensuring high performance,
+                              accessibility, and responsiveness across all
+                              devices.
+                            </span>
+                          </li>
+                          <li className="flex gap-3">
+                            <span className="text-cyan-400 mt-1.5 flex-shrink-0">
+                              •
+                            </span>
+                            <span>
+                              Collaborating with HR and recruitment teams to
+                              design and manage career pages and job listings,
+                              supporting global hiring operations through
+                              optimized workflows and automated postings.
+                            </span>
+                          </li>
+                          <li className="flex gap-3">
+                            <span className="text-cyan-400 mt-1.5 flex-shrink-0">
+                              •
+                            </span>
+                            <span>
+                              Enhancing company branding and digital presence by
+                              ensuring all content, visuals, and communication
+                              assets remain accurate, updated, and aligned with
+                              organizational goals.
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+
+                {/* Item 3 - PKL */}
                 <motion.div
                   initial={{ opacity: 0, x: 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -1417,6 +1575,527 @@ function App() {
                   </motion.div>
                 </motion.div>
               </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Client Projects Section - Enhanced */}
+        <div className="relative min-h-screen bg-gradient-to-b from-black via-indigo-900/10 to-black px-4 md:px-8 py-16 md:py-24 overflow-hidden">
+          {/* Decorative Background Elements */}
+          <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-700" />
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative z-10 max-w-7xl mx-auto text-white"
+          >
+            <div className="text-center mb-12 md:mb-16">
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="inline-block mb-4"
+              >
+                <span className="px-4 py-2 bg-indigo-500/20 text-indigo-300 rounded-full text-sm font-semibold border border-indigo-500/30">
+                  Featured Work
+                </span>
+              </motion.div>
+              <motion.h2
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
+              >
+                Client Projects
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto"
+              >
+                Delivering exceptional digital experiences for clients worldwide
+              </motion.p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              {/* Consulteasily */}
+              <motion.a
+                href="https://www.consulteasily.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1, type: "spring", stiffness: 100 }}
+                whileHover={{
+                  scale: 1.03,
+                  y: -8,
+                  transition: { duration: 0.2 },
+                }}
+                className="group relative bg-gradient-to-br from-indigo-900/50 to-purple-900/50 p-8 rounded-3xl backdrop-blur-md border border-indigo-500/40 shadow-2xl shadow-indigo-500/20 overflow-hidden transition-all duration-300"
+              >
+                {/* Animated gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-indigo-500/20 group-hover:via-purple-500/15 group-hover:to-pink-500/10 transition-all duration-700" />
+
+                {/* Shine effect */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
+                </div>
+
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="p-4 bg-indigo-500/30 rounded-2xl group-hover:bg-indigo-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-indigo-500/30">
+                      <Rocket className="w-7 h-7 text-indigo-300 group-hover:text-indigo-200 transition-colors" />
+                    </div>
+                    <div className="p-2 bg-indigo-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <ExternalLink className="w-5 h-5 text-indigo-300" />
+                    </div>
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-3 group-hover:text-indigo-200 transition-colors bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent group-hover:from-indigo-200 group-hover:to-purple-200">
+                    Consulteasily
+                  </h3>
+                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
+                    Comprehensive consulting platform designed to streamline
+                    client-consultant interactions with intuitive features and
+                    seamless user experience.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-4 py-1.5 bg-indigo-500/30 text-indigo-200 rounded-full text-xs font-medium border border-indigo-400/40 group-hover:bg-indigo-500/50 transition-colors">
+                      Full-Stack
+                    </span>
+                    <span className="px-4 py-1.5 bg-purple-500/30 text-purple-200 rounded-full text-xs font-medium border border-purple-400/40 group-hover:bg-purple-500/50 transition-colors">
+                      React
+                    </span>
+                  </div>
+                </div>
+
+                {/* Corner accent */}
+                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-indigo-500/20 rounded-full blur-2xl group-hover:bg-indigo-500/40 transition-all duration-500" />
+              </motion.a>
+
+              {/* Prasanta Kar Institute */}
+              <motion.a
+                href="https://www.prasantakarinstitute.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, type: "spring", stiffness: 100 }}
+                whileHover={{
+                  scale: 1.03,
+                  y: -8,
+                  transition: { duration: 0.2 },
+                }}
+                className="group relative bg-gradient-to-br from-blue-900/50 to-cyan-900/50 p-8 rounded-3xl backdrop-blur-md border border-blue-500/40 shadow-2xl shadow-blue-500/20 overflow-hidden transition-all duration-300"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 via-cyan-500/0 to-teal-500/0 group-hover:from-blue-500/20 group-hover:via-cyan-500/15 group-hover:to-teal-500/10 transition-all duration-700" />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
+                </div>
+
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="p-4 bg-blue-500/30 rounded-2xl group-hover:bg-blue-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-blue-500/30">
+                      <GraduationCap className="w-7 h-7 text-blue-300 group-hover:text-blue-200 transition-colors" />
+                    </div>
+                    <div className="p-2 bg-blue-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <ExternalLink className="w-5 h-5 text-blue-300" />
+                    </div>
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent group-hover:from-blue-200 group-hover:to-cyan-200">
+                    Prasanta Kar Institute
+                  </h3>
+                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
+                    Educational institute website with course management,
+                    enrollment systems, and interactive learning modules for
+                    students and educators.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-4 py-1.5 bg-blue-500/30 text-blue-200 rounded-full text-xs font-medium border border-blue-400/40 group-hover:bg-blue-500/50 transition-colors">
+                      Education
+                    </span>
+                    <span className="px-4 py-1.5 bg-cyan-500/30 text-cyan-200 rounded-full text-xs font-medium border border-cyan-400/40 group-hover:bg-cyan-500/50 transition-colors">
+                      CMS
+                    </span>
+                  </div>
+                </div>
+                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-blue-500/20 rounded-full blur-2xl group-hover:bg-blue-500/40 transition-all duration-500" />
+              </motion.a>
+
+              {/* Glow Cosmetics 2.0 */}
+              <motion.a
+                href="https://glow-2-o.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
+                whileHover={{
+                  scale: 1.03,
+                  y: -8,
+                  transition: { duration: 0.2 },
+                }}
+                className="group relative bg-gradient-to-br from-pink-900/50 to-rose-900/50 p-8 rounded-3xl backdrop-blur-md border border-pink-500/40 shadow-2xl shadow-pink-500/20 overflow-hidden transition-all duration-300"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-pink-500/0 via-rose-500/0 to-red-500/0 group-hover:from-pink-500/20 group-hover:via-rose-500/15 group-hover:to-red-500/10 transition-all duration-700" />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
+                </div>
+
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="p-4 bg-pink-500/30 rounded-2xl group-hover:bg-pink-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-pink-500/30">
+                      <Sparkles className="w-7 h-7 text-pink-300 group-hover:text-pink-200 transition-colors" />
+                    </div>
+                    <div className="p-2 bg-pink-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <ExternalLink className="w-5 h-5 text-pink-300" />
+                    </div>
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-pink-200 bg-clip-text text-transparent group-hover:from-pink-200 group-hover:to-rose-200">
+                    Glow Cosmetics 2.0
+                  </h3>
+                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
+                    Modern e-commerce platform for premium cosmetics with
+                    stunning product showcases, cart management, and secure
+                    checkout experience.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-4 py-1.5 bg-pink-500/30 text-pink-200 rounded-full text-xs font-medium border border-pink-400/40 group-hover:bg-pink-500/50 transition-colors">
+                      E-commerce
+                    </span>
+                    <span className="px-4 py-1.5 bg-rose-500/30 text-rose-200 rounded-full text-xs font-medium border border-rose-400/40 group-hover:bg-rose-500/50 transition-colors">
+                      Next.js
+                    </span>
+                  </div>
+                </div>
+                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-pink-500/20 rounded-full blur-2xl group-hover:bg-pink-500/40 transition-all duration-500" />
+              </motion.a>
+
+              {/* StayZaa */}
+              <motion.a
+                href="https://stayzaa.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
+                whileHover={{
+                  scale: 1.03,
+                  y: -8,
+                  transition: { duration: 0.2 },
+                }}
+                className="group relative bg-gradient-to-br from-emerald-900/50 to-teal-900/50 p-8 rounded-3xl backdrop-blur-md border border-emerald-500/40 shadow-2xl shadow-emerald-500/20 overflow-hidden transition-all duration-300"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/0 via-teal-500/0 to-green-500/0 group-hover:from-emerald-500/20 group-hover:via-teal-500/15 group-hover:to-green-500/10 transition-all duration-700" />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
+                </div>
+
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="p-4 bg-emerald-500/30 rounded-2xl group-hover:bg-emerald-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-emerald-500/30">
+                      <Home className="w-7 h-7 text-emerald-300 group-hover:text-emerald-200 transition-colors" />
+                    </div>
+                    <div className="p-2 bg-emerald-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <ExternalLink className="w-5 h-5 text-emerald-300" />
+                    </div>
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-emerald-200 bg-clip-text text-transparent group-hover:from-emerald-200 group-hover:to-teal-200">
+                    StayZaa
+                  </h3>
+                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
+                    Hospitality and booking platform providing users with
+                    seamless accommodation search, reservations, and property
+                    management solutions.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-4 py-1.5 bg-emerald-500/30 text-emerald-200 rounded-full text-xs font-medium border border-emerald-400/40 group-hover:bg-emerald-500/50 transition-colors">
+                      Hospitality
+                    </span>
+                    <span className="px-4 py-1.5 bg-teal-500/30 text-teal-200 rounded-full text-xs font-medium border border-teal-400/40 group-hover:bg-teal-500/50 transition-colors">
+                      Booking
+                    </span>
+                  </div>
+                </div>
+                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-emerald-500/20 rounded-full blur-2xl group-hover:bg-emerald-500/40 transition-all duration-500" />
+              </motion.a>
+
+              {/* Technotalents AI */}
+              <motion.a
+                href="https://www.technotalents.ai/"
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
+                whileHover={{
+                  scale: 1.03,
+                  y: -8,
+                  transition: { duration: 0.2 },
+                }}
+                className="group relative bg-gradient-to-br from-violet-900/50 to-fuchsia-900/50 p-8 rounded-3xl backdrop-blur-md border border-violet-500/40 shadow-2xl shadow-violet-500/20 overflow-hidden transition-all duration-300"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-violet-500/0 via-fuchsia-500/0 to-purple-500/0 group-hover:from-violet-500/20 group-hover:via-fuchsia-500/15 group-hover:to-purple-500/10 transition-all duration-700" />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
+                </div>
+
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="p-4 bg-violet-500/30 rounded-2xl group-hover:bg-violet-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-violet-500/30">
+                      <Brain className="w-7 h-7 text-violet-300 group-hover:text-violet-200 transition-colors" />
+                    </div>
+                    <div className="p-2 bg-violet-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <ExternalLink className="w-5 h-5 text-violet-300" />
+                    </div>
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-violet-200 bg-clip-text text-transparent group-hover:from-violet-200 group-hover:to-fuchsia-200">
+                    Technotalents AI
+                  </h3>
+                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
+                    AI-powered talent acquisition and recruitment platform
+                    leveraging machine learning to match candidates with
+                    opportunities efficiently.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-4 py-1.5 bg-violet-500/30 text-violet-200 rounded-full text-xs font-medium border border-violet-400/40 group-hover:bg-violet-500/50 transition-colors">
+                      AI/ML
+                    </span>
+                    <span className="px-4 py-1.5 bg-fuchsia-500/30 text-fuchsia-200 rounded-full text-xs font-medium border border-fuchsia-400/40 group-hover:bg-fuchsia-500/50 transition-colors">
+                      Recruitment
+                    </span>
+                  </div>
+                </div>
+                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-violet-500/20 rounded-full blur-2xl group-hover:bg-violet-500/40 transition-all duration-500" />
+              </motion.a>
+
+              {/* Trade Care International */}
+              <motion.a
+                href="https://tclb.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.6, type: "spring", stiffness: 100 }}
+                whileHover={{
+                  scale: 1.03,
+                  y: -8,
+                  transition: { duration: 0.2 },
+                }}
+                className="group relative bg-gradient-to-br from-amber-900/50 to-orange-900/50 p-8 rounded-3xl backdrop-blur-md border border-amber-500/40 shadow-2xl shadow-amber-500/20 overflow-hidden transition-all duration-300"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 via-orange-500/0 to-yellow-500/0 group-hover:from-amber-500/20 group-hover:via-orange-500/15 group-hover:to-yellow-500/10 transition-all duration-700" />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
+                </div>
+
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="p-4 bg-amber-500/30 rounded-2xl group-hover:bg-amber-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-amber-500/30">
+                      <Globe className="w-7 h-7 text-amber-300 group-hover:text-amber-200 transition-colors" />
+                    </div>
+                    <div className="p-2 bg-amber-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <ExternalLink className="w-5 h-5 text-amber-300" />
+                    </div>
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-amber-200 bg-clip-text text-transparent group-hover:from-amber-200 group-hover:to-orange-200">
+                    Trade Care International
+                  </h3>
+                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
+                    International trade and logistics platform streamlining
+                    global commerce operations with real-time tracking and
+                    management tools.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-4 py-1.5 bg-amber-500/30 text-amber-200 rounded-full text-xs font-medium border border-amber-400/40 group-hover:bg-amber-500/50 transition-colors">
+                      Trade
+                    </span>
+                    <span className="px-4 py-1.5 bg-orange-500/30 text-orange-200 rounded-full text-xs font-medium border border-orange-400/40 group-hover:bg-orange-500/50 transition-colors">
+                      Logistics
+                    </span>
+                  </div>
+                </div>
+                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-amber-500/20 rounded-full blur-2xl group-hover:bg-amber-500/40 transition-all duration-500" />
+              </motion.a>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Client Testimonials Section - Enhanced */}
+        <div className="relative min-h-screen bg-gradient-to-b from-black via-purple-900/10 to-black px-4 md:px-8 py-16 md:py-24 overflow-hidden">
+          {/* Decorative Background Elements */}
+          <div className="absolute top-20 right-10 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 left-10 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-700" />
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative z-10 max-w-7xl mx-auto text-white"
+          >
+            <div className="text-center mb-12 md:mb-16">
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="inline-block mb-4"
+              >
+                <span className="px-4 py-2 bg-purple-500/20 text-purple-300 rounded-full text-sm font-semibold border border-purple-500/30">
+                  What Clients Say
+                </span>
+              </motion.div>
+              <motion.h2
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 via-pink-400 to-rose-400 bg-clip-text text-transparent"
+              >
+                Client Testimonials
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto"
+              >
+                Trusted by businesses worldwide to deliver excellence
+              </motion.p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              {/* Testimonial 1 */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1, type: "spring", stiffness: 100 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="group relative bg-gradient-to-br from-purple-900/50 to-pink-900/50 p-8 rounded-3xl backdrop-blur-md border border-purple-500/40 shadow-2xl shadow-purple-500/20 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-pink-500/0 group-hover:from-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500" />
+
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">
+                      A
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg group-hover:text-purple-200 transition-colors">
+                        Alex Thompson
+                      </h4>
+                      <p className="text-sm text-gray-400">
+                        CEO, TechStart Inc
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex gap-1 mb-6">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-5 h-5 fill-yellow-400 text-yellow-400 drop-shadow-lg"
+                      />
+                    ))}
+                  </div>
+                  <p className="text-gray-300 text-sm md:text-base leading-relaxed italic group-hover:text-gray-200 transition-colors">
+                    "Outstanding work! Bismay delivered a flawless full-stack
+                    solution that exceeded our expectations. Professional,
+                    responsive, and highly skilled."
+                  </p>
+                </div>
+                <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-purple-500/20 rounded-full blur-2xl group-hover:bg-purple-500/40 transition-all duration-500" />
+              </motion.div>
+
+              {/* Testimonial 2 */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, type: "spring", stiffness: 100 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="group relative bg-gradient-to-br from-blue-900/50 to-cyan-900/50 p-8 rounded-3xl backdrop-blur-md border border-blue-500/40 shadow-2xl shadow-blue-500/20 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/10 group-hover:to-cyan-500/10 transition-all duration-500" />
+
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
+                      S
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg group-hover:text-blue-200 transition-colors">
+                        Sarah Chen
+                      </h4>
+                      <p className="text-sm text-gray-400">Founder, EduLearn</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-1 mb-6">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-5 h-5 fill-yellow-400 text-yellow-400 drop-shadow-lg"
+                      />
+                    ))}
+                  </div>
+                  <p className="text-gray-300 text-sm md:text-base leading-relaxed italic group-hover:text-gray-200 transition-colors">
+                    "Bismay transformed our vision into reality with incredible
+                    attention to detail. The platform is fast, beautiful, and
+                    user-friendly. Highly recommend!"
+                  </p>
+                </div>
+                <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-blue-500/20 rounded-full blur-2xl group-hover:bg-blue-500/40 transition-all duration-500" />
+              </motion.div>
+
+              {/* Testimonial 3 */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="group relative bg-gradient-to-br from-emerald-900/50 to-teal-900/50 p-8 rounded-3xl backdrop-blur-md border border-emerald-500/40 shadow-2xl shadow-emerald-500/20 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/0 to-teal-500/0 group-hover:from-emerald-500/10 group-hover:to-teal-500/10 transition-all duration-500" />
+
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
+                      M
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg group-hover:text-emerald-200 transition-colors">
+                        Michael Roberts
+                      </h4>
+                      <p className="text-sm text-gray-400">
+                        Director, Global Trade Co
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex gap-1 mb-6">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-5 h-5 fill-yellow-400 text-yellow-400 drop-shadow-lg"
+                      />
+                    ))}
+                  </div>
+                  <p className="text-gray-300 text-sm md:text-base leading-relaxed italic group-hover:text-gray-200 transition-colors">
+                    "Working with Bismay was a game-changer for our business.
+                    The solution is robust, scalable, and perfectly aligned with
+                    our needs. Excellent developer!"
+                  </p>
+                </div>
+                <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-emerald-500/20 rounded-full blur-2xl group-hover:bg-emerald-500/40 transition-all duration-500" />
+              </motion.div>
             </div>
           </motion.div>
         </div>
