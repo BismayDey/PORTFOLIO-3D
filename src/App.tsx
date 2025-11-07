@@ -817,37 +817,103 @@ function App() {
                   Frontend
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1.5 bg-sky-500/20 text-sky-300 rounded-full text-xs md:text-sm border border-sky-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-sky-500/20 text-sky-300 rounded-full text-xs md:text-sm border border-sky-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"
+                      alt="Next.js logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain filter invert"
+                    />
                     Next.js
                   </span>
-                  <span className="px-3 py-1.5 bg-blue-500/20 text-blue-300 rounded-full text-xs md:text-sm border border-blue-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/20 text-blue-300 rounded-full text-xs md:text-sm border border-blue-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                      alt="React logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     React.js
                   </span>
-                  <span className="px-3 py-1.5 bg-red-500/20 text-red-300 rounded-full text-xs md:text-sm border border-red-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-red-500/20 text-red-300 rounded-full text-xs md:text-sm border border-red-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg"
+                      alt="Three.js logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain filter invert"
+                    />
                     Three.js
                   </span>
-                  <span className="px-3 py-1.5 bg-blue-500/20 text-blue-300 rounded-full text-xs md:text-sm border border-blue-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/20 text-blue-300 rounded-full text-xs md:text-sm border border-blue-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+                      alt="TypeScript logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     TypeScript
                   </span>
-                  <span className="px-3 py-1.5 bg-pink-500/20 text-pink-300 rounded-full text-xs md:text-sm border border-pink-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-pink-500/20 text-pink-300 rounded-full text-xs md:text-sm border border-pink-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg"
+                      alt="Tailwind CSS logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     Tailwind
                   </span>
-                  <span className="px-3 py-1.5 bg-purple-500/20 text-purple-300 rounded-full text-xs md:text-sm border border-purple-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-500/20 text-purple-300 rounded-full text-xs md:text-sm border border-purple-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                      alt="React Native logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     React Native
                   </span>
-                  <span className="px-3 py-1.5 bg-purple-500/20 text-purple-300 rounded-full text-xs md:text-sm border border-purple-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-500/20 text-purple-300 rounded-full text-xs md:text-sm border border-purple-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
+                      alt="HTML5 logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     HTML
                   </span>
-                  <span className="px-3 py-1.5 bg-yellow-500/20 text-yellow-300 rounded-full text-xs md:text-sm border border-yellow-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-yellow-500/20 text-yellow-300 rounded-full text-xs md:text-sm border border-yellow-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
+                      alt="CSS3 logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     CSS
                   </span>
-                  <span className="px-3 py-1.5 bg-purple-500/20 text-purple-300 rounded-full text-xs md:text-sm border border-purple-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-500/20 text-purple-300 rounded-full text-xs md:text-sm border border-purple-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg"
+                      alt="Sass logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     Sass
                   </span>
-                  <span className="px-3 py-1.5 bg-purple-500/20 text-purple-300 rounded-full text-xs md:text-sm border border-purple-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-500/20 text-purple-300 rounded-full text-xs md:text-sm border border-purple-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg"
+                      alt="Bootstrap logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     Bootstrap
                   </span>
-                  <span className="px-3 py-1.5 bg-purple-500/20 text-purple-300 rounded-full text-xs md:text-sm border border-purple-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-500/20 text-purple-300 rounded-full text-xs md:text-sm border border-purple-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg"
+                      alt="jQuery logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     jQuery
                   </span>
                 </div>
@@ -866,34 +932,94 @@ function App() {
                   Backend
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1.5 bg-green-500/20 text-green-300 rounded-full text-xs md:text-sm border border-green-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-500/20 text-green-300 rounded-full text-xs md:text-sm border border-green-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
+                      alt="Node.js logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     Node.js
                   </span>
-                  <span className="px-3 py-1.5 bg-gray-700/20 text-red-300 rounded-full text-xs md:text-sm border border-gray-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-700/20 text-red-300 rounded-full text-xs md:text-sm border border-gray-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg"
+                      alt="Express.js logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain filter invert"
+                    />
                     Express.js
                   </span>
-                  <span className="px-3 py-1.5 bg-yellow-500/20 text-yellow-300 rounded-full text-xs md:text-sm border border-yellow-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-yellow-500/20 text-yellow-300 rounded-full text-xs md:text-sm border border-yellow-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                      alt="Python logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     Python
                   </span>
-                  <span className="px-3 py-1.5 bg-red-500/20 text-red-300 rounded-full text-xs md:text-sm border border-red-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-red-500/20 text-red-300 rounded-full text-xs md:text-sm border border-red-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
+                      alt="Java logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     Java
                   </span>
-                  <span className="px-3 py-1.5 bg-indigo-500/20 text-indigo-300 rounded-full text-xs md:text-sm border border-indigo-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-500/20 text-indigo-300 rounded-full text-xs md:text-sm border border-indigo-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg"
+                      alt="C logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     C
                   </span>
-                  <span className="px-3 py-1.5 bg-indigo-500/20 text-indigo-300 rounded-full text-xs md:text-sm border border-indigo-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-500/20 text-indigo-300 rounded-full text-xs md:text-sm border border-indigo-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"
+                      alt="C++ logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     C++
                   </span>
-                  <span className="px-3 py-1.5 bg-cyan-500/20 text-cyan-300 rounded-full text-xs md:text-sm border border-cyan-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-cyan-500/20 text-cyan-300 rounded-full text-xs md:text-sm border border-cyan-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg"
+                      alt="Go logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     Go
                   </span>
-                  <span className="px-3 py-1.5 bg-pink-500/20 text-pink-300 rounded-full text-xs md:text-sm border border-pink-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-pink-500/20 text-pink-300 rounded-full text-xs md:text-sm border border-pink-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg"
+                      alt="Ruby logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     Ruby
                   </span>
-                  <span className="px-3 py-1.5 bg-purple-500/20 text-purple-300 rounded-full text-xs md:text-sm border border-purple-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-500/20 text-purple-300 rounded-full text-xs md:text-sm border border-purple-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg"
+                      alt="PHP logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     PHP
                   </span>
-                  <span className="px-3 py-1.5 bg-emerald-500/20 text-emerald-300 rounded-full text-xs md:text-sm border border-emerald-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-500/20 text-emerald-300 rounded-full text-xs md:text-sm border border-emerald-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/shopify/shopify-original.svg"
+                      alt="Shopify logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     Shopify
                   </span>
                 </div>
@@ -912,17 +1038,40 @@ function App() {
                   Database
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1.5 bg-blue-500/20 text-blue-300 rounded-full text-xs md:text-sm border border-blue-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/20 text-blue-300 rounded-full text-xs md:text-sm border border-blue-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
+                      alt="MongoDB logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     MongoDB
                   </span>
-                  <span className="px-3 py-1.5 bg-orange-500/20 text-orange-300 rounded-full text-xs md:text-sm border border-orange-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-orange-500/20 text-orange-300 rounded-full text-xs md:text-sm border border-orange-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg"
+                      alt="Firebase logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     Firebase
                   </span>
-
-                  <span className="px-3 py-1.5 bg-blue-500/20 text-blue-300 rounded-full text-xs md:text-sm border border-blue-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/20 text-blue-300 rounded-full text-xs md:text-sm border border-blue-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
+                      alt="PostgreSQL logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     PostgreSQL
                   </span>
-                  <span className="px-3 py-1.5 bg-blue-500/20 text-blue-300 rounded-full text-xs md:text-sm border border-blue-500/30">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/20 text-blue-300 rounded-full text-xs md:text-sm border border-blue-500/30">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
+                      alt="MySQL logo"
+                      loading="lazy"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    />
                     MySQL
                   </span>
                 </div>
@@ -941,34 +1090,94 @@ function App() {
                 Additional Skills
               </h3>
               <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1.5 bg-emerald-500/20 text-emerald-300 rounded-full text-xs md:text-sm border border-emerald-500/30">
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-500/20 text-emerald-300 rounded-full text-xs md:text-sm border border-emerald-500/30">
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/shopify/shopify-original.svg"
+                    alt="Shopify logo"
+                    loading="lazy"
+                    className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                  />
                   Shopify
                 </span>
-                <span className="px-3 py-1.5 bg-pink-500/20 text-pink-300 rounded-full text-xs md:text-sm border border-pink-500/30">
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-pink-500/20 text-pink-300 rounded-full text-xs md:text-sm border border-pink-500/30">
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg"
+                    alt="Figma logo"
+                    loading="lazy"
+                    className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                  />
                   Figma
                 </span>
-                <span className="px-3 py-1.5 bg-yellow-500/20 text-yellow-300 rounded-full text-xs md:text-sm border border-yellow-500/30">
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-yellow-500/20 text-yellow-300 rounded-full text-xs md:text-sm border border-yellow-500/30">
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wix/wix-original.svg"
+                    alt="Wix logo"
+                    loading="lazy"
+                    className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                  />
                   Wix
                 </span>
-                <span className="px-3 py-1.5 bg-gray-500/20 text-gray-300 rounded-full text-xs md:text-sm border border-gray-500/30">
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-500/20 text-gray-300 rounded-full text-xs md:text-sm border border-gray-500/30">
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg"
+                    alt="Adobe logo"
+                    loading="lazy"
+                    className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                  />
                   Adobe
                 </span>
-                <span className="px-3 py-1.5 bg-fuchsia-500/20 text-fuchsia-300 rounded-full text-xs md:text-sm border border-fuchsia-500/30">
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-fuchsia-500/20 text-fuchsia-300 rounded-full text-xs md:text-sm border border-fuchsia-500/30">
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg"
+                    alt="Canva logo"
+                    loading="lazy"
+                    className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                  />
                   Canva
                 </span>
-                <span className="px-3 py-1.5 bg-indigo-500/20 text-indigo-300 rounded-full text-xs md:text-sm border border-indigo-500/30">
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-500/20 text-indigo-300 rounded-full text-xs md:text-sm border border-indigo-500/30">
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg"
+                    alt="Unity logo"
+                    loading="lazy"
+                    className="w-4 h-4 md:w-5 md:h-5 object-contain filter invert"
+                  />
                   Unity
                 </span>
-                <span className="px-3 py-1.5 bg-blue-700/20 text-blue-400 rounded-full text-xs md:text-sm border border-blue-700/30">
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-700/20 text-blue-400 rounded-full text-xs md:text-sm border border-blue-700/30">
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unrealengine/unrealengine-original.svg"
+                    alt="Unreal Engine logo"
+                    loading="lazy"
+                    className="w-4 h-4 md:w-5 md:h-5 object-contain filter invert"
+                  />
                   Unreal Engine
                 </span>
-                <span className="px-3 py-1.5 bg-red-600/20 text-red-400 rounded-full text-xs md:text-sm border border-red-600/30">
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-red-600/20 text-red-400 rounded-full text-xs md:text-sm border border-red-600/30">
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg"
+                    alt="Blender logo"
+                    loading="lazy"
+                    className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                  />
                   Blender
                 </span>
-                <span className="px-3 py-1.5 bg-purple-600/20 text-purple-400 rounded-full text-xs md:text-sm border border-purple-600/30">
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-600/20 text-purple-400 rounded-full text-xs md:text-sm border border-purple-600/30">
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aftereffects/aftereffects-original.svg"
+                    alt="After Effects logo"
+                    loading="lazy"
+                    className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                  />
                   After Effects
                 </span>
-                <span className="px-3 py-1.5 bg-orange-500/20 text-orange-300 rounded-full text-xs md:text-sm border border-orange-500/30">
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-orange-500/20 text-orange-300 rounded-full text-xs md:text-sm border border-orange-500/30">
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/premierepro/premierepro-original.svg"
+                    alt="Premiere Pro logo"
+                    loading="lazy"
+                    className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                  />
                   Premiere Pro
                 </span>
               </div>
@@ -1628,13 +1837,16 @@ function App() {
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  transition: { delay: 0.1, type: "spring", stiffness: 100 },
+                }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.1, type: "spring", stiffness: 100 }}
                 whileHover={{
                   scale: 1.03,
                   y: -8,
-                  transition: { duration: 0.2 },
+                  transition: { type: "spring", stiffness: 320, damping: 20 },
                 }}
                 className="group relative bg-gradient-to-br from-indigo-900/50 to-purple-900/50 p-8 rounded-3xl backdrop-blur-md border border-indigo-500/40 shadow-2xl shadow-indigo-500/20 overflow-hidden transition-all duration-300"
               >
@@ -1683,13 +1895,16 @@ function App() {
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  transition: { delay: 0.2, type: "spring", stiffness: 100 },
+                }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.2, type: "spring", stiffness: 100 }}
                 whileHover={{
                   scale: 1.03,
                   y: -8,
-                  transition: { duration: 0.2 },
+                  transition: { type: "spring", stiffness: 320, damping: 20 },
                 }}
                 className="group relative bg-gradient-to-br from-blue-900/50 to-cyan-900/50 p-8 rounded-3xl backdrop-blur-md border border-blue-500/40 shadow-2xl shadow-blue-500/20 overflow-hidden transition-all duration-300"
               >
@@ -1733,13 +1948,16 @@ function App() {
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  transition: { delay: 0.3, type: "spring", stiffness: 100 },
+                }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
                 whileHover={{
                   scale: 1.03,
                   y: -8,
-                  transition: { duration: 0.2 },
+                  transition: { type: "spring", stiffness: 320, damping: 20 },
                 }}
                 className="group relative bg-gradient-to-br from-pink-900/50 to-rose-900/50 p-8 rounded-3xl backdrop-blur-md border border-pink-500/40 shadow-2xl shadow-pink-500/20 overflow-hidden transition-all duration-300"
               >
@@ -1783,13 +2001,16 @@ function App() {
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  transition: { delay: 0.4, type: "spring", stiffness: 100 },
+                }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
                 whileHover={{
                   scale: 1.03,
                   y: -8,
-                  transition: { duration: 0.2 },
+                  transition: { type: "spring", stiffness: 320, damping: 20 },
                 }}
                 className="group relative bg-gradient-to-br from-emerald-900/50 to-teal-900/50 p-8 rounded-3xl backdrop-blur-md border border-emerald-500/40 shadow-2xl shadow-emerald-500/20 overflow-hidden transition-all duration-300"
               >
@@ -1833,13 +2054,16 @@ function App() {
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  transition: { delay: 0.5, type: "spring", stiffness: 100 },
+                }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
                 whileHover={{
                   scale: 1.03,
                   y: -8,
-                  transition: { duration: 0.2 },
+                  transition: { type: "spring", stiffness: 320, damping: 20 },
                 }}
                 className="group relative bg-gradient-to-br from-violet-900/50 to-fuchsia-900/50 p-8 rounded-3xl backdrop-blur-md border border-violet-500/40 shadow-2xl shadow-violet-500/20 overflow-hidden transition-all duration-300"
               >
@@ -1883,13 +2107,16 @@ function App() {
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  transition: { delay: 0.6, type: "spring", stiffness: 100 },
+                }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.6, type: "spring", stiffness: 100 }}
                 whileHover={{
                   scale: 1.03,
                   y: -8,
-                  transition: { duration: 0.2 },
+                  transition: { type: "spring", stiffness: 320, damping: 20 },
                 }}
                 className="group relative bg-gradient-to-br from-amber-900/50 to-orange-900/50 p-8 rounded-3xl backdrop-blur-md border border-amber-500/40 shadow-2xl shadow-amber-500/20 overflow-hidden transition-all duration-300"
               >
