@@ -217,15 +217,15 @@ function App() {
       demo: "https://health-track-theta.vercel.app/",
       tags: ["AI", "Healthcare", "Next.js"],
     },
-    {
-      title: "Glow",
+      {
+      title: "BLACKSTREAM",
       description:
-        "Glow is a sleek, AI-powered mental wellness app that helps you track moods, reflect through journaling, and receive personalized insights. Designed for simplicity and clarity, it offers a calming space to support your emotional well-being.",
+        "BLACKSTREAM is a modern streaming platform offering a diverse selection of movies, TV shows, and original content. Enjoy ad-free streaming, exclusive releases, and offline downloads—all in one place.",
       image:
         "https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp",
-      github: "https://github.com/BismayDey/Glow-2",
-      demo: "https://glow-2-o.vercel.app/",
-      tags: ["AI", "Mental Health", "React"],
+      github: "https://github.com/BismayDey/BLACKSTREAM",
+      demo: "https://blackstream-one.vercel.app/",
+      tags: ["Streaming", "Media", "React"],
     },
     {
       title: "E-Commerce Platform",
@@ -277,16 +277,7 @@ function App() {
       demo: "https://shadownexus.vercel.app/",
       tags: ["Gaming", "Platform", "Next.js"],
     },
-    {
-      title: "BLACKSTREAM",
-      description:
-        "BLACKSTREAM is a modern streaming platform offering a diverse selection of movies, TV shows, and original content. Enjoy ad-free streaming, exclusive releases, and offline downloads—all in one place.",
-      image:
-        "https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp",
-      github: "https://github.com/BismayDey/BLACKSTREAM",
-      demo: "https://blackstream-one.vercel.app/",
-      tags: ["Streaming", "Media", "React"],
-    },
+
     {
       title: "Let's Draw",
       description:
@@ -1248,9 +1239,15 @@ function App() {
                         <h3 className="text-xl md:text-2xl font-bold mb-2">
                           Tech Lead & Full-Stack Developer
                         </h3>
-                        <div className="text-emerald-400 font-semibold mb-2">
+                        <a
+                          href="https://technoindiagroup.in/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-emerald-400 hover:text-emerald-300 transition-colors font-semibold flex items-center gap-2 mb-2"
+                        >
                           Techno India Group
-                        </div>
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
                         <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
                           <span className="flex items-center gap-1">
                             <Calendar className="w-4 h-4" />
@@ -1322,9 +1319,15 @@ function App() {
                         <h3 className="text-xl md:text-2xl font-bold mb-2">
                           Supply Chain Management Engineer
                         </h3>
-                        <div className="text-green-400 font-semibold mb-2">
+                        <a
+                          href="https://www.aepageantrentals.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-green-400 hover:text-green-300 transition-colors font-semibold flex items-center gap-2 mb-2"
+                        >
                           Addi & Evie Pageant Rentals
-                        </div>
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
                         <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
                           <span className="flex items-center gap-1">
                             <Calendar className="w-4 h-4" />
@@ -1468,9 +1471,15 @@ function App() {
                         <h3 className="text-xl md:text-2xl font-bold mb-2">
                           Freelance Full-Stack Developer
                         </h3>
-                        <div className="text-blue-400 font-semibold mb-2">
-                          PKL
-                        </div>
+                        <a
+                          href="https://www.prasantakarinstitute.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-400 hover:text-blue-300 transition-colors font-semibold flex items-center gap-2 mb-2"
+                        >
+                          Prasanta Kar Institute
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
                         <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
                           <span className="flex items-center gap-1">
                             <Calendar className="w-4 h-4" />
@@ -1542,9 +1551,15 @@ function App() {
                         <h3 className="text-xl md:text-2xl font-bold mb-2">
                           Full-Stack Developer
                         </h3>
-                        <div className="text-purple-400 font-semibold mb-2">
+                            <a
+                          href="https://stayzaa.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-purple-400 hover:text-purple-300 transition-colors font-semibold flex items-center gap-2 mb-2"
+                        >
                           Shashwat Technologies
-                        </div>
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
                         <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
                           <span className="flex items-center gap-1">
                             <Calendar className="w-4 h-4" />
@@ -1685,9 +1700,15 @@ function App() {
                         <h3 className="text-xl md:text-2xl font-bold mb-2">
                           Software Development Engineer
                         </h3>
-                        <div className="text-pink-400 font-semibold mb-2">
+                        <a
+                          href="https://www.echoofpink.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-pink-400 hover:text-pink-300 transition-colors font-semibold flex items-center gap-2 mb-2"
+                        >
                           Echo of Pink
-                        </div>
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
                         <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
                           <span className="flex items-center gap-1">
                             <Calendar className="w-4 h-4" />
@@ -2551,7 +2572,7 @@ function App() {
                         Shiv Saha
                       </h4>
                       <p className="text-sm text-gray-400">
-                        Gansal DCD
+                        Consult Easily
                       </p>
                     </div>
                   </div>
@@ -2564,13 +2585,13 @@ function App() {
                     ))}
                   </div>
                   <p className="text-gray-300 text-sm md:text-base leading-relaxed italic group-hover:text-gray-200 transition-colors">
-                    "Bismay's collaboration on our Gansal DCD projects brought fresh innovation and technical excellence. His ability to deliver scalable solutions under tight deadlines is remarkable. The results speak for themselves in our improved efficiency."
+                    "Bismay's collaboration on our Consult Easily project brought fresh innovation and technical excellence. His ability to deliver scalable solutions under tight deadlines is remarkable. The results speak for themselves in our improved efficiency."
                   </p>
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-blue-500/20 rounded-full blur-2xl group-hover:bg-blue-500/40 transition-all duration-500" />
               </motion.div>
 
-              {/* Testimonial 3 - Sayyed Owais for TCL */}
+              {/* Testimonial 3 - Sayyed Owais for Trade Care International (TCI) */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -2591,7 +2612,7 @@ function App() {
                         Sayyed Owais
                       </h4>
                       <p className="text-sm text-gray-400">
-                        TCL
+                        Trade Care International (TCI)
                       </p>
                     </div>
                   </div>
@@ -2604,7 +2625,7 @@ function App() {
                     ))}
                   </div>
                   <p className="text-gray-300 text-sm md:text-base leading-relaxed italic group-hover:text-gray-200 transition-colors">
-                    "Partnering with Bismay for TCL's digital transformation was a smart move. His expertise in building robust trade and logistics platforms has given us a competitive edge. The system's reliability and user experience are top-tier."
+                    "Partnering with Bismay for TCI's digital transformation was a smart move. His expertise in building robust trade and logistics platforms has given us a competitive edge. The system's reliability and user experience are top-tier."
                   </p>
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-amber-500/20 rounded-full blur-2xl group-hover:bg-amber-500/40 transition-all duration-500" />
@@ -2726,7 +2747,7 @@ function App() {
                     ))}
                   </div>
                   <p className="text-gray-300 text-sm md:text-base leading-relaxed italic group-hover:text-gray-200 transition-colors">
-                    "Glow wouldn't be the wellness companion it is without Bismay's empathetic design. He understood our vision for mental health support and delivered an app that's both beautiful and deeply functional. Users love the personalized insights!"
+                    "Glow wouldn't be the beauty brand it is without Bismay's empathetic design. He understood our vision for natural radiance and delivered products that are both beautiful and deeply functional. Users love the personalized shade finder and cruelty-free formulations!"
                   </p>
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-rose-500/20 rounded-full blur-2xl group-hover:bg-rose-500/40 transition-all duration-500" />
