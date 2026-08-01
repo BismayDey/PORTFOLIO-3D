@@ -572,8 +572,8 @@ export const clientProjects: ClientProject[] = [
   {
     slug: "stayzaa",
     name: "StayZaa",
-    url: "https://stayzaa.com/",
-    domain: "stayzaa.com",
+    url: "https://stayzaa-about.vercel.app/property/eecd843d-7f9b-4e20-bad1-da746862f9e3",
+    domain: "stayzaa-about.vercel.app",
     ownDomain: true,
     sector: "Hospitality · Travel",
     icon: "Home",
@@ -621,7 +621,12 @@ export const clientProjects: ClientProject[] = [
       "90% of critical bugs resolved during the engagement",
       "Measurable page performance and load-time gains",
     ],
-    screenshots: [],
+    screenshots: [
+      "/clients/stayzaa-1.jpg",
+      "/clients/stayzaa-2.jpg",
+      "/clients/stayzaa-3.jpg",
+      "/clients/stayzaa-4.jpg",
+    ],
   },
   {
     slug: "justhopon",

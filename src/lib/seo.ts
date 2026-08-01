@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export const SITE_URL = "https://bismaydey.vercel.app";
+export const SITE_URL = "https://www.bismaydey.me";
 export const SITE_NAME = "Bismay Dey";
 
 function setTag(selector: string, attr: string, value: string) {

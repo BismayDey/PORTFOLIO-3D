@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bismaydey.vercel.app/sitemap.xml
+Sitemap: https://www.bismaydey.me/sitemap.xml

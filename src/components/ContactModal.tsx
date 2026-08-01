@@ -10,10 +10,11 @@ import {
   X,
 } from "lucide-react";
 
-// Web3Forms access key — free, no backend. Get one at https://web3forms.com
-// and paste it here; until then the form falls back to opening WhatsApp with
-// the enquiry pre-filled so no lead is ever lost.
-const WEB3FORMS_KEY = "";
+// FormSubmit needs no API key or account — it posts straight to this inbox.
+// The FIRST submission triggers a one-time confirmation email from FormSubmit;
+// click the link in it once and every later enquiry lands directly.
+const CONTACT_EMAIL = "bismaydey001@gmail.com";
+const FORM_ENDPOINT = `https://formsubmit.co/ajax/${CONTACT_EMAIL}`;
 
 const WHATSAPP_NUMBER = "918100314152";
 
@@ -114,36 +115,41 @@ export function ContactModal({
     setError("");
 
     try {
-      if (WEB3FORMS_KEY) {
-        const res = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            access_key: WEB3FORMS_KEY,
-            subject: `New project enquiry — ${form.service || "General"}`,
-            from_name: "Portfolio contact form",
-            ...form,
-          }),
-        });
-        const data = await res.json();
-        if (!data.success) throw new Error(data.message || "Submission failed");
-      } else {
-        // No key configured yet — hand the enquiry to WhatsApp instead of
-        // silently dropping it.
-        whatsappFallback();
-      }
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          _subject: `New project enquiry — ${form.service || "General"}`,
+          _template: "table",
+          _captcha: "false",
+          Name: form.name,
+          Email: form.email,
+          Phone: form.phone,
+          Service: form.service,
+          Details: form.message || "—",
+          Source: "bismaydey.me contact form",
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data.success === "false")
+        throw new Error(data.message || "Could not send right now.");
       setStatus("done");
       fireConfetti();
     } catch (err) {
       setStatus("error");
       setError(
-        err instanceof Error ? err.message : "Something went wrong. Try WhatsApp?"
+        err instanceof Error
+          ? err.message
+          : "Could not send right now — try WhatsApp instead."
       );
     }
   };
 
   const field =
-    "w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder:text-gray-500 focus:outline-none focus:border-emerald-400/70 focus:ring-2 focus:ring-emerald-400/20 transition-colors";
+    "w-full px-4 py-3.5 rounded-xl bg-black/60 border border-white/25 text-white placeholder:text-gray-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40 focus:bg-black/80 transition-all";
 
   return (
     <AnimatePresence>
@@ -153,7 +159,7 @@ export function ContactModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={(e) => e.target === e.currentTarget && onClose()}
-          className="fixed inset-0 z-[90] bg-black/80 backdrop-blur-md flex items-start md:items-center justify-center p-4 overflow-y-auto"
+          className="fixed inset-0 z-[90] bg-black/92 backdrop-blur-lg flex items-start md:items-center justify-center p-4 overflow-y-auto"
         >
           <motion.div
             ref={dialogRef}
@@ -164,12 +170,15 @@ export function ContactModal({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 300, damping: 28 }}
-            className="relative w-full max-w-lg my-8 bg-gradient-to-br from-gray-900 to-black border border-emerald-500/30 rounded-3xl shadow-2xl shadow-emerald-500/10 overflow-hidden"
+            className="relative w-full max-w-lg my-8 bg-[#0b0f0d] border border-emerald-400/40 rounded-3xl shadow-2xl shadow-emerald-500/20 overflow-hidden"
           >
+            {/* accent rail so the panel separates from the page behind it */}
+            <div className="h-1 w-full bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400" />
+
             <button
               onClick={onClose}
               aria-label="Close contact form"
-              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/5 hover:bg-white/15 transition-colors"
+              className="absolute top-5 right-4 z-10 p-2 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -190,7 +199,7 @@ export function ContactModal({
                 >
                   Thanks, {form.name.split(" ")[0] || "there"}!
                 </h2>
-                <p className="text-gray-400 mb-8 leading-relaxed">
+                <p className="text-gray-300 mb-8 leading-relaxed">
                   Your enquiry is in. I reply to every message personally —
                   usually within a few hours.
                 </p>
@@ -221,13 +230,13 @@ export function ContactModal({
               <form onSubmit={handleSubmit} className="p-6 md:p-8">
                 <h2
                   id="contact-modal-title"
-                  className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-emerald-400 to-green-400 bg-clip-text text-transparent"
+                  className="text-3xl md:text-4xl font-bold mb-2 text-white tracking-tight"
                 >
                   Let's build something
                 </h2>
-                <p className="text-sm text-gray-400 mb-6">
-                  Tell me what you need. I'll come back with scope, timeline and
-                  a price.
+                <p className="text-[15px] text-gray-300 mb-7 leading-relaxed">
+                  Tell me what you need. I'll come back with scope, a timeline
+                  and a price — usually within a day.
                 </p>
 
                 <div className="space-y-4">
@@ -326,13 +335,25 @@ export function ContactModal({
                 </div>
 
                 {status === "error" && (
-                  <p className="mt-4 text-sm text-red-400">{error}</p>
+                  <p className="mt-4 flex items-start gap-2 text-sm text-red-300 bg-red-500/10 border border-red-500/30 rounded-xl px-4 py-3">
+                    <span aria-hidden="true">!</span>
+                    <span>
+                      {error}{" "}
+                      <button
+                        type="button"
+                        onClick={whatsappFallback}
+                        className="underline font-semibold hover:text-red-200"
+                      >
+                        Send it on WhatsApp instead
+                      </button>
+                    </span>
+                  </p>
                 )}
 
                 <button
                   type="submit"
                   disabled={status === "sending"}
-                  className="mt-6 w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 text-white font-semibold shadow-lg hover:brightness-110 disabled:opacity-60 disabled:cursor-not-allowed transition-all"
+                  className="mt-7 w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-emerald-400 text-black font-bold text-base shadow-lg shadow-emerald-500/25 hover:bg-emerald-300 hover:shadow-emerald-400/40 disabled:opacity-60 disabled:cursor-not-allowed transition-all"
                 >
                   {status === "sending" ? (
                     <>
@@ -347,7 +368,7 @@ export function ContactModal({
                   )}
                 </button>
 
-                <p className="mt-4 text-center text-xs text-gray-500">
+                <p className="mt-4 text-center text-xs text-gray-400">
                   Prefer to talk?{" "}
                   <a
                     href={`https://wa.me/${WHATSAPP_NUMBER}`}

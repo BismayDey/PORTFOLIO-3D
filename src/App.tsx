@@ -31,19 +31,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Trophy,
-  Sparkles,
   Star,
   Server,
-  Video,
-  Smartphone,
-  Film,
-  LayoutTemplate,
-  ShoppingCart,
-  Layers,
-  Palette,
-  Figma,
-  Wrench,
-  MessageSquare,
   Lock,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -53,6 +42,7 @@ import {
 } from "./data/clientProjects";
 import { ClientProjectCard } from "./components/ClientProjectCard";
 import { ContactModal } from "./components/ContactModal";
+import { ServicesSection } from "./components/ServicesSection";
 import { SITE_URL, useSeo } from "./lib/seo";
 
 function App() {
@@ -2423,165 +2413,7 @@ function App() {
           </motion.div>
         </div>
 
-        {/* Services Section */}
-        <div className="relative bg-gradient-to-b from-black via-amber-900/10 to-black px-4 md:px-8 py-16 md:py-24 overflow-hidden">
-          <div className="absolute top-20 right-10 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 left-10 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse delay-700" />
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative z-10 max-w-7xl mx-auto text-white"
-          >
-            <div className="text-center mb-12 md:mb-16">
-              <span className="inline-block px-4 py-2 mb-4 bg-amber-500/20 text-amber-300 rounded-full text-sm font-semibold border border-amber-500/30">
-                What I Do
-              </span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 bg-clip-text text-transparent">
-                Services I Offer
-              </h2>
-              <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto">
-                From a single landing page to a full product with AI baked in —
-                built, shipped, and maintained end to end.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-              {[
-                {
-                  icon: Code2,
-                  title: "Custom Web Apps",
-                  description:
-                    "Production-grade applications in Next.js, React, and Node.js — auth, dashboards, payments, and APIs.",
-                },
-                {
-                  icon: Globe,
-                  title: "Website Development",
-                  description:
-                    "Fast, responsive, SEO-ready marketing sites and landing pages that convert on every screen size.",
-                },
-                {
-                  icon: Smartphone,
-                  title: "Mobile App Development",
-                  description:
-                    "Cross-platform mobile apps sharing one codebase, wired to the same backend as your web product.",
-                },
-                {
-                  icon: Sparkles,
-                  title: "AI Feature Development",
-                  description:
-                    "LLM features inside your product — summarization, search, generation, and agentic workflows.",
-                },
-                {
-                  icon: MessageSquare,
-                  title: "Chatbots",
-                  description:
-                    "Support and sales bots trained on your own content, deployed to web, WhatsApp, or Slack.",
-                },
-                {
-                  icon: Film,
-                  title: "AI Video",
-                  description:
-                    "AI-generated video for ads, explainers, and social — script to finished cut.",
-                },
-                {
-                  icon: Video,
-                  title: "Video Editing",
-                  description:
-                    "Reels, YouTube edits, promos, and motion graphics in Premiere Pro and After Effects.",
-                },
-                {
-                  icon: LayoutTemplate,
-                  title: "WordPress Websites",
-                  description:
-                    "Custom themes, plugin work, and migrations — no page-builder bloat left behind.",
-                },
-                {
-                  icon: ShoppingCart,
-                  title: "Shopify Stores",
-                  description:
-                    "Theme development, custom sections, app integration, and checkout tuned for conversion.",
-                },
-                {
-                  icon: Layers,
-                  title: "Webflow Development",
-                  description:
-                    "Pixel-accurate Webflow builds with CMS collections and interactions your team can edit.",
-                },
-                {
-                  icon: Gamepad2,
-                  title: "Web Game Development",
-                  description:
-                    "Browser games and interactive experiences with Phaser.js, Three.js, and WebGL.",
-                },
-                {
-                  icon: Palette,
-                  title: "Web Design",
-                  description:
-                    "Full visual direction — layout, type, colour, and motion — designed to be built, not just admired.",
-                },
-                {
-                  icon: Figma,
-                  title: "Figma Design",
-                  description:
-                    "Wireframes, high-fidelity mockups, and handoff-ready design systems with real components.",
-                },
-                {
-                  icon: Wrench,
-                  title: "Fixes & Rescues",
-                  description:
-                    "Broken builds, blank pages, failing deploys, hacked sites, and performance disasters — diagnosed and fixed.",
-                },
-                {
-                  icon: Server,
-                  title: "Maintenance & Support",
-                  description:
-                    "Ongoing backend, server, and site upkeep — updates, backups, monitoring, and uptime you can forget about.",
-                },
-              ].map((service, index) => (
-                <motion.div
-                  key={service.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: (index % 3) * 0.1 }}
-                  whileHover={{ scale: 1.03, y: -6 }}
-                  className="group relative bg-gradient-to-br from-white/5 to-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/10 hover:border-amber-500/40 transition-colors duration-300"
-                >
-                  <div className="p-3 mb-4 w-fit bg-amber-500/20 rounded-xl group-hover:bg-amber-500/40 group-hover:scale-110 transition-all duration-300">
-                    <service.icon className="w-6 h-6 text-amber-300" />
-                  </div>
-                  <h3 className="text-lg md:text-xl font-bold mb-2 group-hover:text-amber-200 transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors">
-                    {service.description}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="mt-12 flex justify-center"
-            >
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() =>
-                  contactRef.current?.scrollIntoView({ behavior: "smooth" })
-                }
-                className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-amber-600 to-orange-600 rounded-full text-white font-semibold shadow-lg hover:shadow-amber-500/25 hover:shadow-xl transition-all"
-              >
-                <span className="text-base">Discuss Your Project</span>
-                <Mail className="w-5 h-5" />
-              </motion.button>
-            </motion.div>
-          </motion.div>
-        </div>
+        <ServicesSection onEnquire={() => setContactModalOpen(true)} />
 
         {/* Client Projects Section - Enhanced */}
         <div

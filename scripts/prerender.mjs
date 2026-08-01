@@ -13,7 +13,7 @@ const CHROME =
   "C:/Users/bisma/AppData/Local/ms-playwright/chromium-1228/chrome-win64/chrome.exe";
 const PORT = 4188;
 const ORIGIN = `http://localhost:${PORT}`;
-const SITE_URL = "https://bismaydey.vercel.app";
+const SITE_URL = "https://www.bismaydey.me";
 const DIST = "dist";
 
 // Slugs come straight from the data file so the two can never drift.
