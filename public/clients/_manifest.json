@@ -1,0 +1,132 @@
+{
+  "oncall-london": {
+    "status": 200,
+    "shots": [
+      "oncall-london-1.jpg",
+      "oncall-london-2.jpg",
+      "oncall-london-3.jpg",
+      "oncall-london-4.jpg"
+    ],
+    "docH": 8128
+  },
+  "area51-fireworks": {
+    "status": 200,
+    "shots": [
+      "area51-fireworks-1.jpg",
+      "area51-fireworks-2.jpg",
+      "area51-fireworks-3.jpg",
+      "area51-fireworks-4.jpg"
+    ],
+    "docH": 7036
+  },
+  "ecom-lab": {
+    "status": 200,
+    "shots": [
+      "ecom-lab-1.jpg",
+      "ecom-lab-2.jpg",
+      "ecom-lab-3.jpg",
+      "ecom-lab-4.jpg"
+    ],
+    "docH": 6648
+  },
+  "obo-me": {
+    "status": 200,
+    "shots": [
+      "obo-me-1.jpg",
+      "obo-me-2.jpg",
+      "obo-me-3.jpg",
+      "obo-me-4.jpg"
+    ],
+    "docH": 4500
+  },
+  "cremsocial": {
+    "status": 200,
+    "shots": [
+      "cremsocial-1.jpg",
+      "cremsocial-2.jpg",
+      "cremsocial-3.jpg",
+      "cremsocial-4.jpg"
+    ],
+    "docH": 12470
+  },
+  "stayzaa": {
+    "error": "page.goto: net::ERR_NAME_NOT_RESOLVED at https://stayzaa.com/",
+    "shots": []
+  },
+  "consulteasily": {
+    "error": "page.goto: Navigation to \"https://www.consulteasily.com/\" is interrupted by another navigation to \"chrome-error://chromewebdata/\"",
+    "shots": []
+  },
+  "justhopon": {
+    "error": "page.goto: Navigation to \"https://www.justhopon.com/\" is interrupted by another navigation to \"https://www.consulteasily.com/\"",
+    "shots": []
+  },
+  "prasanta-kar-institute": {
+    "error": "page.goto: Navigation to \"https://www.prasantakarinstitute.com/\" is interrupted by another navigation to \"https://www.justhopon.com/\"",
+    "shots": []
+  },
+  "jhore-jole-jongole": {
+    "error": "page.goto: Navigation to \"https://jhore-jole-jungle-production.vercel.app/\" is interrupted by another navigation to \"https://www.prasantakarinstitute.com/\"",
+    "shots": []
+  },
+  "e-tuition": {
+    "error": "page.goto: Navigation to \"https://e-tution-platform.vercel.app/\" is interrupted by another navigation to \"https://jhore-jole-jungle-production.vercel.app/\"",
+    "shots": []
+  },
+  "ai-se-ai-seekho": {
+    "error": "page.goto: Navigation to \"https://ai-se-ai-seekho.vercel.app/\" is interrupted by another navigation to \"https://e-tution-platform.vercel.app/\"",
+    "shots": []
+  },
+  "technotalents-ai": {
+    "status": 200,
+    "shots": [
+      "technotalents-ai-1.jpg",
+      "technotalents-ai-2.jpg",
+      "technotalents-ai-3.jpg",
+      "technotalents-ai-4.jpg"
+    ],
+    "docH": 6312
+  },
+  "techno-talents": {
+    "error": "page.goto: Navigation to \"https://techno-talents.vercel.app/\" is interrupted by another navigation to \"https://ai-se-ai-seekho.vercel.app/\"",
+    "shots": []
+  },
+  "glow": {
+    "error": "page.goto: Navigation to \"https://glow-2-o.vercel.app/\" is interrupted by another navigation to \"https://techno-talents.vercel.app/\"",
+    "shots": []
+  },
+  "tmsl-lms": {
+    "error": "page.goto: Navigation to \"https://tmsl-lms-main.vercel.app/\" is interrupted by another navigation to \"https://glow-2-o.vercel.app/\"",
+    "shots": []
+  },
+  "rahat-international": {
+    "status": 200,
+    "shots": [
+      "rahat-international-1.jpg",
+      "rahat-international-2.jpg",
+      "rahat-international-3.jpg",
+      "rahat-international-4.jpg"
+    ],
+    "docH": 5577
+  },
+  "tci-global": {
+    "status": 200,
+    "shots": [
+      "tci-global-1.jpg",
+      "tci-global-2.jpg",
+      "tci-global-3.jpg",
+      "tci-global-4.jpg"
+    ],
+    "docH": 9414
+  },
+  "technohr": {
+    "status": 200,
+    "shots": [
+      "technohr-1.jpg",
+      "technohr-2.jpg",
+      "technohr-3.jpg",
+      "technohr-4.jpg"
+    ],
+    "docH": 14283
+  }
+}

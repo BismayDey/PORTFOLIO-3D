@@ -10,13 +10,11 @@ import {
   Rocket,
   Gamepad2,
   SquareCode,
-  Plane,
   Mail,
   Users,
   Github,
   BarChart3,
   Linkedin,
-  Phone,
   Instagram,
   Globe,
   Briefcase,
@@ -33,19 +31,10 @@ import {
   ChevronLeft,
   ChevronRight,
   Trophy,
-  GraduationCap,
   Sparkles,
-  Home,
   Star,
   Server,
-  TreePine,
-  TrendingUp,
-  Bot,
-  BookOpen,
   Video,
-  Flame,
-  Megaphone,
-  Shirt,
   Smartphone,
   Film,
   LayoutTemplate,
@@ -55,9 +44,16 @@ import {
   Figma,
   Wrench,
   MessageSquare,
-  Mic,
+  Lock,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  clientProjects,
+  featuredClientProjects,
+} from "./data/clientProjects";
+import { ClientProjectCard } from "./components/ClientProjectCard";
+import { ContactModal } from "./components/ContactModal";
+import { SITE_URL, useSeo } from "./lib/seo";
 
 function App() {
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -72,6 +68,7 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [showAllClientProjects, setShowAllClientProjects] = useState(false);
+  const [contactModalOpen, setContactModalOpen] = useState(false);
   const clientProjectsRef = useRef<HTMLDivElement>(null);
   // introComplete removed — heading kept static inside Scene
   const [canvasEventSource, setCanvasEventSource] =
@@ -128,9 +125,105 @@ function App() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTestimonialIndex((prev) => (prev + 1) % 3);
+      setTestimonialIndex((prev) => (prev + 1) % 4);
     }, 5000);
     return () => clearInterval(interval);
+  }, []);
+
+  useSeo({
+    title:
+      "Bismay Dey — Full-Stack Developer in Kolkata | Web Apps, Shopify, AI",
+    description:
+      "Full-stack developer in Kolkata building web apps, e-commerce stores and AI features. 19+ client projects delivered across EdTech, HR Tech, retail and hospitality. Available for freelance and full-time work.",
+    path: "/",
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: "Bismay Dey",
+        url: SITE_URL,
+        image: `${SITE_URL}/PROFILE.png`,
+        jobTitle: "Full-Stack Developer",
+        email: "mailto:bismaydey001@gmail.com",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Kolkata",
+          addressCountry: "IN",
+        },
+        sameAs: [
+          "https://github.com/BismayDey",
+          "https://www.linkedin.com/in/bismay-dey-634937268/",
+          "https://www.instagram.com/carbon_alternater/",
+        ],
+        knowsAbout: [
+          "React",
+          "Next.js",
+          "TypeScript",
+          "Node.js",
+          "Firebase",
+          "Shopify",
+          "WordPress",
+          "Three.js",
+          "AI Integration",
+          "DevOps",
+        ],
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        name: "Bismay Dey — Web & App Development",
+        url: SITE_URL,
+        areaServed: "Worldwide",
+        description:
+          "Custom web apps, websites, mobile apps, Shopify and WordPress stores, AI features, chatbots and ongoing maintenance.",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Kolkata",
+          addressCountry: "IN",
+        },
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Development Services",
+          itemListElement: [
+            "Custom Web App Development",
+            "Website Development",
+            "Mobile App Development",
+            "AI Feature Development",
+            "Chatbot Development",
+            "Shopify Store Development",
+            "WordPress Development",
+            "Webflow Development",
+            "Web Game Development",
+            "UI/UX & Figma Design",
+            "Website Maintenance & Support",
+          ].map((name) => ({
+            "@type": "Offer",
+            itemOffered: { "@type": "Service", name },
+          })),
+        },
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "Client Projects",
+        itemListElement: clientProjects.map((p, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: p.name,
+          url: `${SITE_URL}/client/${p.slug}`,
+        })),
+      },
+    ],
+  });
+
+  // Deep links from the case-study pages arrive as /#contact
+  useEffect(() => {
+    if (window.location.hash !== "#contact") return;
+    const t = setTimeout(
+      () => contactRef.current?.scrollIntoView({ behavior: "smooth" }),
+      300
+    );
+    return () => clearTimeout(t);
   }, []);
 
   useEffect(() => {
@@ -874,7 +967,7 @@ function App() {
                   </span>
                   <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-pink-500/20 text-pink-300 rounded-full text-xs md:text-sm border border-pink-500/30">
                     <img
-                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg"
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
                       alt="Tailwind CSS logo"
                       loading="lazy"
                       className="w-4 h-4 md:w-5 md:h-5 object-contain"
@@ -1034,10 +1127,10 @@ function App() {
                   </span>
                   <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-500/20 text-emerald-300 rounded-full text-xs md:text-sm border border-emerald-500/30">
                     <img
-                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/shopify/shopify-original.svg"
+                      src="https://cdn.jsdelivr.net/npm/simple-icons@13/icons/shopify.svg"
                       alt="Shopify logo"
                       loading="lazy"
-                      className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                      className="w-4 h-4 md:w-5 md:h-5 object-contain filter invert"
                     />
                     Shopify
                   </span>
@@ -1271,10 +1364,10 @@ function App() {
               <div className="flex flex-wrap gap-2">
                 <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-500/20 text-emerald-300 rounded-full text-xs md:text-sm border border-emerald-500/30">
                   <img
-                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/shopify/shopify-original.svg"
+                    src="https://cdn.jsdelivr.net/npm/simple-icons@13/icons/shopify.svg"
                     alt="Shopify logo"
                     loading="lazy"
-                    className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    className="w-4 h-4 md:w-5 md:h-5 object-contain filter invert"
                   />
                   Shopify
                 </span>
@@ -1289,10 +1382,10 @@ function App() {
                 </span>
                 <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-yellow-500/20 text-yellow-300 rounded-full text-xs md:text-sm border border-yellow-500/30">
                   <img
-                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wix/wix-original.svg"
+                    src="https://cdn.jsdelivr.net/npm/simple-icons@13/icons/wix.svg"
                     alt="Wix logo"
                     loading="lazy"
-                    className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                    className="w-4 h-4 md:w-5 md:h-5 object-contain filter invert"
                   />
                   Wix
                 </span>
@@ -2536,1087 +2629,16 @@ function App() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {/* Consulteasily */}
-              <motion.a
-                href="https://www.consulteasily.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: 0.1, type: "spring", stiffness: 100 },
-                }}
-                viewport={{ once: true }}
-                whileHover={{
-                  scale: 1.03,
-                  y: -8,
-                  transition: { type: "spring", stiffness: 320, damping: 20 },
-                }}
-                className="group relative bg-gradient-to-br from-indigo-900/50 to-purple-900/50 p-8 rounded-3xl backdrop-blur-md border border-indigo-500/40 shadow-2xl shadow-indigo-500/20 overflow-hidden transition-all duration-300"
-              >
-                {/* Animated gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-indigo-500/20 group-hover:via-purple-500/15 group-hover:to-pink-500/10 transition-all duration-700" />
-
-                {/* Shine effect */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-                </div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-4 bg-indigo-500/30 rounded-2xl group-hover:bg-indigo-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-indigo-500/30">
-                      <Rocket className="w-7 h-7 text-indigo-300 group-hover:text-indigo-200 transition-colors" />
-                    </div>
-                    <div className="p-2 bg-indigo-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ExternalLink className="w-5 h-5 text-indigo-300" />
-                    </div>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 group-hover:text-indigo-200 transition-colors bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent group-hover:from-indigo-200 group-hover:to-purple-200">
-                    Consulteasily
-                  </h3>
-                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
-                    Comprehensive consulting platform designed to streamline
-                    client-consultant interactions with intuitive features and
-                    seamless user experience.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-1.5 bg-indigo-500/30 text-indigo-200 rounded-full text-xs font-medium border border-indigo-400/40 group-hover:bg-indigo-500/50 transition-colors">
-                      Full-Stack
-                    </span>
-                    <span className="px-4 py-1.5 bg-purple-500/30 text-purple-200 rounded-full text-xs font-medium border border-purple-400/40 group-hover:bg-purple-500/50 transition-colors">
-                      React
-                    </span>
-                  </div>
-                </div>
-
-                {/* Corner accent */}
-                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-indigo-500/20 rounded-full blur-2xl group-hover:bg-indigo-500/40 transition-all duration-500" />
-              </motion.a>
-    {/* TCI Global Recruitment */}
-<motion.a
-  href="https://www.tcibd.com/"
-  target="_blank"
-  rel="noopener noreferrer"
-  initial={{ opacity: 0, y: 30 }}
-  whileInView={{
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.5, type: "spring", stiffness: 100 },
-  }}
-  viewport={{ once: true }}
-  whileHover={{
-    scale: 1.04,
-    y: -8,
-    transition: { type: "spring", stiffness: 320, damping: 20 },
-  }}
-  className="group relative bg-gradient-to-br from-rose-900/70 to-burgundy-800/40 p-8 rounded-3xl backdrop-blur-md border border-rose-500/40 shadow-2xl shadow-rose-900/30 overflow-hidden transition-all duration-300"
->
-  {/* Subtle Shine */}
-  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-rose-300/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700" />
-
-  {/* Light Sweep Animation */}
-  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-    <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-  </div>
-
-  <div className="relative z-10">
-
-    {/* Icon + Link Indicator */}
-    <div className="flex items-center justify-between mb-6">
-      <div className="p-4 bg-rose-600/30 rounded-2xl shadow-lg shadow-rose-800/40 group-hover:bg-rose-600/50 group-hover:scale-110 transition-all duration-300">
-        <Globe className="w-7 h-7 text-rose-200 group-hover:text-white transition-colors" />
-      </div>
-      <div className="p-2 bg-rose-600/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <ExternalLink className="w-5 h-5 text-rose-200" />
-      </div>
-    </div>
-
-    {/* Title */}
-    <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-rose-200 bg-clip-text text-transparent group-hover:from-rose-100 group-hover:to-white transition-all">
-      TCI Global Recruitment
-    </h3>
-
-    {/* Short Summary */}
-    <p className="text-gray-200 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-100 transition-colors">
-      Leading overseas recruitment company with 24+ years experience in talent deployment across 25+ countries, maintaining industry-leading 98% placement success.
-    </p>
-
-    {/* Tags */}
-    <div className="flex flex-wrap gap-2">
-      <span className="px-4 py-1.5 bg-rose-700/30 text-rose-200 rounded-full text-xs font-medium border border-rose-400/40 group-hover:bg-rose-700/50 transition-colors">
-        Recruitment
-      </span>
-      <span className="px-4 py-1.5 bg-rose-600/30 text-rose-100 rounded-full text-xs font-medium border border-rose-300/40 group-hover:bg-rose-600/50 transition-colors">
-        Global Workforce
-      </span>
-      <span className="px-4 py-1.5 bg-rose-500/30 text-rose-100 rounded-full text-xs font-medium border border-rose-300/40 group-hover:bg-rose-500/50 transition-colors">
-        Overseas Hiring
-      </span>
-    </div>
-  </div>
-
-  {/* Accent Glow */}
-  <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-rose-600/30 rounded-full blur-2xl group-hover:bg-rose-600/50 transition-all duration-500" />
-</motion.a>
-
-              {/* Prasanta Kar Institute */}
-              <motion.a
-                href="https://www.prasantakarinstitute.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: 0.2, type: "spring", stiffness: 100 },
-                }}
-                viewport={{ once: true }}
-                whileHover={{
-                  scale: 1.03,
-                  y: -8,
-                  transition: { type: "spring", stiffness: 320, damping: 20 },
-                }}
-                className="group relative bg-gradient-to-br from-blue-900/50 to-cyan-900/50 p-8 rounded-3xl backdrop-blur-md border border-blue-500/40 shadow-2xl shadow-blue-500/20 overflow-hidden transition-all duration-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 via-cyan-500/0 to-teal-500/0 group-hover:from-blue-500/20 group-hover:via-cyan-500/15 group-hover:to-teal-500/10 transition-all duration-700" />
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-                </div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-4 bg-blue-500/30 rounded-2xl group-hover:bg-blue-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-blue-500/30">
-                      <GraduationCap className="w-7 h-7 text-blue-300 group-hover:text-blue-200 transition-colors" />
-                    </div>
-                    <div className="p-2 bg-blue-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ExternalLink className="w-5 h-5 text-blue-300" />
-                    </div>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent group-hover:from-blue-200 group-hover:to-cyan-200">
-                    Prasanta Kar Institute
-                  </h3>
-                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
-                    Educational institute website with course management,
-                    enrollment systems, and interactive learning modules for
-                    students and educators.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-1.5 bg-blue-500/30 text-blue-200 rounded-full text-xs font-medium border border-blue-400/40 group-hover:bg-blue-500/50 transition-colors">
-                      Education
-                    </span>
-                    <span className="px-4 py-1.5 bg-cyan-500/30 text-cyan-200 rounded-full text-xs font-medium border border-cyan-400/40 group-hover:bg-cyan-500/50 transition-colors">
-                      CMS
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-blue-500/20 rounded-full blur-2xl group-hover:bg-blue-500/40 transition-all duration-500" />
-              </motion.a>
-              {/* JustHopOn */}
-<motion.a
-  href="https://www.justhopon.com/"
-  target="_blank"
-  rel="noopener noreferrer"
-  initial={{ opacity: 0, y: 30 }}
-  whileInView={{
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.5, type: "spring", stiffness: 100 },
-  }}
-  viewport={{ once: true }}
-  whileHover={{
-    scale: 1.04,
-    y: -8,
-    transition: { type: "spring", stiffness: 320, damping: 20 },
-  }}
-  className="group relative bg-gradient-to-br from-teal-900/60 to-teal-700/40 p-8 rounded-3xl backdrop-blur-md border border-teal-400/40 shadow-2xl shadow-teal-600/30 overflow-hidden transition-all duration-300"
->
-  {/* Hover Shine */}
-  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-teal-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
-
-  {/* Animated Light Sweep */}
-  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-    <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-  </div>
-
-  <div className="relative z-10">
-    {/* Icon + Redirect Arrow */}
-    <div className="flex items-center justify-between mb-6">
-      <div className="p-4 bg-teal-500/30 rounded-2xl shadow-lg shadow-teal-500/40 group-hover:bg-teal-500/50 group-hover:scale-110 transition-all duration-300">
-        <Plane className="w-7 h-7 text-teal-200 group-hover:text-white transition-colors" />
-      </div>
-      <div className="p-2 bg-teal-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <ExternalLink className="w-5 h-5 text-teal-200" />
-      </div>
-    </div>
-
-    {/* Title */}
-    <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-teal-200 bg-clip-text text-transparent group-hover:from-teal-100 group-hover:to-white transition-all">
-      JustHopOn
-    </h3>
-
-    {/* Description */}
-    <p className="text-gray-200 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-100 transition-colors">
-      Adventure booking platform connecting travelers with expert guides and curated global expeditions — from Himalayas to Arctic skies.
-    </p>
-
-    {/* Tags */}
-    <div className="flex flex-wrap gap-2">
-      <span className="px-4 py-1.5 bg-teal-600/30 text-teal-100 rounded-full text-xs font-medium border border-teal-400/40 group-hover:bg-teal-600/50 transition-colors">
-        Travel Tech
-      </span>
-      <span className="px-4 py-1.5 bg-teal-700/30 text-teal-100 rounded-full text-xs font-medium border border-teal-500/40 group-hover:bg-teal-700/50 transition-colors">
-        Adventure
-      </span>
-      <span className="px-4 py-1.5 bg-teal-500/30 text-teal-100 rounded-full text-xs font-medium border border-teal-300/40 group-hover:bg-teal-500/50 transition-colors">
-        Guided Trips
-      </span>
-    </div>
-  </div>
-
-  {/* Bottom Glow Orb */}
-  <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-teal-500/30 rounded-full blur-2xl group-hover:bg-teal-500/50 transition-all duration-500" />
-</motion.a>
-
-{/* Techno Talents */}
-<motion.a
-  href="https://techno-talents.vercel.app/"
-  target="_blank"
-  rel="noopener noreferrer"
-  initial={{ opacity: 0, y: 30 }}
-  whileInView={{
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.5, type: "spring", stiffness: 100 },
-  }}
-  viewport={{ once: true }}
-  whileHover={{
-    scale: 1.03,
-    y: -8,
-    transition: { type: "spring", stiffness: 320, damping: 20 },
-  }}
-  className="group relative bg-gradient-to-br from-purple-900/50 to-blue-900/50 p-8 rounded-3xl backdrop-blur-md border border-purple-500/40 shadow-2xl shadow-purple-500/20 overflow-hidden transition-all duration-300"
->
-  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 via-blue-500/0 to-pink-500/0 group-hover:from-purple-500/20 group-hover:via-blue-500/15 group-hover:to-pink-500/10 transition-all duration-700" />
-  
-  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-    <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-  </div>
-
-  <div className="relative z-10">
-    <div className="flex items-center justify-between mb-6">
-      <div className="p-4 bg-purple-500/30 rounded-2xl group-hover:bg-purple-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-purple-500/30">
-        <GraduationCap className="w-7 h-7 text-purple-300 group-hover:text-purple-200 transition-colors" />
-      </div>
-      <div className="p-2 bg-purple-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <ExternalLink className="w-5 h-5 text-purple-300" />
-      </div>
-    </div>
-
-    <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent group-hover:from-purple-200 group-hover:to-blue-200">
-      Techno Talents
-    </h3>
-
-    <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
-      A unified ecosystem for students, parents, and institutions — offering coaching, universities, 
-      hostels, meals, courses, mentorship, lifestyle perks, and verified outcomes in one platform.
-    </p>
-
-    <div className="flex flex-wrap gap-2">
-      <span className="px-4 py-1.5 bg-purple-500/30 text-purple-200 rounded-full text-xs font-medium border border-purple-400/40 group-hover:bg-purple-500/50 transition-colors">
-        EdTech
-      </span>
-      <span className="px-4 py-1.5 bg-blue-500/30 text-blue-200 rounded-full text-xs font-medium border border-blue-400/40 group-hover:bg-blue-500/50 transition-colors">
-        Student Platform
-      </span>
-      <span className="px-4 py-1.5 bg-pink-500/30 text-pink-200 rounded-full text-xs font-medium border border-pink-400/40 group-hover:bg-pink-500/50 transition-colors">
-        End-to-End Ecosystem
-      </span>
-    </div>
-  </div>
-
-  <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-purple-500/20 rounded-full blur-2xl group-hover:bg-purple-500/40 transition-all duration-500" />
-</motion.a>
-{/* TechnoHR */}
-<motion.a
-  href="https://technohr.vercel.app/"
-  target="_blank"
-  rel="noopener noreferrer"
-  initial={{ opacity: 0, y: 30 }}
-  whileInView={{
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.5, type: "spring", stiffness: 100 },
-  }}
-  viewport={{ once: true }}
-  whileHover={{
-    scale: 1.03,
-    y: -8,
-    transition: { type: "spring", stiffness: 320, damping: 20 },
-  }}
-  className="group relative bg-gradient-to-br from-blue-900/50 to-cyan-900/50 p-8 rounded-3xl backdrop-blur-md border border-blue-500/40 shadow-2xl shadow-blue-500/20 overflow-hidden transition-all duration-300"
->
-  {/* Hover Glow Layer */}
-  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 via-cyan-500/0 to-teal-500/0 group-hover:from-blue-500/20 group-hover:via-cyan-500/15 group-hover:to-teal-500/10 transition-all duration-700" />
-
-  {/* Light Sweep */}
-  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-    <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-  </div>
-
-  {/* Content */}
-  <div className="relative z-10">
-    <div className="flex items-center justify-between mb-6">
-      <div className="p-4 bg-blue-500/30 rounded-2xl group-hover:bg-blue-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-blue-500/30">
-        <Briefcase className="w-7 h-7 text-blue-300 group-hover:text-blue-200 transition-colors" />
-      </div>
-      <div className="p-2 bg-blue-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <ExternalLink className="w-5 h-5 text-blue-300" />
-      </div>
-    </div>
-
-    <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent group-hover:from-blue-200 group-hover:to-cyan-200">
-      TechnoHR
-    </h3>
-
-    <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
-      AI-powered recruitment platform offering job search, smart employer tools, 
-      automated matching, and hiring insights — connecting talent with global opportunities effortlessly.
-    </p>
-
-    {/* Tags */}
-    <div className="flex flex-wrap gap-2">
-      <span className="px-4 py-1.5 bg-blue-500/30 text-blue-200 rounded-full text-xs font-medium border border-blue-400/40 group-hover:bg-blue-500/50 transition-colors">
-        HR Tech
-      </span>
-      <span className="px-4 py-1.5 bg-cyan-500/30 text-cyan-200 rounded-full text-xs font-medium border border-cyan-400/40 group-hover:bg-cyan-500/50 transition-colors">
-        AI Matching
-      </span>
-      <span className="px-4 py-1.5 bg-teal-500/30 text-teal-200 rounded-full text-xs font-medium border border-teal-400/40 group-hover:bg-teal-500/50 transition-colors">
-        Job Platform
-      </span>
-    </div>
-  </div>
-
-  <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-blue-500/20 rounded-full blur-2xl group-hover:bg-blue-500/40 transition-all duration-500" />
-</motion.a>
-   <motion.a
-                href="https://glow-2-o.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: 0.3, type: "spring", stiffness: 100 },
-                }}
-                viewport={{ once: true }}
-                whileHover={{
-                  scale: 1.03,
-                  y: -8,
-                  transition: { type: "spring", stiffness: 320, damping: 20 },
-                }}
-                className="group relative bg-gradient-to-br from-pink-900/50 to-rose-900/50 p-8 rounded-3xl backdrop-blur-md border border-pink-500/40 shadow-2xl shadow-pink-500/20 overflow-hidden transition-all duration-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-pink-500/0 via-rose-500/0 to-red-500/0 group-hover:from-pink-500/20 group-hover:via-rose-500/15 group-hover:to-red-500/10 transition-all duration-700" />
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-                </div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-4 bg-pink-500/30 rounded-2xl group-hover:bg-pink-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-pink-500/30">
-                      <Sparkles className="w-7 h-7 text-pink-300 group-hover:text-pink-200 transition-colors" />
-                    </div>
-                    <div className="p-2 bg-pink-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ExternalLink className="w-5 h-5 text-pink-300" />
-                    </div>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-pink-200 bg-clip-text text-transparent group-hover:from-pink-200 group-hover:to-rose-200">
-                    Glow
-                  </h3>
-                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
-                    Modern e-commerce platform for premium cosmetics with
-                    stunning product showcases, cart management, and secure
-                    checkout experience.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-1.5 bg-pink-500/30 text-pink-200 rounded-full text-xs font-medium border border-pink-400/40 group-hover:bg-pink-500/50 transition-colors">
-                      E-commerce
-                    </span>
-                    <span className="px-4 py-1.5 bg-rose-500/30 text-rose-200 rounded-full text-xs font-medium border border-rose-400/40 group-hover:bg-rose-500/50 transition-colors">
-                      Next.js
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-pink-500/20 rounded-full blur-2xl group-hover:bg-pink-500/40 transition-all duration-500" />
-              </motion.a>
-              {/* StayZaa */}
-              <motion.a
-                href="https://stayzaa.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: 0.4, type: "spring", stiffness: 100 },
-                }}
-                viewport={{ once: true }}
-                whileHover={{
-                  scale: 1.03,
-                  y: -8,
-                  transition: { type: "spring", stiffness: 320, damping: 20 },
-                }}
-                className="group relative bg-gradient-to-br from-emerald-900/50 to-teal-900/50 p-8 rounded-3xl backdrop-blur-md border border-emerald-500/40 shadow-2xl shadow-emerald-500/20 overflow-hidden transition-all duration-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/0 via-teal-500/0 to-green-500/0 group-hover:from-emerald-500/20 group-hover:via-teal-500/15 group-hover:to-green-500/10 transition-all duration-700" />
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-                </div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-4 bg-emerald-500/30 rounded-2xl group-hover:bg-emerald-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-emerald-500/30">
-                      <Home className="w-7 h-7 text-emerald-300 group-hover:text-emerald-200 transition-colors" />
-                    </div>
-                    <div className="p-2 bg-emerald-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ExternalLink className="w-5 h-5 text-emerald-300" />
-                    </div>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-emerald-200 bg-clip-text text-transparent group-hover:from-emerald-200 group-hover:to-teal-200">
-                    StayZaa
-                  </h3>
-                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
-                    Hospitality and booking platform providing users with
-                    seamless accommodation search, reservations, and property
-                    management solutions.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-1.5 bg-emerald-500/30 text-emerald-200 rounded-full text-xs font-medium border border-emerald-400/40 group-hover:bg-emerald-500/50 transition-colors">
-                      Hospitality
-                    </span>
-                    <span className="px-4 py-1.5 bg-teal-500/30 text-teal-200 rounded-full text-xs font-medium border border-teal-400/40 group-hover:bg-teal-500/50 transition-colors">
-                      Booking
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-emerald-500/20 rounded-full blur-2xl group-hover:bg-emerald-500/40 transition-all duration-500" />
-              </motion.a>
-
-              {/* Technotalents AI */}
-              <motion.a
-                href="https://www.technotalents.ai/"
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: 0.5, type: "spring", stiffness: 100 },
-                }}
-                viewport={{ once: true }}
-                whileHover={{
-                  scale: 1.03,
-                  y: -8,
-                  transition: { type: "spring", stiffness: 320, damping: 20 },
-                }}
-                className="group relative bg-gradient-to-br from-violet-900/50 to-fuchsia-900/50 p-8 rounded-3xl backdrop-blur-md border border-violet-500/40 shadow-2xl shadow-violet-500/20 overflow-hidden transition-all duration-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-violet-500/0 via-fuchsia-500/0 to-purple-500/0 group-hover:from-violet-500/20 group-hover:via-fuchsia-500/15 group-hover:to-purple-500/10 transition-all duration-700" />
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-                </div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-4 bg-violet-500/30 rounded-2xl group-hover:bg-violet-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-violet-500/30">
-                      <Brain className="w-7 h-7 text-violet-300 group-hover:text-violet-200 transition-colors" />
-                    </div>
-                    <div className="p-2 bg-violet-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ExternalLink className="w-5 h-5 text-violet-300" />
-                    </div>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-violet-200 bg-clip-text text-transparent group-hover:from-violet-200 group-hover:to-fuchsia-200">
-                    Technotalents AI
-                  </h3>
-                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
-                    AI-powered talent acquisition and recruitment platform
-                    leveraging machine learning to match candidates with
-                    opportunities efficiently.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-1.5 bg-violet-500/30 text-violet-200 rounded-full text-xs font-medium border border-violet-400/40 group-hover:bg-violet-500/50 transition-colors">
-                      AI/ML
-                    </span>
-                    <span className="px-4 py-1.5 bg-fuchsia-500/30 text-fuchsia-200 rounded-full text-xs font-medium border border-fuchsia-400/40 group-hover:bg-fuchsia-500/50 transition-colors">
-                      Recruitment
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-violet-500/20 rounded-full blur-2xl group-hover:bg-violet-500/40 transition-all duration-500" />
-              </motion.a>
-
-              {showAllClientProjects && (
-                <>
-              {/* Jhore Jole Jongole */}
-              <motion.a
-                href="https://jhore-jole-jungle-production.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: 0.1, type: "spring", stiffness: 100 },
-                }}
-                viewport={{ once: true }}
-                whileHover={{
-                  scale: 1.03,
-                  y: -8,
-                  transition: { type: "spring", stiffness: 320, damping: 20 },
-                }}
-                className="group relative bg-gradient-to-br from-green-900/50 to-lime-900/50 p-8 rounded-3xl backdrop-blur-md border border-green-500/40 shadow-2xl shadow-green-500/20 overflow-hidden transition-all duration-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-green-500/0 via-lime-500/0 to-emerald-500/0 group-hover:from-green-500/20 group-hover:via-lime-500/15 group-hover:to-emerald-500/10 transition-all duration-700" />
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-                </div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-4 bg-green-500/30 rounded-2xl group-hover:bg-green-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-green-500/30">
-                      <TreePine className="w-7 h-7 text-green-300 group-hover:text-green-200 transition-colors" />
-                    </div>
-                    <div className="p-2 bg-green-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ExternalLink className="w-5 h-5 text-green-300" />
-                    </div>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-green-200 bg-clip-text text-transparent group-hover:from-green-200 group-hover:to-lime-200">
-                    Jhore Jole Jongole
-                  </h3>
-                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
-                    Eco-heritage resort site for the Sundarbans — rooms,
-                    curated packages, wildlife experiences, gallery and an
-                    enquiry-driven booking flow.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-1.5 bg-green-500/30 text-green-200 rounded-full text-xs font-medium border border-green-400/40 group-hover:bg-green-500/50 transition-colors">
-                      Hospitality
-                    </span>
-                    <span className="px-4 py-1.5 bg-lime-500/30 text-lime-200 rounded-full text-xs font-medium border border-lime-400/40 group-hover:bg-lime-500/50 transition-colors">
-                      Eco Tourism
-                    </span>
-                    <span className="px-4 py-1.5 bg-emerald-500/30 text-emerald-200 rounded-full text-xs font-medium border border-emerald-400/40 group-hover:bg-emerald-500/50 transition-colors">
-                      Booking
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-green-500/20 rounded-full blur-2xl group-hover:bg-green-500/40 transition-all duration-500" />
-              </motion.a>
-
-              {/* The Ecom Lab */}
-              <motion.a
-                href="https://ecomlab.social/"
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: 0.2, type: "spring", stiffness: 100 },
-                }}
-                viewport={{ once: true }}
-                whileHover={{
-                  scale: 1.03,
-                  y: -8,
-                  transition: { type: "spring", stiffness: 320, damping: 20 },
-                }}
-                className="group relative bg-gradient-to-br from-orange-900/50 to-amber-900/50 p-8 rounded-3xl backdrop-blur-md border border-orange-500/40 shadow-2xl shadow-orange-500/20 overflow-hidden transition-all duration-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/0 via-amber-500/0 to-yellow-500/0 group-hover:from-orange-500/20 group-hover:via-amber-500/15 group-hover:to-yellow-500/10 transition-all duration-700" />
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-                </div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-4 bg-orange-500/30 rounded-2xl group-hover:bg-orange-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-orange-500/30">
-                      <TrendingUp className="w-7 h-7 text-orange-300 group-hover:text-orange-200 transition-colors" />
-                    </div>
-                    <div className="p-2 bg-orange-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ExternalLink className="w-5 h-5 text-orange-300" />
-                    </div>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-orange-200 bg-clip-text text-transparent group-hover:from-orange-200 group-hover:to-amber-200">
-                    The Ecom Lab
-                  </h3>
-                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
-                    Growth-agency site built around four pillars — paid
-                    acquisition, retention, SEO and CRO — with case studies and
-                    a strategy-call funnel.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-1.5 bg-orange-500/30 text-orange-200 rounded-full text-xs font-medium border border-orange-400/40 group-hover:bg-orange-500/50 transition-colors">
-                      Agency
-                    </span>
-                    <span className="px-4 py-1.5 bg-amber-500/30 text-amber-200 rounded-full text-xs font-medium border border-amber-400/40 group-hover:bg-amber-500/50 transition-colors">
-                      Ecommerce
-                    </span>
-                    <span className="px-4 py-1.5 bg-yellow-500/30 text-yellow-200 rounded-full text-xs font-medium border border-yellow-400/40 group-hover:bg-yellow-500/50 transition-colors">
-                      Marketing
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-orange-500/20 rounded-full blur-2xl group-hover:bg-orange-500/40 transition-all duration-500" />
-              </motion.a>
-
-              {/* Rahat International */}
-              <motion.a
-                href="https://www.rahatinternational.com.np/"
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: 0.3, type: "spring", stiffness: 100 },
-                }}
-                viewport={{ once: true }}
-                whileHover={{
-                  scale: 1.03,
-                  y: -8,
-                  transition: { type: "spring", stiffness: 320, damping: 20 },
-                }}
-                className="group relative bg-gradient-to-br from-red-900/50 to-orange-900/50 p-8 rounded-3xl backdrop-blur-md border border-red-500/40 shadow-2xl shadow-red-500/20 overflow-hidden transition-all duration-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-red-500/0 via-orange-500/0 to-rose-500/0 group-hover:from-red-500/20 group-hover:via-orange-500/15 group-hover:to-rose-500/10 transition-all duration-700" />
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-                </div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-4 bg-red-500/30 rounded-2xl group-hover:bg-red-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-red-500/30">
-                      <Users className="w-7 h-7 text-red-300 group-hover:text-red-200 transition-colors" />
-                    </div>
-                    <div className="p-2 bg-red-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ExternalLink className="w-5 h-5 text-red-300" />
-                    </div>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-red-200 bg-clip-text text-transparent group-hover:from-red-200 group-hover:to-orange-200">
-                    Rahat International
-                  </h3>
-                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
-                    Nepal-based overseas recruitment agency site presenting a
-                    9-step hiring journey, 14+ industries served and client
-                    testimonials across 16 countries.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-1.5 bg-red-500/30 text-red-200 rounded-full text-xs font-medium border border-red-400/40 group-hover:bg-red-500/50 transition-colors">
-                      Recruitment
-                    </span>
-                    <span className="px-4 py-1.5 bg-orange-500/30 text-orange-200 rounded-full text-xs font-medium border border-orange-400/40 group-hover:bg-orange-500/50 transition-colors">
-                      Corporate
-                    </span>
-                    <span className="px-4 py-1.5 bg-rose-500/30 text-rose-200 rounded-full text-xs font-medium border border-rose-400/40 group-hover:bg-rose-500/50 transition-colors">
-                      Global Workforce
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-red-500/20 rounded-full blur-2xl group-hover:bg-red-500/40 transition-all duration-500" />
-              </motion.a>
-
-              {/* AI Se AI Seekho */}
-              <motion.a
-                href="https://ai-se-ai-seekho.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: 0.4, type: "spring", stiffness: 100 },
-                }}
-                viewport={{ once: true }}
-                whileHover={{
-                  scale: 1.03,
-                  y: -8,
-                  transition: { type: "spring", stiffness: 320, damping: 20 },
-                }}
-                className="group relative bg-gradient-to-br from-cyan-900/50 to-sky-900/50 p-8 rounded-3xl backdrop-blur-md border border-cyan-500/40 shadow-2xl shadow-cyan-500/20 overflow-hidden transition-all duration-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 via-sky-500/0 to-blue-500/0 group-hover:from-cyan-500/20 group-hover:via-sky-500/15 group-hover:to-blue-500/10 transition-all duration-700" />
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-                </div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-4 bg-cyan-500/30 rounded-2xl group-hover:bg-cyan-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-cyan-500/30">
-                      <Bot className="w-7 h-7 text-cyan-300 group-hover:text-cyan-200 transition-colors" />
-                    </div>
-                    <div className="p-2 bg-cyan-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ExternalLink className="w-5 h-5 text-cyan-300" />
-                    </div>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent group-hover:from-cyan-200 group-hover:to-sky-200">
-                    AI Se AI Seekho
-                  </h3>
-                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
-                    AI learning platform with a live model playground, prompt
-                    lab, structured courses, an AI tutor and a community prompt
-                    marketplace.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-1.5 bg-cyan-500/30 text-cyan-200 rounded-full text-xs font-medium border border-cyan-400/40 group-hover:bg-cyan-500/50 transition-colors">
-                      AI/ML
-                    </span>
-                    <span className="px-4 py-1.5 bg-sky-500/30 text-sky-200 rounded-full text-xs font-medium border border-sky-400/40 group-hover:bg-sky-500/50 transition-colors">
-                      EdTech
-                    </span>
-                    <span className="px-4 py-1.5 bg-blue-500/30 text-blue-200 rounded-full text-xs font-medium border border-blue-400/40 group-hover:bg-blue-500/50 transition-colors">
-                      Prompt Engineering
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-cyan-500/20 rounded-full blur-2xl group-hover:bg-cyan-500/40 transition-all duration-500" />
-              </motion.a>
-
-              {/* TMSL LMS */}
-              <motion.a
-                href="https://tmsl-lms-main.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: 0.5, type: "spring", stiffness: 100 },
-                }}
-                viewport={{ once: true }}
-                whileHover={{
-                  scale: 1.03,
-                  y: -8,
-                  transition: { type: "spring", stiffness: 320, damping: 20 },
-                }}
-                className="group relative bg-gradient-to-br from-slate-800/60 to-blue-900/50 p-8 rounded-3xl backdrop-blur-md border border-slate-400/40 shadow-2xl shadow-slate-500/20 overflow-hidden transition-all duration-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-500/0 via-blue-500/0 to-indigo-500/0 group-hover:from-slate-500/20 group-hover:via-blue-500/15 group-hover:to-indigo-500/10 transition-all duration-700" />
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-                </div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-4 bg-slate-500/30 rounded-2xl group-hover:bg-slate-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-slate-500/30">
-                      <BookOpen className="w-7 h-7 text-slate-200 group-hover:text-white transition-colors" />
-                    </div>
-                    <div className="p-2 bg-slate-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ExternalLink className="w-5 h-5 text-slate-200" />
-                    </div>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent group-hover:from-slate-200 group-hover:to-blue-200">
-                    TMSL LMS
-                  </h3>
-                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
-                    Learning management system for an engineering college —
-                    course delivery, study material and student coursework in
-                    one portal.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-1.5 bg-slate-500/30 text-slate-200 rounded-full text-xs font-medium border border-slate-400/40 group-hover:bg-slate-500/50 transition-colors">
-                      LMS
-                    </span>
-                    <span className="px-4 py-1.5 bg-blue-500/30 text-blue-200 rounded-full text-xs font-medium border border-blue-400/40 group-hover:bg-blue-500/50 transition-colors">
-                      Education
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-slate-500/20 rounded-full blur-2xl group-hover:bg-slate-500/40 transition-all duration-500" />
-              </motion.a>
-
-              {/* E-Tuition */}
-              <motion.a
-                href="https://e-tution-platform.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: 0.1, type: "spring", stiffness: 100 },
-                }}
-                viewport={{ once: true }}
-                whileHover={{
-                  scale: 1.03,
-                  y: -8,
-                  transition: { type: "spring", stiffness: 320, damping: 20 },
-                }}
-                className="group relative bg-gradient-to-br from-rose-900/50 to-red-900/50 p-8 rounded-3xl backdrop-blur-md border border-rose-500/40 shadow-2xl shadow-rose-500/20 overflow-hidden transition-all duration-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-rose-500/0 via-red-500/0 to-orange-500/0 group-hover:from-rose-500/20 group-hover:via-red-500/15 group-hover:to-orange-500/10 transition-all duration-700" />
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-                </div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-4 bg-rose-500/30 rounded-2xl group-hover:bg-rose-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-rose-500/30">
-                      <Video className="w-7 h-7 text-rose-300 group-hover:text-rose-200 transition-colors" />
-                    </div>
-                    <div className="p-2 bg-rose-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ExternalLink className="w-5 h-5 text-rose-300" />
-                    </div>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-rose-200 bg-clip-text text-transparent group-hover:from-rose-200 group-hover:to-red-200">
-                    E-Tuition
-                  </h3>
-                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
-                    Coaching-academy platform running the whole day — Google
-                    Meet classes, auto attendance, resumable recordings, AI
-                    class notes and verifiable certificates.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-1.5 bg-rose-500/30 text-rose-200 rounded-full text-xs font-medium border border-rose-400/40 group-hover:bg-rose-500/50 transition-colors">
-                      EdTech
-                    </span>
-                    <span className="px-4 py-1.5 bg-red-500/30 text-red-200 rounded-full text-xs font-medium border border-red-400/40 group-hover:bg-red-500/50 transition-colors">
-                      Firebase
-                    </span>
-                    <span className="px-4 py-1.5 bg-orange-500/30 text-orange-200 rounded-full text-xs font-medium border border-orange-400/40 group-hover:bg-orange-500/50 transition-colors">
-                      AI Notes
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-rose-500/20 rounded-full blur-2xl group-hover:bg-rose-500/40 transition-all duration-500" />
-              </motion.a>
-
-              {/* Area 51 Fireworks */}
-              <motion.a
-                href="https://area51fireworks.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: 0.2, type: "spring", stiffness: 100 },
-                }}
-                viewport={{ once: true }}
-                whileHover={{
-                  scale: 1.03,
-                  y: -8,
-                  transition: { type: "spring", stiffness: 320, damping: 20 },
-                }}
-                className="group relative bg-gradient-to-br from-amber-900/50 to-red-900/50 p-8 rounded-3xl backdrop-blur-md border border-amber-500/40 shadow-2xl shadow-amber-500/20 overflow-hidden transition-all duration-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 via-red-500/0 to-fuchsia-500/0 group-hover:from-amber-500/20 group-hover:via-red-500/15 group-hover:to-fuchsia-500/10 transition-all duration-700" />
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-                </div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-4 bg-amber-500/30 rounded-2xl group-hover:bg-amber-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-amber-500/30">
-                      <Flame className="w-7 h-7 text-amber-300 group-hover:text-amber-200 transition-colors" />
-                    </div>
-                    <div className="p-2 bg-amber-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ExternalLink className="w-5 h-5 text-amber-300" />
-                    </div>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-amber-200 bg-clip-text text-transparent group-hover:from-amber-200 group-hover:to-red-200">
-                    Area 51 Fireworks
-                  </h3>
-                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
-                    Fireworks retail storefront with case-based catalog, cart
-                    and checkout, brand collections, store locator and Google
-                    review integration.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-1.5 bg-amber-500/30 text-amber-200 rounded-full text-xs font-medium border border-amber-400/40 group-hover:bg-amber-500/50 transition-colors">
-                      E-commerce
-                    </span>
-                    <span className="px-4 py-1.5 bg-red-500/30 text-red-200 rounded-full text-xs font-medium border border-red-400/40 group-hover:bg-red-500/50 transition-colors">
-                      WooCommerce
-                    </span>
-                    <span className="px-4 py-1.5 bg-fuchsia-500/30 text-fuchsia-200 rounded-full text-xs font-medium border border-fuchsia-400/40 group-hover:bg-fuchsia-500/50 transition-colors">
-                      Retail
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-amber-500/20 rounded-full blur-2xl group-hover:bg-amber-500/40 transition-all duration-500" />
-              </motion.a>
-
-              {/* Cremsocial */}
-              <motion.a
-                href="https://www.cremsocial.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: 0.3, type: "spring", stiffness: 100 },
-                }}
-                viewport={{ once: true }}
-                whileHover={{
-                  scale: 1.03,
-                  y: -8,
-                  transition: { type: "spring", stiffness: 320, damping: 20 },
-                }}
-                className="group relative bg-gradient-to-br from-fuchsia-900/50 to-purple-900/50 p-8 rounded-3xl backdrop-blur-md border border-fuchsia-500/40 shadow-2xl shadow-fuchsia-500/20 overflow-hidden transition-all duration-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-fuchsia-500/20 group-hover:via-purple-500/15 group-hover:to-pink-500/10 transition-all duration-700" />
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-                </div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-4 bg-fuchsia-500/30 rounded-2xl group-hover:bg-fuchsia-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-fuchsia-500/30">
-                      <Megaphone className="w-7 h-7 text-fuchsia-300 group-hover:text-fuchsia-200 transition-colors" />
-                    </div>
-                    <div className="p-2 bg-fuchsia-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ExternalLink className="w-5 h-5 text-fuchsia-300" />
-                    </div>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-fuchsia-200 bg-clip-text text-transparent group-hover:from-fuchsia-200 group-hover:to-purple-200">
-                    Cremsocial
-                  </h3>
-                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
-                    Digital marketing agency site covering SEO, paid ads, social
-                    and creator shadow-operating, with a free-audit lead capture
-                    funnel.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-1.5 bg-fuchsia-500/30 text-fuchsia-200 rounded-full text-xs font-medium border border-fuchsia-400/40 group-hover:bg-fuchsia-500/50 transition-colors">
-                      Agency
-                    </span>
-                    <span className="px-4 py-1.5 bg-purple-500/30 text-purple-200 rounded-full text-xs font-medium border border-purple-400/40 group-hover:bg-purple-500/50 transition-colors">
-                      SEO
-                    </span>
-                    <span className="px-4 py-1.5 bg-pink-500/30 text-pink-200 rounded-full text-xs font-medium border border-pink-400/40 group-hover:bg-pink-500/50 transition-colors">
-                      Lead Gen
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-fuchsia-500/20 rounded-full blur-2xl group-hover:bg-fuchsia-500/40 transition-all duration-500" />
-              </motion.a>
-
-              {/* ONCALL LONDON */}
-              <motion.a
-                href="https://oncall-london.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: 0.4, type: "spring", stiffness: 100 },
-                }}
-                viewport={{ once: true }}
-                whileHover={{
-                  scale: 1.03,
-                  y: -8,
-                  transition: { type: "spring", stiffness: 320, damping: 20 },
-                }}
-                className="group relative bg-gradient-to-br from-teal-900/50 to-slate-900/50 p-8 rounded-3xl backdrop-blur-md border border-teal-500/40 shadow-2xl shadow-teal-500/20 overflow-hidden transition-all duration-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-teal-500/0 via-slate-500/0 to-cyan-500/0 group-hover:from-teal-500/20 group-hover:via-slate-500/15 group-hover:to-cyan-500/10 transition-all duration-700" />
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-                </div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-4 bg-teal-500/30 rounded-2xl group-hover:bg-teal-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-teal-500/30">
-                      <Shirt className="w-7 h-7 text-teal-300 group-hover:text-teal-200 transition-colors" />
-                    </div>
-                    <div className="p-2 bg-teal-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ExternalLink className="w-5 h-5 text-teal-300" />
-                    </div>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-teal-200 bg-clip-text text-transparent group-hover:from-teal-200 group-hover:to-cyan-200">
-                    ONCALL LONDON
-                  </h3>
-                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
-                    Medical scrubs brand store founded by NHS doctors — size-aware
-                    product pages, team and student ordering, and campaign-driven
-                    merchandising.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-1.5 bg-teal-500/30 text-teal-200 rounded-full text-xs font-medium border border-teal-400/40 group-hover:bg-teal-500/50 transition-colors">
-                      E-commerce
-                    </span>
-                    <span className="px-4 py-1.5 bg-slate-500/30 text-slate-200 rounded-full text-xs font-medium border border-slate-400/40 group-hover:bg-slate-500/50 transition-colors">
-                      Shopify
-                    </span>
-                    <span className="px-4 py-1.5 bg-cyan-500/30 text-cyan-200 rounded-full text-xs font-medium border border-cyan-400/40 group-hover:bg-cyan-500/50 transition-colors">
-                      Apparel
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-teal-500/20 rounded-full blur-2xl group-hover:bg-teal-500/40 transition-all duration-500" />
-              </motion.a>
-
-              {/* obo me */}
-              <motion.a
-                href="https://www.obome.co/"
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  transition: { delay: 0.5, type: "spring", stiffness: 100 },
-                }}
-                viewport={{ once: true }}
-                whileHover={{
-                  scale: 1.03,
-                  y: -8,
-                  transition: { type: "spring", stiffness: 320, damping: 20 },
-                }}
-                className="group relative bg-gradient-to-br from-purple-900/50 to-indigo-900/50 p-8 rounded-3xl backdrop-blur-md border border-purple-500/40 shadow-2xl shadow-purple-500/20 overflow-hidden transition-all duration-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 via-indigo-500/0 to-violet-500/0 group-hover:from-purple-500/20 group-hover:via-indigo-500/15 group-hover:to-violet-500/10 transition-all duration-700" />
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute top-0 -left-full h-full w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-                </div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-4 bg-purple-500/30 rounded-2xl group-hover:bg-purple-500/50 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-purple-500/30">
-                      <Mic className="w-7 h-7 text-purple-300 group-hover:text-purple-200 transition-colors" />
-                    </div>
-                    <div className="p-2 bg-purple-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <ExternalLink className="w-5 h-5 text-purple-300" />
-                    </div>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent group-hover:from-purple-200 group-hover:to-indigo-200">
-                    obo me™
-                  </h3>
-                  <p className="text-gray-300 text-sm md:text-base mb-6 leading-relaxed group-hover:text-gray-200 transition-colors">
-                    India's audio storytelling platform — curated stories,
-                    creator recording tools, a discovery feed and pro storyteller
-                    profiles across languages.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-1.5 bg-purple-500/30 text-purple-200 rounded-full text-xs font-medium border border-purple-400/40 group-hover:bg-purple-500/50 transition-colors">
-                      Audio Streaming
-                    </span>
-                    <span className="px-4 py-1.5 bg-indigo-500/30 text-indigo-200 rounded-full text-xs font-medium border border-indigo-400/40 group-hover:bg-indigo-500/50 transition-colors">
-                      Creator Platform
-                    </span>
-                    <span className="px-4 py-1.5 bg-violet-500/30 text-violet-200 rounded-full text-xs font-medium border border-violet-400/40 group-hover:bg-violet-500/50 transition-colors">
-                      Storytelling
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-purple-500/20 rounded-full blur-2xl group-hover:bg-purple-500/40 transition-all duration-500" />
-              </motion.a>
-                </>
-              )}
+              {(showAllClientProjects
+                ? clientProjects
+                : featuredClientProjects
+              ).map((project, index) => (
+                <ClientProjectCard
+                  key={project.slug}
+                  project={project}
+                  index={index}
+                />
+              ))}
             </div>
 
             {/* See More / Show Less Client Projects */}
@@ -4027,27 +3049,80 @@ function App() {
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-cyan-500/20 rounded-full blur-2xl group-hover:bg-cyan-500/40 transition-all duration-500" />
               </motion.div>
 
+              {/* Testimonial 9 - Kevin Kapoor for Alphonso Media */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="group relative bg-gradient-to-br from-violet-900/50 to-fuchsia-900/50 p-8 rounded-3xl backdrop-blur-md border border-violet-500/40 shadow-2xl shadow-violet-500/20 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-violet-500/0 to-fuchsia-500/0 group-hover:from-violet-500/10 group-hover:to-fuchsia-500/10 transition-all duration-500" />
+
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-14 h-14 bg-gradient-to-br from-violet-500 to-fuchsia-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-violet-500/30 group-hover:scale-110 transition-transform">
+                      K
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg group-hover:text-violet-200 transition-colors">
+                        Kevin Kapoor
+                      </h4>
+                      <p className="text-sm text-gray-400">Alphonso Media</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-1 mb-6">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-5 h-5 fill-yellow-400 text-yellow-400 drop-shadow-lg"
+                      />
+                    ))}
+                  </div>
+                  <p className="text-gray-300 text-sm md:text-base leading-relaxed italic group-hover:text-gray-200 transition-colors">
+                    "Bringing Bismay in to head development changed how we ship. He turned a loose set of client requests into proper SRS documents, sprint plans and a delivery roadmap, then led the team that built it. Architecture decisions get made quickly and correctly, deadlines hold, and clients hear one clear technical voice instead of five. He is the reason our delivery is predictable."
+                  </p>
+                </div>
+                <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-violet-500/20 rounded-full blur-2xl group-hover:bg-violet-500/40 transition-all duration-500" />
+              </motion.div>
+
+                </div>
+
+                {/* Slide 4 */}
+                <div className="flex-shrink-0 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              {/* Testimonial 10 - Rahat International (name withheld) */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1, type: "spring", stiffness: 100 }}
                 whileHover={{ scale: 1.02, y: -5 }}
-                className="group relative bg-gradient-to-br from-indigo-900/50 to-purple-900/50 p-8 rounded-3xl backdrop-blur-md border border-indigo-500/40 shadow-2xl shadow-indigo-500/20 overflow-hidden"
+                className="group relative bg-gradient-to-br from-red-900/50 to-orange-900/50 p-8 rounded-3xl backdrop-blur-md border border-red-500/40 shadow-2xl shadow-red-500/20 overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 to-purple-500/0 group-hover:from-indigo-500/10 group-hover:to-purple-500/10 transition-all duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-br from-red-500/0 to-orange-500/0 group-hover:from-red-500/10 group-hover:to-orange-500/10 transition-all duration-500" />
 
                 <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-500/30 group-hover:scale-110 transition-transform">
-                      P
+                    <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-red-500/30 group-hover:scale-110 transition-transform">
+                      R
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg group-hover:text-indigo-200 transition-colors">
-                        Prasanta Kar
+                      <h4 className="font-bold text-lg group-hover:text-red-200 transition-colors flex items-center gap-2">
+                        <span
+                          className="blur-[6px] select-none pointer-events-none"
+                          aria-hidden="true"
+                        >
+                          Rahatul Karim
+                        </span>
+                        <span className="sr-only">Name withheld</span>
+                        <Lock className="w-3.5 h-3.5 text-gray-500 flex-shrink-0" />
                       </h4>
                       <p className="text-sm text-gray-400">
-                        Prasanta Kar Institute
+                        Rahat International
+                      </p>
+                      <p className="text-[11px] text-gray-600 mt-0.5">
+                        Name withheld on request
                       </p>
                     </div>
                   </div>
@@ -4060,12 +3135,127 @@ function App() {
                     ))}
                   </div>
                   <p className="text-gray-300 text-sm md:text-base leading-relaxed italic group-hover:text-gray-200 transition-colors">
-                    "Bismay revolutionized our educational institute's online presence with a stunning, user-centric platform. The course management system and student engagement features have exceeded all expectations. His passion for education technology is evident in every detail."
+                    "We have three decades of placements behind us and almost none of it was visible online. Bismay turned our nine-step recruitment process into something a client in the Gulf can actually follow, industry by industry, without a single phone call. Enquiries now arrive already understanding how we work. That is the whole job, and he did it."
                   </p>
                 </div>
-                <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-indigo-500/20 rounded-full blur-2xl group-hover:bg-indigo-500/40 transition-all duration-500" />
+                <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-red-500/20 rounded-full blur-2xl group-hover:bg-red-500/40 transition-all duration-500" />
               </motion.div>
 
+              {/* Testimonial 11 - Anish Popat for The Ecom Lab */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, type: "spring", stiffness: 100 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="group relative bg-gradient-to-br from-orange-900/50 to-amber-900/50 p-8 rounded-3xl backdrop-blur-md border border-orange-500/40 shadow-2xl shadow-orange-500/20 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/0 to-amber-500/0 group-hover:from-orange-500/10 group-hover:to-amber-500/10 transition-all duration-500" />
+
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-amber-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-orange-500/30 group-hover:scale-110 transition-transform">
+                      A
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg group-hover:text-orange-200 transition-colors">
+                        Anish Popat
+                      </h4>
+                      <p className="text-sm text-gray-400">The Ecom Lab</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-1 mb-6">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-5 h-5 fill-yellow-400 text-yellow-400 drop-shadow-lg"
+                      />
+                    ))}
+                  </div>
+                  <p className="text-gray-300 text-sm md:text-base leading-relaxed italic group-hover:text-gray-200 transition-colors">
+                    "Our whole pitch is that growth comes from four pillars working together, and every previous version of the site buried that. Bismay built the structure so the argument is obvious before you read a word — case studies leading with the number, one clear path to a booked call. It sells the way we actually sell."
+                  </p>
+                </div>
+                <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-orange-500/20 rounded-full blur-2xl group-hover:bg-orange-500/40 transition-all duration-500" />
+              </motion.div>
+
+              {/* Testimonial 12 - Anish Popat for ONCALL LONDON */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="group relative bg-gradient-to-br from-teal-900/50 to-cyan-900/50 p-8 rounded-3xl backdrop-blur-md border border-teal-500/40 shadow-2xl shadow-teal-500/20 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-teal-500/0 to-cyan-500/0 group-hover:from-teal-500/10 group-hover:to-cyan-500/10 transition-all duration-500" />
+
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-14 h-14 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-teal-500/30 group-hover:scale-110 transition-transform">
+                      A
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg group-hover:text-teal-200 transition-colors">
+                        Anish Popat
+                      </h4>
+                      <p className="text-sm text-gray-400">
+                        Founder, ONCALL LONDON
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex gap-1 mb-6">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-5 h-5 fill-yellow-400 text-yellow-400 drop-shadow-lg"
+                      />
+                    ))}
+                  </div>
+                  <p className="text-gray-300 text-sm md:text-base leading-relaxed italic group-hover:text-gray-200 transition-colors">
+                    "Our customers shop in the ten minutes between shifts, so every extra click costs a sale. Bismay put the full size run straight onto the collection grid and built separate routes for teams and students. Best of all, we now run our own campaigns — countdowns, badges, promo rails — without booking developer time for every launch."
+                  </p>
+                </div>
+                <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-teal-500/20 rounded-full blur-2xl group-hover:bg-teal-500/40 transition-all duration-500" />
+              </motion.div>
+
+              {/* Testimonial 13 - Amit for obo me */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="group relative bg-gradient-to-br from-purple-900/50 to-indigo-900/50 p-8 rounded-3xl backdrop-blur-md border border-purple-500/40 shadow-2xl shadow-purple-500/20 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-indigo-500/0 group-hover:from-purple-500/10 group-hover:to-indigo-500/10 transition-all duration-500" />
+
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">
+                      A
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg group-hover:text-purple-200 transition-colors">
+                        Amit
+                      </h4>
+                      <p className="text-sm text-gray-400">obo me™</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-1 mb-6">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-5 h-5 fill-yellow-400 text-yellow-400 drop-shadow-lg"
+                      />
+                    ))}
+                  </div>
+                  <p className="text-gray-300 text-sm md:text-base leading-relaxed italic group-hover:text-gray-200 transition-colors">
+                    "obo is two products in one — storytellers need to record and publish, listeners need a reason to come back tomorrow. Bismay built both sides as a single platform instead of bolting them together, and kept our multi-language catalogue findable as it grew. Our narrators onboard themselves now, which is exactly what we wanted."
+                  </p>
+                </div>
+                <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-purple-500/20 rounded-full blur-2xl group-hover:bg-purple-500/40 transition-all duration-500" />
+              </motion.div>
                 </div>
               </div>
 
@@ -4074,14 +3264,14 @@ function App() {
             {/* Navigation Buttons */}
             <div className="flex justify-center mt-8 gap-4">
               <button
-                onClick={() => setTestimonialIndex((prev) => (prev - 1 + 3) % 3)}
+                onClick={() => setTestimonialIndex((prev) => (prev - 1 + 4) % 4)}
                 className="bg-gradient-to-r from-pink-400/70 to-rose-400/70 hover:from-pink-500/80 hover:to-rose-500/80 text-white p-3 rounded-full transition-all duration-300 shadow-lg shadow-pink-400/30"
                 aria-label="Previous testimonials"
               >
                 <ChevronLeft className="w-6 h-6" />
               </button>
               <button
-                onClick={() => setTestimonialIndex((prev) => (prev + 1) % 3)}
+                onClick={() => setTestimonialIndex((prev) => (prev + 1) % 4)}
                 className="bg-gradient-to-r from-rose-400/70 to-pink-400/70 hover:from-rose-500/80 hover:to-pink-500/80 text-white p-3 rounded-full transition-all duration-300 shadow-lg shadow-rose-400/30"
                 aria-label="Next testimonials"
               >
@@ -4400,6 +3590,7 @@ function App() {
         {/* Contact Section - Split Layout */}
         <div
           ref={contactRef}
+          id="contact"
           className="min-h-screen bg-gradient-to-b from-black via-emerald-900/10 to-black px-4 md:px-8 py-16 md:py-24"
         >
           <motion.div
@@ -4438,6 +3629,20 @@ function App() {
                   </div>
                   <p className="text-sm text-gray-400 mt-2">
                     Available for freelance and full-time opportunities
+                  </p>
+
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={() => setContactModalOpen(true)}
+                    className="mt-6 w-full inline-flex items-center justify-center gap-3 px-7 py-4 rounded-full bg-gradient-to-r from-emerald-600 to-green-600 text-white font-semibold shadow-lg hover:shadow-emerald-500/25 hover:shadow-xl transition-all"
+                  >
+                    <Mail className="w-5 h-5" />
+                    <span className="text-base">Contact Me</span>
+                  </motion.button>
+                  <p className="mt-3 text-center text-xs text-gray-500">
+                    Takes a minute — tell me what you need and I'll reply with
+                    scope and pricing.
                   </p>
                 </div>
 
@@ -4703,6 +3908,14 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <ContactModal
+        open={contactModalOpen}
+        onClose={() => setContactModalOpen(false)}
+        onSeeProjects={() =>
+          clientProjectsRef.current?.scrollIntoView({ behavior: "smooth" })
+        }
+      />
 
       <FloatingWhatsApp />
     </div>
