@@ -232,8 +232,7 @@ function App() {
       title: "Health Track",
       description:
         "Health Track is an AI-powered wellness app that offers health monitoring, AI diagnostics, mental health support, emergency assistance, and personalized recommendations. With real-time insights and a smart entertainment recommender, it provides a seamless and data-driven approach to well-being.",
-      image:
-        "https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp",
+      image: "/projects/health-track.jpg",
       github: "https://github.com/BismayDey/HEALTH-TRACK",
       demo: "https://health-track-theta.vercel.app/",
       tags: ["AI", "Healthcare", "Next.js"],
@@ -242,8 +241,7 @@ function App() {
       title: "BLACKSTREAM",
       description:
         "BLACKSTREAM is a modern streaming platform offering a diverse selection of movies, TV shows, and original content. Enjoy ad-free streaming, exclusive releases, and offline downloads—all in one place.",
-      image:
-        "https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp",
+      image: "/projects/blackstream.jpg",
       github: "https://github.com/BismayDey/BLACKSTREAM",
       demo: "https://blackstream-one.vercel.app/",
       tags: ["Streaming", "Media", "React"],
@@ -252,8 +250,7 @@ function App() {
       title: "E-Commerce Platform",
       description:
         "A modern e-commerce platform built with Next.js and TypeScript, designed for speed, scalability, and a seamless shopping experience. It features a dynamic product listing, an optimized cart system, and a responsive UI with dark mode support.",
-      image:
-        "https://i.postimg.cc/KzBCpq7z/938d8d08-d966-4f84-9a64-156fb136883d.webp",
+      image: "/projects/ecommerce-platform.jpg",
       github: "https://github.com/BismayDey/ECOM-SIE",
       demo: "https://ecom4-0.vercel.app/",
       tags: ["E-Commerce", "Next.js", "TypeScript"],
@@ -262,8 +259,7 @@ function App() {
       title: "MindTrack",
       description:
         "MindTrack is a comprehensive mental health platform designed to empower users in understanding and improving their emotional well-being. It offers personalized mood tracking, secure journaling, and treatment monitoring tools.",
-      image:
-        "https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp",
+      image: "/projects/mindtrack.jpg",
       github: "https://github.com/BismayDey/MindTrack",
       demo: "https://mind-rosy.vercel.app/",
       tags: ["Mental Health", "Tracking", "React"],
@@ -272,8 +268,7 @@ function App() {
       title: "RAGE EFFECT",
       description:
         "RAGE EFFECT is a cross-platform FPS/TPS game delivering intense tactical combat, dynamic battlefields, and multiple game modes like Deathmatch and Rage Royale. Experience high-quality graphics and seamless cross-play on PC and mobile.",
-      image:
-        "https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp",
+      image: "/projects/rage-effect.jpg",
       github: "https://github.com/BismayDey/RAGE-EFFECT",
       demo: "https://rage-effect-six.vercel.app/",
       tags: ["Gaming", "3D", "WebGL"],
@@ -282,8 +277,7 @@ function App() {
       title: "Chatting Room",
       description:
         "Simple and intuitive real-time chatting platform built with Next.js and TypeScript. It enables seamless communication with live messaging, user avatars, and a clean UI, making conversations effortless and engaging.",
-      image:
-        "https://i.postimg.cc/cLQMP7qC/df13d6b5-239b-442c-84fb-8703cf97ce1b.webp",
+      image: "/projects/chatting-room.jpg",
       github: "https://github.com/BismayDey/chat",
       demo: "https://chat-git-master-bismay-deys-projects.vercel.app/",
       tags: ["Real-time", "Chat", "WebSocket"],
@@ -292,8 +286,7 @@ function App() {
       title: "Shadow Nexus",
       description:
         "Shadow Nexus is a sleek gaming hub offering a curated library of top-rated titles across genres. Discover, download, and play standout games like Shadow Protocol and Neon Drift—all in one immersive platform.",
-      image:
-        "https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp",
+      image: "/projects/shadow-nexus.jpg",
       github: "https://github.com/BismayDey/ShadowNexus",
       demo: "https://shadownexus.vercel.app/",
       tags: ["Gaming", "Platform", "Next.js"],
@@ -303,8 +296,7 @@ function App() {
       title: "Let's Draw",
       description:
         "Let's Draw is a real-time collaborative drawing app built with JavaScript and WebSockets. It allows multiple users to sketch together on a shared canvas, making it perfect for creative collaboration, brainstorming, or just having fun with friends online.",
-      image:
-        "https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp",
+      image: "/projects/lets-draw.jpg",
       github: "https://github.com/BismayDey/Lets-draw",
       demo: "https://lets-draw.vercel.app/",
       tags: ["Collaborative", "Canvas", "WebSocket"],
@@ -313,8 +305,7 @@ function App() {
       title: "PokéServer",
       description:
         "PokéServer is a dynamic Pokémon battle simulator that allows users to engage in real-time battles using their favorite Pokémon. With an intuitive interface and seamless gameplay, it offers an immersive experience for Pokémon enthusiasts.",
-      image:
-        "https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp",
+      image: "/projects/pokeserver.jpg",
       github: "https://github.com/BismayDey/PokeServer",
       demo: "https://pokeserver-beta.vercel.app/",
       tags: ["Gaming", "Pokemon", "Simulator"],
@@ -323,8 +314,7 @@ function App() {
       title: "VALORANT AGENTS",
       description:
         "VALORANT AGENTS is a sleek web application showcasing detailed profiles of all VALORANT agents. Explore each agent's abilities, roles, and backgrounds in an interactive and user-friendly interface.",
-      image:
-        "https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp",
+      image: "/projects/valorant-agents.jpg",
       github: "https://github.com/BismayDey/valorant",
       demo: "https://valorant-chi-blue.vercel.app/",
       tags: ["Gaming", "API", "React"],
@@ -333,8 +323,7 @@ function App() {
       title: "PaisaOP",
       description:
         "PaisaOP simplifies UPI payments by generating instant QR codes and shareable links. Ideal for creators and small businesses, it enables quick, secure, and hassle-free transactions without any coding.",
-      image:
-        "https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp",
+      image: "/projects/paisaop.jpg",
       github: "https://github.com/BismayDey/PaisaOP",
       demo: "https://upi-ashen.vercel.app/",
       tags: ["Payments", "UPI", "FinTech"],
@@ -343,8 +332,7 @@ function App() {
       title: "Ask Bro",
       description:
         "Ask Bro is a community-driven Q&A platform where users can ask questions and share knowledge. Built with React, Next.js, TypeScript, and Firebase, it offers a seamless experience for learning and collaboration.",
-      image:
-        "https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp",
+      image: "/projects/ask-bro.jpg",
       github: "https://github.com/BismayDey/AskBro",
       demo: "https://ask-bro.vercel.app/",
       tags: ["Community", "Q&A", "Firebase"],
@@ -353,8 +341,7 @@ function App() {
       title: "Operating System",
       description:
         "Futuristic web-based operating system built using Next.js, designed to simulate a real OS experience within the browser. It features a dynamic multi-window system, draggable apps, a taskbar, and a responsive UI.",
-      image:
-        "https://i.postimg.cc/fyspGc5v/30017f60-9e65-41c2-b92e-8557ddefadf0.webp",
+      image: "/projects/operating-system.jpg",
       github: "https://github.com/BismayDey/OS",
       demo: "https://os-swart.vercel.app/",
       tags: ["OS", "Simulation", "Next.js"],
@@ -363,8 +350,7 @@ function App() {
       title: "Freelancing Site",
       description:
         "Modern freelancing platform built using Next.js and TypeScript, designed to connect clients with talented freelancers efficiently. The platform offers a seamless job posting system, real-time chat, secure payments, and a user-friendly dashboard.",
-      image:
-        "https://i.postimg.cc/5NQXRxc2/1ea760eb-3f1f-4a80-b6fd-42c4908c74c2.webp",
+      image: "/projects/freelancing-site.jpg",
       github: "https://github.com/BismayDey/Freelancing-Site",
       demo: "https://sjsz9bxxkvpge6q4.vercel.app/",
       tags: ["Freelancing", "Platform", "TypeScript"],
@@ -373,8 +359,7 @@ function App() {
       title: "Code Generator",
       description:
         "Powerful web-based code generator and editor built with Next.js and TypeScript, offering a seamless coding experience in the browser. It supports multiple programming languages, syntax highlighting, and real-time editing.",
-      image:
-        "https://i.postimg.cc/3wKhGH2B/6af74105-fc41-49a0-b62d-c47be64aa562.webp",
+      image: "/projects/code-generator.jpg",
       github: "https://github.com/BismayDey/codegen",
       demo: "https://codegen-rose.vercel.app/",
       tags: ["Code Editor", "Generator", "TypeScript"],
@@ -382,8 +367,7 @@ function App() {
     {
       title: "3D Solar System",
       description: "3D solar system made using Next.js and three.js",
-      image:
-        "https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp",
+      image: "/projects/solar-system.jpg",
       github: "https://github.com/BismayDey/solar",
       demo: "https://solar-lovat-rho.vercel.app/",
       tags: ["3D", "Three.js", "Space"],
@@ -392,8 +376,7 @@ function App() {
       title: "News Website",
       description:
         "Fast and dynamic news website built with Next.js and TypeScript, offering real-time updates, category-based filtering, and a seamless reading experience. Leveraging SSR and SSG for high performance and SEO optimization.",
-      image:
-        "https://plus.unsplash.com/premium_photo-1688561384438-bfa9273e2c00?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "/projects/news-website.jpg",
       github: "https://github.com/BismayDey/News",
       demo: "https://v0-spotify-y0hzcsy2n9f-9af5zg.vercel.app/",
       tags: ["News", "Media", "Next.js"],
@@ -412,8 +395,7 @@ function App() {
       title: "Advanced Math Solver",
       description:
         "Advanced Math Solver is a comprehensive tool offering calculators, graphing capabilities, unit conversions, formula references, and quizzes to enhance mathematical learning and problem-solving.",
-      image:
-        "https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp",
+      image: "/projects/math-solver.jpg",
       github: "https://github.com/BismayDey/maths",
       demo: "https://maths-five.vercel.app/",
       tags: ["Education", "Math", "Tools"],
@@ -422,8 +404,7 @@ function App() {
       title: "Spotify Clone",
       description:
         "KAALO GAAN is a minimalist music player that allows users to search, play, and manage their favorite tracks seamlessly. With a clean interface and intuitive controls, it offers a smooth listening experience.",
-      image:
-        "https://i.postimg.cc/v8hKNVFG/1f41a369-a0b2-4b80-aaf3-bdbcc5f91580.webp",
+      image: "/projects/spotify-clone.jpg",
       github: "https://github.com/BismayDey/music-player",
       demo: "https://music-player-zeta-pearl.vercel.app/",
       tags: ["Music", "Streaming", "React"],
