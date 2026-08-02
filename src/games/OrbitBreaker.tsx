@@ -45,7 +45,8 @@ function Fragment({
     ref.current.rotation.y += 0.03;
     // shrink as it decays so the urgency is readable
     const k = Math.max(0.001, frag.life / frag.maxLife);
-    const s = (hovered ? 0.34 : 0.28) * (0.5 + k * 0.5);
+    // stays comfortably clickable right up to the end
+    const s = (hovered ? 0.52 : 0.44) * (0.65 + k * 0.35);
     ref.current.scale.setScalar(s);
   });
 
@@ -136,6 +137,8 @@ export function OrbitBreaker({ onBook }: { onBook: () => void }) {
   const [phase, setPhase] = useState<"ready" | "playing" | "over">("ready");
   const [score, setScore] = useState(0);
   const [missed, setMissed] = useState(0);
+  const [combo, setCombo] = useState(0);
+  const [bestCombo, setBestCombo] = useState(0);
   const [timeLeft, setTimeLeft] = useState(45);
   const [frags, setFrags] = useState<Frag[]>([]);
   const nextId = useRef(1);
@@ -150,14 +153,16 @@ export function OrbitBreaker({ onBook }: { onBook: () => void }) {
     stop();
     setScore(0);
     setMissed(0);
+    setCombo(0);
+    setBestCombo(0);
     setTimeLeft(45);
     setFrags([]);
     setPhase("playing");
 
     const spawn = window.setInterval(() => {
       setFrags((cur) => {
-        if (cur.length > 9) return cur;
-        const bad = Math.random() < 0.22;
+        if (cur.length > 13) return cur;
+        const bad = Math.random() < 0.2;
         return [
           ...cur,
           {
@@ -165,14 +170,14 @@ export function OrbitBreaker({ onBook }: { onBook: () => void }) {
             angle: Math.random() * Math.PI * 2,
             radius: 2.1 + Math.random() * 1.5,
             speed: (0.4 + Math.random() * 0.55) * (Math.random() < 0.5 ? 1 : -1),
-            life: bad ? 3.4 : 3.8,
-            maxLife: bad ? 3.4 : 3.8,
+            life: bad ? 3.2 : 4.2,
+            maxLife: bad ? 3.2 : 4.2,
             tilt: Math.random() * Math.PI,
             bad,
           },
         ];
       });
-    }, 620);
+    }, 380);
 
     const tick = window.setInterval(() => {
       setTimeLeft((t) => {
@@ -190,13 +195,28 @@ export function OrbitBreaker({ onBook }: { onBook: () => void }) {
 
   const onHit = useCallback((id: number, bad: boolean) => {
     setFrags((cur) => cur.filter((f) => f.id !== id));
-    setScore((s) => Math.max(0, s + (bad ? -15 : 10)));
+    if (bad) {
+      setCombo(0);
+      setScore((s) => Math.max(0, s - 15));
+      return;
+    }
+    setCombo((c) => {
+      const next = c + 1;
+      setBestCombo((b) => Math.max(b, next));
+      // every 5 in a row doubles the value, so chains matter
+      const mult = 1 + Math.floor(next / 5);
+      setScore((s) => s + 10 * mult);
+      return next;
+    });
   }, []);
 
   const onExpire = useCallback((id: number) => {
     setFrags((cur) => {
       const f = cur.find((x) => x.id === id);
-      if (f && !f.bad) setMissed((m) => m + 1);
+      if (f && !f.bad) {
+        setMissed((m) => m + 1);
+        setCombo(0);
+      }
       return cur.filter((x) => x.id !== id);
     });
   }, []);
@@ -205,15 +225,16 @@ export function OrbitBreaker({ onBook }: { onBook: () => void }) {
     () => [
       { label: "Score", value: score },
       { label: "Time", value: `${timeLeft}s` },
+      { label: "Combo", value: combo > 1 ? `${combo}x` : "—" },
       { label: "Missed", value: missed },
     ],
-    [score, timeLeft, missed]
+    [score, timeLeft, combo, missed]
   );
 
   return (
     <GameFrame
       title="Orbit Breaker"
-      blurb="Click the purple fragments before they decay. Red ones are unstable — hit those and you lose points. 45 seconds on the clock."
+      blurb="Click purple fragments before they decay. Five in a row doubles your points; red ones are unstable and break the chain. 45 seconds."
       hud={phase === "playing" ? hud : undefined}
       onStart={phase === "ready" ? start : undefined}
       startLabel="Enter the orbit"
@@ -236,7 +257,7 @@ export function OrbitBreaker({ onBook }: { onBook: () => void }) {
           game="orbit-breaker"
           gameLabel="Orbit Breaker"
           score={score}
-          detail={missed ? `${missed} fragments slipped past you` : "Nothing got past you"}
+          detail={`Best chain ${bestCombo}x · ${missed} slipped past`}
           onRestart={start}
           onBook={onBook}
         />

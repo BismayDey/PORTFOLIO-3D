@@ -58,10 +58,13 @@ export function BuildTheStack({ onBook }: { onBook: () => void }) {
   const [phase, setPhase] = useState<"ready" | "playing" | "over">("ready");
   const [score, setScore] = useState(0);
   const [lines, setLines] = useState(0);
+  const [level, setLevel] = useState(1);
 
   const st = useRef({
     grid: emptyGrid(),
     piece: null as Piece | null,
+    nextShape: null as { shape: number[][]; tech: number } | null,
+    flash: 0,
     drop: 0,
     interval: 0.7,
     score: 0,
@@ -69,9 +72,15 @@ export function BuildTheStack({ onBook }: { onBook: () => void }) {
     running: false,
   });
 
+  const roll = () => ({
+    shape: SHAPES[(Math.random() * SHAPES.length) | 0],
+    tech: (Math.random() * TECH.length) | 0,
+  });
+
   const spawn = useCallback(() => {
-    const shape = SHAPES[(Math.random() * SHAPES.length) | 0];
-    const tech = (Math.random() * TECH.length) | 0;
+    const cur = st.current.nextShape ?? roll();
+    st.current.nextShape = roll();
+    const { shape, tech } = cur;
     const p: Piece = {
       shape,
       tech,
@@ -90,6 +99,8 @@ export function BuildTheStack({ onBook }: { onBook: () => void }) {
     st.current = {
       grid: emptyGrid(),
       piece: null,
+      nextShape: roll(),
+      flash: 0,
       drop: 0,
       interval: 0.7,
       score: 0,
@@ -98,6 +109,7 @@ export function BuildTheStack({ onBook }: { onBook: () => void }) {
     };
     setScore(0);
     setLines(0);
+    setLevel(1);
     setPhase("playing");
     spawn();
   }, [spawn]);
@@ -135,7 +147,12 @@ export function BuildTheStack({ onBook }: { onBook: () => void }) {
         if (!collides(s.grid, test, 0, 0)) s.piece.shape = rot;
       }
       if (e.key === " ") {
-        while (!collides(s.grid, s.piece, 0, 1)) s.piece.y += 1;
+        let d = 0;
+        while (!collides(s.grid, s.piece, 0, 1)) {
+          s.piece.y += 1;
+          d += 1;
+        }
+        s.score += d * 2; // reward committing to a drop
         s.drop = s.interval;
       }
     };
@@ -160,6 +177,12 @@ export function BuildTheStack({ onBook }: { onBook: () => void }) {
       ctx.strokeStyle = "rgba(255,255,255,0.07)";
       ctx.strokeRect(ox, oy, cell * COLS, cell * ROWS);
 
+      if (s.flash > 0) {
+        s.flash -= dt;
+        ctx.fillStyle = `rgba(255,255,255,${Math.max(0, s.flash) * 0.7})`;
+        ctx.fillRect(ox, oy, cell * COLS, cell * ROWS);
+      }
+
       if (s.running && s.piece) {
         s.drop += dt;
         if (s.drop >= s.interval) {
@@ -171,10 +194,13 @@ export function BuildTheStack({ onBook }: { onBook: () => void }) {
             const cleared = clearLines(s.grid);
             if (cleared) {
               s.lines += cleared;
-              s.score += [0, 100, 300, 500, 800][cleared] ?? 800;
-              s.interval = Math.max(0.14, 0.7 - s.lines * 0.02);
+              const lvl = 1 + Math.floor(s.lines / 8);
+              s.score += ([0, 100, 300, 500, 800][cleared] ?? 800) * lvl;
+              s.interval = Math.max(0.12, 0.7 - (lvl - 1) * 0.06);
+              s.flash = 0.25;
               setLines(s.lines);
               setScore(s.score);
+              setLevel(lvl);
             }
             spawn();
           }
@@ -202,6 +228,32 @@ export function BuildTheStack({ onBook }: { onBook: () => void }) {
       for (let y = 0; y < ROWS; y++)
         for (let x = 0; x < COLS; x++)
           if (s.grid[y][x].on) draw(x, y, s.grid[y][x].tech);
+
+      // next-piece preview to the right of the well
+      if (s.nextShape && ox > cell * 3.2) {
+        const n = s.nextShape;
+        const bx = ox + cell * COLS + cell * 0.6;
+        ctx.fillStyle = "rgba(255,255,255,0.35)";
+        ctx.font = "bold 10px system-ui, sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText("NEXT", bx, oy + 12);
+        n.shape.forEach((row, ry) =>
+          row.forEach((v, rx) => {
+            if (!v) return;
+            ctx.fillStyle = TECH[n.tech].color;
+            ctx.beginPath();
+            ctx.roundRect(
+              bx + rx * cell * 0.6 + 1,
+              oy + 22 + ry * cell * 0.6 + 1,
+              cell * 0.6 - 2,
+              cell * 0.6 - 2,
+              3
+            );
+            ctx.fill();
+          })
+        );
+        ctx.textAlign = "center";
+      }
 
       if (s.piece) {
         // ghost landing position
@@ -246,12 +298,13 @@ export function BuildTheStack({ onBook }: { onBook: () => void }) {
   return (
     <GameFrame
       title="Build the Stack"
-      blurb="Tetris with the tech Bismay actually ships in. Arrow keys to move and rotate, space to drop. Clear lines to score."
+      blurb="Tetris with the tech Bismay actually ships in. Arrows move and rotate, space hard-drops for bonus points. Every 8 lines raises the level and the speed."
       hud={
         phase === "playing"
           ? [
               { label: "Score", value: score },
               { label: "Lines", value: lines },
+              { label: "Level", value: level },
             ]
           : undefined
       }
@@ -285,7 +338,7 @@ export function BuildTheStack({ onBook }: { onBook: () => void }) {
           game="build-the-stack"
           gameLabel="Build the Stack"
           score={score}
-          detail={`${lines} lines cleared`}
+          detail={`${lines} lines cleared · reached level ${level}`}
           onRestart={start}
           onBook={onBook}
         />

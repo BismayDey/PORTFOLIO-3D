@@ -10,8 +10,8 @@ import {
   Rocket,
   TerminalSquare,
   Layers3,
-  Wrench,
 } from "lucide-react";
+import { CLIENT_GAMES } from "../games/ClientGameDemo";
 import { BookingModal } from "../components/BookingModal";
 import { ContactModal } from "../components/ContactModal";
 import { SITE_URL, useSeo } from "../lib/seo";
@@ -61,15 +61,6 @@ const GAMES = [
     dot: "bg-cyan-400",
   },
   {
-    id: "codecraft",
-    name: "CodeCraft L1",
-    icon: Wrench,
-    tag: "Client build · WIP",
-    blurb: "A live game-based learning module in progress for a real client.",
-    accent: "from-amber-500/20 to-orange-500/10 border-amber-400/30",
-    dot: "bg-amber-400",
-  },
-  {
     id: "terminal",
     name: "bismay --help",
     icon: TerminalSquare,
@@ -84,6 +75,7 @@ type GameId = (typeof GAMES)[number]["id"];
 
 export default function PlayPage() {
   const [active, setActive] = useState<GameId | null>(null);
+  const [clientGame, setClientGame] = useState<string>(CLIENT_GAMES[0].id);
   const [booking, setBooking] = useState(false);
   const [contact, setContact] = useState(false);
 
@@ -155,14 +147,95 @@ export default function PlayPage() {
             </span>
           </h1>
           <p className="text-lg md:text-xl text-gray-300 max-w-2xl leading-relaxed">
-            So here are four, running in your browser right now — plus a live
-            client build still in progress. Three.js, WebGL and plain Canvas.
+            So here are two live client builds and four arcade demos, all
+            running in your browser right now. Three.js, WebGL, plain Canvas.
           </p>
         </div>
       </header>
 
+      {/* Real client work — deliberately separated from the demos */}
+      <section className="px-4 md:px-8 pb-14">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
+            <div>
+              <div className="flex items-center gap-2.5 mb-2">
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                <span className="text-[11px] uppercase tracking-[0.22em] font-bold text-amber-300">
+                  Shipped for a paying client
+                </span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+                Real client work
+              </h2>
+              <p className="text-gray-400 max-w-2xl leading-relaxed">
+                Two modules from a game-based learning platform being built for
+                Honey Treat Academy. These are live builds running from the
+                client's own servers — not demos made for this page.
+              </p>
+            </div>
+            <div className="flex gap-2 flex-shrink-0">
+              {CLIENT_GAMES.map((cg) => (
+                <button
+                  key={cg.id}
+                  onClick={() => {
+                    setClientGame(cg.id);
+                    track("client_game_tab", { game: cg.id });
+                  }}
+                  className={`px-4 py-2 rounded-full text-sm font-semibold border transition-all ${
+                    clientGame === cg.id
+                      ? "bg-amber-400 text-black border-amber-300 shadow-lg shadow-amber-500/25"
+                      : "bg-white/[0.05] text-gray-300 border-white/15 hover:bg-white/10 hover:text-white"
+                  }`}
+                >
+                  {cg.title}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <Suspense
+            fallback={
+              <div className="aspect-[16/9] rounded-3xl border-2 border-amber-400/20 grid place-items-center">
+                <Loader2 className="w-6 h-6 animate-spin text-amber-400" />
+              </div>
+            }
+          >
+            <ClientGameDemo
+              game={
+                CLIENT_GAMES.find((c) => c.id === clientGame) ?? CLIENT_GAMES[0]
+              }
+              onBook={() => setBooking(true)}
+              onSeeWork={() => {
+                window.location.href = "/#client-projects";
+              }}
+            />
+          </Suspense>
+        </div>
+      </section>
+
+      {/* Arcade demos */}
       <section className="px-4 md:px-8 pb-10">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-6">
+            <div className="flex items-center gap-2.5 mb-2">
+              <span className="w-2 h-2 rounded-full bg-purple-400" />
+              <span className="text-[11px] uppercase tracking-[0.22em] font-bold text-purple-300">
+                Built for this page
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+              Four arcade demos
+            </h2>
+            <p className="text-gray-400 max-w-2xl leading-relaxed">
+              Written from scratch in Three.js, WebGL and plain Canvas — no game
+              engine, no download, works on a phone.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 md:px-8 pb-10">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {GAMES.map((g, i) => {
             const on = active === g.id;
             return (
@@ -226,9 +299,7 @@ export default function PlayPage() {
                   {active === "terminal" && (
                     <TerminalGame onBook={() => setBooking(true)} />
                   )}
-                  {active === "codecraft" && (
-                    <ClientGameDemo onBook={() => setBooking(true)} />
-                  )}
+
                 </Suspense>
               </motion.div>
             ) : (

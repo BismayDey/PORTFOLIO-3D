@@ -4,10 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import {
   Brain,
   CalendarDays,
+  Gamepad2,
   Loader2,
   Code2,
   Rocket,
-  Gamepad2,
   SquareCode,
   Mail,
   Users,
@@ -630,14 +630,20 @@ function App() {
           </div>
 
           <div className="flex items-center gap-2">
-            <a
+            <motion.a
               href="/play"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.96 }}
               onClick={() => track("nav_play_click")}
-              className="hidden xl:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-medium text-gray-300 hover:text-purple-300 transition-colors"
+              className="relative hidden lg:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold text-amber-200 bg-amber-500/15 border border-amber-400/40 hover:bg-amber-500/25 hover:border-amber-400/70 transition-colors"
             >
               <Gamepad2 className="w-4 h-4" />
               Play
-            </a>
+              <span className="absolute -top-1.5 -right-1.5 flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-80 animate-ping" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-amber-400" />
+              </span>
+            </motion.a>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
