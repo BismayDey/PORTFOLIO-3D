@@ -294,9 +294,9 @@ export function ContactModal({
             <button
               onClick={onClose}
               aria-label="Close contact form"
-              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/5 hover:bg-white/15 transition-colors"
+              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/10 border border-white/25 text-white hover:bg-white/25 hover:border-white/50 hover:rotate-90 transition-all duration-300"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5" strokeWidth={2.5} />
             </button>
 
             {status === "done" ? (

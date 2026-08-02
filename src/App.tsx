@@ -4,7 +4,6 @@ import { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Scene } from "./components/Scene";
 import {
-  ArrowRight,
   Brain,
   Code2,
   Rocket,
@@ -32,7 +31,7 @@ import {
   Server,
   Lock,
 } from "lucide-react";
-import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   clientProjects,
   featuredClientProjects,
@@ -69,13 +68,6 @@ function App() {
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [navScrolled, setNavScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
-  const { scrollYProgress } = useScroll();
-  const pageProgress = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 30,
-    restDelta: 0.001,
-  });
-
   const scrollToId = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMobileMenuOpen(false);
@@ -612,14 +604,16 @@ function App() {
                   onClick={() => scrollToId(link.id)}
                   aria-current={active ? "true" : undefined}
                   className={`relative px-3.5 py-2 rounded-full text-sm font-medium transition-colors ${
-                    active ? "text-white" : "text-gray-400 hover:text-white"
+                    active
+                      ? "text-purple-200"
+                      : "text-gray-300 hover:text-purple-300"
                   }`}
                 >
                   {active && (
                     <motion.span
                       layoutId="nav-pill"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      className="absolute inset-0 rounded-full bg-white/10 border border-white/15"
+                      className="absolute inset-0 rounded-full bg-purple-500/20 border border-purple-400/40"
                     />
                   )}
                   <span className="relative z-10">{link.label}</span>
@@ -633,10 +627,13 @@ function App() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setContactModalOpen(true)}
-              className="hidden sm:inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full bg-white text-black text-sm font-bold shadow-lg hover:shadow-white/20 transition-shadow"
+              className="hidden sm:inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white text-sm font-semibold shadow-lg shadow-purple-500/25 hover:shadow-purple-500/45 hover:brightness-110 transition-all"
             >
-              Hire me
-              <ArrowRight className="w-4 h-4" />
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 animate-ping" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
+              </span>
+              Let's Talk
             </motion.button>
 
             {/* Mobile Menu Button */}
@@ -667,12 +664,6 @@ function App() {
           </div>
         </nav>
 
-        {/* scroll progress hairline */}
-        <motion.div
-          style={{ scaleX: pageProgress }}
-          className="max-w-7xl mx-auto mt-1.5 h-[2px] origin-left rounded-full bg-gradient-to-r from-purple-400 via-pink-400 to-rose-400"
-        />
-
         {/* Mobile Menu */}
         <AnimatePresence>
           {mobileMenuOpen && (
@@ -692,8 +683,8 @@ function App() {
                     onClick={() => scrollToId(link.id)}
                     className={`text-left px-4 py-3 rounded-2xl font-medium transition-colors ${
                       activeSection === link.id
-                        ? "bg-white/10 text-white"
-                        : "text-gray-300 hover:bg-white/5 hover:text-white"
+                        ? "bg-purple-500/20 text-purple-200 border border-purple-400/30"
+                        : "text-gray-300 hover:bg-white/5 hover:text-purple-300"
                     }`}
                   >
                     {link.label}
@@ -704,10 +695,13 @@ function App() {
                     setMobileMenuOpen(false);
                     setContactModalOpen(true);
                   }}
-                  className="mt-3 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-white text-black font-bold"
+                  className="mt-3 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white font-semibold shadow-lg shadow-purple-500/25"
                 >
-                  Hire me
-                  <ArrowRight className="w-4 h-4" />
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 animate-ping" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
+                  </span>
+                  Let's Talk
                 </button>
               </div>
             </motion.div>

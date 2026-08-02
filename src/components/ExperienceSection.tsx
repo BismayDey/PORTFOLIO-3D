@@ -126,7 +126,7 @@ function RoleCard({ role, index }: { role: (typeof experience)[0]; index: number
       </span>
 
       <div
-        className={`group relative rounded-2xl border border-white/[0.12] bg-[#0e0e11] shadow-lg shadow-black/50 transition-colors ${a.ring}`}
+        className={`group relative rounded-2xl border-2 border-white/[0.16] bg-[#121217] shadow-xl shadow-black/60 transition-all duration-300 hover:shadow-2xl ${a.ring}`}
       >
         <div
           className={`absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity`}
@@ -135,7 +135,7 @@ function RoleCard({ role, index }: { role: (typeof experience)[0]; index: number
         <button
           onClick={() => setOpen((o) => !o)}
           aria-expanded={open}
-          className="w-full text-left p-5 sm:p-6 flex items-start gap-4"
+          className="w-full text-left p-5 sm:p-6 flex items-start gap-4 rounded-2xl hover:bg-white/[0.03] transition-colors"
         >
           <span
             className={`hidden sm:flex flex-shrink-0 w-11 h-11 rounded-xl ${a.soft} items-center justify-center group-hover:scale-110 transition-transform duration-300`}
@@ -187,11 +187,26 @@ function RoleCard({ role, index }: { role: (typeof experience)[0]; index: number
             </span>
           </span>
 
-          <ChevronDown
-            className={`flex-shrink-0 w-5 h-5 text-gray-500 group-hover:text-white transition-all duration-300 ${
-              open ? "rotate-180" : ""
-            }`}
-          />
+          <span className="flex-shrink-0 flex items-center gap-2 pt-0.5">
+            <span
+              className={`hidden md:inline text-[11px] font-semibold uppercase tracking-wider ${a.text} opacity-80 group-hover:opacity-100 transition-opacity`}
+            >
+              {open ? "Hide" : "Details"}
+            </span>
+            <motion.span
+              animate={
+                open ? { rotate: 180, y: 0 } : { rotate: 0, y: [0, 2.5, 0] }
+              }
+              transition={
+                open
+                  ? { duration: 0.3 }
+                  : { duration: 1.6, repeat: Infinity, ease: "easeInOut" }
+              }
+              className={`w-8 h-8 rounded-full ${a.soft} border border-white/15 flex items-center justify-center group-hover:scale-110 group-hover:border-white/35 transition-all duration-300`}
+            >
+              <ChevronDown className={`w-4 h-4 ${a.text}`} />
+            </motion.span>
+          </span>
         </button>
 
         <AnimatePresence initial={false}>
