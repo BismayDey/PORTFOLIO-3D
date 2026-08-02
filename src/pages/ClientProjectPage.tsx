@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import {
   ArrowLeft,
   ArrowRight,
   Calendar,
-  CheckCircle2,
+  Check,
   ExternalLink,
   Globe,
   Layers,
@@ -17,12 +17,24 @@ import {
 import { clientProjects, getClientProject } from "../data/clientProjects";
 import { ACCENTS } from "../components/ClientProjectCard";
 import { SiteClip } from "../components/SiteClip";
+import { techLogo } from "../data/techLogos";
 import { SITE_URL, useSeo } from "../lib/seo";
 
 export default function ClientProjectPage() {
   const { slug } = useParams();
   const project = getClientProject(slug);
   const [lightbox, setLightbox] = useState<string | null>(null);
+
+  const workRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: workScroll } = useScroll({
+    target: workRef,
+    offset: ["start 0.8", "end 0.4"],
+  });
+  const workProgress = useSpring(workScroll, {
+    stiffness: 90,
+    damping: 26,
+    restDelta: 0.001,
+  });
 
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, {
@@ -208,7 +220,7 @@ export default function ClientProjectPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4"
           >
             {[
               { icon: Target, label: "Role", value: project.role },
@@ -222,18 +234,36 @@ export default function ClientProjectPage() {
             ].map((item, i) => (
               <motion.div
                 key={item.label}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + i * 0.05 }}
-                className="group bg-white/[0.04] border border-white/10 rounded-2xl p-4 backdrop-blur-sm hover:bg-white/[0.08] hover:border-white/25 transition-all"
+                initial={{ opacity: 0, y: 18, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{
+                  delay: 0.22 + i * 0.07,
+                  type: "spring",
+                  stiffness: 220,
+                  damping: 20,
+                }}
+                whileHover={{ y: -5 }}
+                className="group relative rounded-2xl border border-white/[0.14] bg-[#0e0e11] p-4 sm:p-5 overflow-hidden shadow-lg shadow-black/50 transition-colors hover:border-white/30"
               >
-                <dt className="flex items-center gap-2 text-[11px] uppercase tracking-wider text-gray-500 mb-2">
-                  <item.icon className={`w-3.5 h-3.5 ${a.iconText}`} />
-                  {item.label}
-                </dt>
-                <dd className="text-sm font-semibold text-white break-words">
-                  {item.value}
-                </dd>
+                <div
+                  className={`absolute inset-x-0 -top-16 h-32 ${a.glow} blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
+                />
+                <div className="relative z-10">
+                  <div
+                    className={`w-9 h-9 mb-3 rounded-xl ${a.iconBg} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    <item.icon className={`w-4 h-4 ${a.iconText}`} />
+                  </div>
+                  <dt className="text-[10px] uppercase tracking-[0.16em] text-gray-500 mb-1">
+                    {item.label}
+                  </dt>
+                  <dd className="text-sm sm:text-base font-semibold text-white break-words leading-snug">
+                    {item.value}
+                  </dd>
+                </div>
+                <span
+                  className={`absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full ${a.iconBg.split(" ")[0]} transition-all duration-500`}
+                />
               </motion.div>
             ))}
           </motion.dl>
@@ -262,8 +292,25 @@ export default function ClientProjectPage() {
           className="mb-20 md:mb-28"
         >
           <div className="relative rounded-3xl border border-purple-400/30 bg-gradient-to-br from-purple-950/60 via-[#140d20] to-[#0d0a14] p-6 sm:p-9 md:p-12 overflow-hidden shadow-2xl shadow-purple-900/30">
-            <div className="absolute -top-24 -left-16 w-72 h-72 bg-purple-500/25 rounded-full blur-[100px] pointer-events-none" />
-            <div className="absolute -bottom-28 -right-16 w-80 h-80 bg-fuchsia-500/15 rounded-full blur-[110px] pointer-events-none" />
+            {/* slow-drifting orbs so the panel is never static */}
+            <motion.div
+              animate={{ x: [0, 26, 0], y: [0, -18, 0] }}
+              transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-24 -left-16 w-72 h-72 bg-purple-500/25 rounded-full blur-[100px] pointer-events-none"
+            />
+            <motion.div
+              animate={{ x: [0, -22, 0], y: [0, 20, 0] }}
+              transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -bottom-28 -right-16 w-80 h-80 bg-fuchsia-500/15 rounded-full blur-[110px] pointer-events-none"
+            />
+            {/* one-pass light sweep when the panel enters view */}
+            <motion.div
+              initial={{ x: "-120%" }}
+              whileInView={{ x: "120%" }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.5, delay: 0.35, ease: "easeOut" }}
+              className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/[0.07] to-transparent skew-x-12 pointer-events-none"
+            />
 
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-6">
@@ -282,7 +329,18 @@ export default function ClientProjectPage() {
                   &ldquo;
                 </span>
                 <p className="text-lg sm:text-xl md:text-2xl lg:text-[28px] leading-[1.55] text-purple-50 font-light">
-                  {project.challenge}
+                  {project.challenge.split(" ").map((word, i) => (
+                    <motion.span
+                      key={`${word}-${i}`}
+                      initial={{ opacity: 0.15 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: Math.min(i * 0.012, 0.9) }}
+                      className="inline-block mr-[0.28em]"
+                    >
+                      {word}
+                    </motion.span>
+                  ))}
                 </p>
               </div>
             </div>
@@ -290,7 +348,7 @@ export default function ClientProjectPage() {
         </motion.section>
 
         {/* What I built */}
-        <section className="mb-20 md:mb-28">
+        <section ref={workRef} className="mb-20 md:mb-28">
           <motion.h2
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -299,30 +357,45 @@ export default function ClientProjectPage() {
           >
             What I built
           </motion.h2>
-          <ul className="max-w-4xl divide-y divide-white/10 border-y border-white/10">
-            {project.work.map((item, i) => (
-              <motion.li
-                key={i}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: Math.min(i * 0.05, 0.3) }}
-                className="group flex gap-5 py-6 hover:bg-white/[0.03] px-2 -mx-2 rounded-lg transition-colors"
-              >
-                <span
-                  className={`text-xs font-mono ${a.iconText} pt-1.5 opacity-60 group-hover:opacity-100 transition-opacity`}
+
+          <div className="relative max-w-4xl">
+            {/* rail + scroll-linked fill */}
+            <div className="absolute left-[15px] top-2 bottom-2 w-px bg-white/10 hidden sm:block" />
+            <motion.div
+              style={{ scaleY: workProgress }}
+              className={`absolute left-[15px] top-2 bottom-2 w-px origin-top hidden sm:block ${a.iconBg.split(" ")[0]}`}
+            />
+
+            <ul className="space-y-1">
+              {project.work.map((item, i) => (
+                <motion.li
+                  key={i}
+                  initial={{ opacity: 0, x: -16 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{
+                    delay: Math.min(i * 0.06, 0.3),
+                    type: "spring",
+                    stiffness: 180,
+                    damping: 22,
+                  }}
+                  className="group relative flex gap-4 sm:gap-6 rounded-2xl p-4 sm:p-5 hover:bg-white/[0.04] transition-colors"
                 >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <CheckCircle2
-                  className={`w-5 h-5 mt-0.5 flex-shrink-0 ${a.iconText}`}
-                />
-                <span className="text-gray-300 leading-relaxed group-hover:text-white transition-colors">
-                  {item}
-                </span>
-              </motion.li>
-            ))}
-          </ul>
+                  <span
+                    className={`relative z-10 flex-shrink-0 w-8 h-8 rounded-full ${a.iconBg} border border-white/10 flex items-center justify-center text-[11px] font-bold ${a.iconText} group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <p className="text-gray-300 leading-relaxed group-hover:text-white transition-colors pt-1">
+                    {item}
+                  </p>
+                  <span
+                    className={`absolute left-0 top-4 bottom-4 w-[3px] rounded-full ${a.iconBg.split(" ")[0]} opacity-0 group-hover:opacity-100 transition-opacity duration-300 sm:hidden`}
+                  />
+                </motion.li>
+              ))}
+            </ul>
+          </div>
         </section>
 
         {/* Gallery */}
@@ -431,20 +504,50 @@ export default function ClientProjectPage() {
                 Tech stack
               </h2>
             </div>
+
             <div className="flex flex-wrap gap-2 sm:gap-2.5">
-              {project.stack.map((tech, i) => (
-                <motion.span
-                  key={tech}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.04 }}
-                  className={`px-3.5 sm:px-4 py-2 rounded-full text-[13px] sm:text-sm font-medium border ${a.chip} hover:scale-105 transition-transform`}
-                >
-                  {tech}
-                </motion.span>
-              ))}
+              {project.stack.map((tech, i) => {
+                const logo = techLogo(tech);
+                return (
+                  <motion.span
+                    key={tech}
+                    initial={{ opacity: 0, y: 12, scale: 0.9 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      delay: i * 0.06,
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 18,
+                    }}
+                    whileHover={{ y: -4, scale: 1.06 }}
+                    className={`group inline-flex items-center gap-2 pl-2 pr-3.5 py-2 rounded-full text-[13px] sm:text-sm font-medium border ${a.chip} cursor-default`}
+                  >
+                    {logo ? (
+                      <img
+                        src={logo.src}
+                        alt=""
+                        aria-hidden="true"
+                        loading="lazy"
+                        width={18}
+                        height={18}
+                        className={`w-[18px] h-[18px] object-contain group-hover:rotate-[8deg] transition-transform duration-300 ${
+                          logo.invert ? "invert" : ""
+                        }`}
+                      />
+                    ) : (
+                      <span
+                        className={`w-[18px] h-[18px] rounded-full bg-white/10 flex items-center justify-center text-[9px] font-bold ${a.iconText}`}
+                      >
+                        {tech.charAt(0)}
+                      </span>
+                    )}
+                    {tech}
+                  </motion.span>
+                );
+              })}
             </div>
+
             <p className="mt-6 pt-5 border-t border-white/10 text-xs text-gray-500 leading-relaxed">
               Chosen for what this product needed — not for what was trendy.
             </p>
@@ -463,22 +566,28 @@ export default function ClientProjectPage() {
                 Outcome
               </h2>
             </div>
-            <ul className="divide-y divide-white/10 -my-1">
+
+            <ul className="space-y-2.5">
               {project.results.map((r, i) => (
                 <motion.li
                   key={r}
-                  initial={{ opacity: 0, x: 16 }}
+                  initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                  className="flex gap-4 py-4 text-gray-300"
+                  transition={{
+                    delay: i * 0.1,
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 22,
+                  }}
+                  className="group relative flex gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-4 hover:border-white/25 hover:bg-white/[0.05] hover:translate-x-1 transition-all duration-300"
                 >
                   <span
-                    className={`flex-shrink-0 w-7 h-7 rounded-full ${a.iconBg} flex items-center justify-center text-[11px] font-bold ${a.iconText}`}
+                    className={`flex-shrink-0 w-8 h-8 rounded-xl ${a.iconBg} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
                   >
-                    {i + 1}
+                    <Check className={`w-4 h-4 ${a.iconText}`} />
                   </span>
-                  <span className="leading-relaxed text-sm sm:text-base">
+                  <span className="leading-relaxed text-sm sm:text-base text-gray-300 group-hover:text-white transition-colors pt-1">
                     {r}
                   </span>
                 </motion.li>
