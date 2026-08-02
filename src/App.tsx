@@ -40,6 +40,8 @@ import { ClientProjectCard } from "./components/ClientProjectCard";
 import { ContactModal } from "./components/ContactModal";
 import { ServicesSection } from "./components/ServicesSection";
 import { ExperienceSection } from "./components/ExperienceSection";
+import { Hero } from "./components/Hero";
+import { IntroOverlay } from "./components/IntroOverlay";
 import { SITE_URL, useSeo } from "./lib/seo";
 
 const NAV_LINKS = [
@@ -359,9 +361,6 @@ function App() {
     }, 800);
   };
 
-  const handleViewResume = () => {
-    window.open("/BISMAY DEY.pdf", "_blank");
-  };
 
   const allProjects = [
     {
@@ -709,90 +708,16 @@ function App() {
         </AnimatePresence>
       </motion.div>
 
-
-      {/* Resume Buttons */}
-      <div className="fixed bottom-6 md:bottom-8 left-0 right-0 z-50 flex justify-center px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col sm:flex-row items-center gap-3 md:gap-4"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.5 }}
-            className="relative w-full sm:w-auto"
-          >
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleDownloadResume}
-              disabled={isDownloading}
-              className={`flex items-center justify-center gap-2 md:gap-3 px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-semibold shadow-lg w-full sm:w-auto
-                ${
-                  isDownloading
-                    ? "opacity-75 cursor-wait"
-                    : "hover:shadow-purple-500/25 hover:shadow-xl"
-                }`}
-            >
-              <motion.div
-                animate={isDownloading ? { rotate: 360 } : {}}
-                transition={{
-                  duration: 1,
-                  repeat: isDownloading ? Infinity : 0,
-                  ease: "linear",
-                }}
-              >
-                <FileDown className="w-5 h-5 md:w-6 md:h-6" />
-              </motion.div>
-              <span className="text-sm md:text-base">
-                {isDownloading ? "Downloading..." : "Download Resume"}
-              </span>
-            </motion.button>
-
-            <motion.div
-              initial={{ scale: 0, opacity: 0 }}
-              animate={
-                isDownloading
-                  ? { scale: 1.2, opacity: 1 }
-                  : { scale: 0, opacity: 0 }
-              }
-              className="absolute inset-0 rounded-full border-2 border-purple-500 border-t-transparent animate-spin"
-            />
-          </motion.div>
-
-          <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleViewResume}
-            className="flex items-center justify-center gap-2 md:gap-3 px-6 md:px-8 py-3 md:py-4 bg-white/10 backdrop-blur-sm rounded-full text-white font-semibold
-              hover:bg-white/20 transition-colors border border-white/20 w-full sm:w-auto"
-          >
-            <FileText className="w-5 h-5 md:w-6 md:h-6" />
-            <span className="text-sm md:text-base">View Resume</span>
-          </motion.button>
-        </motion.div>
-      </div>
-
       {/* Main Content */}
       <div className="relative z-10">
-        {/* Hero Section - structured like other sections so it's visually divided */}
-        <div className="min-h-screen bg-transparent px-4 md:px-8 py-16 md:py-24 flex items-center relative">
-          {/* Shadow overlay at the bottom to create transition effect */}
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/90 to-transparent pointer-events-none z-0" />
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative z-10 max-w-7xl mx-auto w-full text-white"
-          >
-            {/* Intentionally left mostly empty — the Scene component renders the main hero title in 3D.
-                This container provides consistent padding and a visual band like other sections. */}
-          </motion.div>
-        </div>
+        <Hero
+          onTalk={() => setContactModalOpen(true)}
+          onSeeWork={() =>
+            clientProjectsRef.current?.scrollIntoView({ behavior: "smooth" })
+          }
+          onDownloadResume={handleDownloadResume}
+          isDownloading={isDownloading}
+        />
 
         {/* About Section - Bento Grid Layout */}
         <div
@@ -2895,6 +2820,8 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <IntroOverlay />
 
       <ContactModal
         open={contactModalOpen}

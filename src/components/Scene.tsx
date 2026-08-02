@@ -2,12 +2,10 @@ import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import {
   Float,
-  Text3D,
   OrbitControls,
   Sphere,
   PerspectiveCamera,
   Stars,
-  useAspect,
   Torus,
   TorusKnot,
   Octahedron,
@@ -15,6 +13,7 @@ import {
   MeshDistortMaterial,
 } from "@react-three/drei";
 import * as THREE from "three";
+import { HeroCore } from "./HeroCore";
 
 export function Scene() {
   const particlesCount = 8000;
@@ -170,8 +169,6 @@ export function Scene() {
     }
   });
 
-  const size = useAspect(1920, 1080, 0.7);
-
   return (
     <>
       <OrbitControls
@@ -202,50 +199,10 @@ export function Scene() {
         speed={2}
       />
 
+      {/* Headline now lives in HTML (readable, responsive, indexable) — the 3D
+          layer carries the centrepiece instead. */}
       <group ref={textGroup}>
-        <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-          <Text3D
-            font="/fonts/helvetiker_regular.typeface.json"
-            size={size[0] * 0.15}
-            height={0.2}
-            curveSegments={32}
-            bevelEnabled
-            bevelThickness={0.02}
-            bevelSize={0.02}
-            bevelSegments={8}
-            position={[-2.5, 1.5, 0]}
-          >
-            Bismay Dey
-            <meshStandardMaterial
-              color="#8855ff"
-              metalness={0.9}
-              roughness={0.1}
-              emissive="#8855ff"
-              emissiveIntensity={0.8}
-            />
-          </Text3D>
-
-          <Text3D
-            font="/fonts/helvetiker_regular.typeface.json"
-            size={size[0] * 0.06}
-            height={0.1}
-            curveSegments={32}
-            bevelEnabled
-            bevelThickness={0.01}
-            bevelSize={0.01}
-            bevelSegments={8}
-            position={[-2, 0.5, 0]}
-          >
-            Web Developer
-            <meshStandardMaterial
-              color="#ff5588"
-              metalness={0.9}
-              roughness={0.1}
-              emissive="#ff5588"
-              emissiveIntensity={0.8}
-            />
-          </Text3D>
-        </Float>
+        <HeroCore />
       </group>
 
       <points ref={points}>
