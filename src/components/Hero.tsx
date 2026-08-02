@@ -2,18 +2,16 @@ import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import {
   ArrowRight,
-  FileDown,
-  FileText,
   Github,
   Instagram,
   Linkedin,
-  Loader2,
   Mail,
   MapPin,
   MessageCircle,
   MousePointerClick,
   LayoutGrid,
 } from "lucide-react";
+import { techLogo } from "../data/techLogos";
 
 const ROLES = [
   "Full-Stack Developer",
@@ -57,9 +55,11 @@ const MARQUEE = [
   "MongoDB",
   "Shopify",
   "WordPress",
-  "Tailwind",
-  "AWS",
-  "Docker",
+  "Tailwind CSS",
+  "AWS S3",
+  "Webflow",
+  "Express",
+  "PHP",
 ];
 
 /** Types one role, holds, deletes, moves to the next. */
@@ -106,13 +106,9 @@ function RoleTyper() {
 export function Hero({
   onTalk,
   onSeeWork,
-  onDownloadResume,
-  isDownloading,
 }: {
   onTalk: () => void;
   onSeeWork: () => void;
-  onDownloadResume: () => void;
-  isDownloading: boolean;
 }) {
   // gentle parallax — the copy drifts against the 3D layer behind it
   const mx = useMotionValue(0);
@@ -221,7 +217,7 @@ export function Hero({
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: base + 0.8, duration: 0.5 }}
-            className="flex flex-wrap items-center gap-3 mb-4"
+            className="flex flex-wrap items-center gap-3 mb-10"
           >
             <motion.button
               whileHover={{ scale: 1.04, y: -2 }}
@@ -243,40 +239,6 @@ export function Hero({
               <LayoutGrid className="w-5 h-5" />
               See my work
             </motion.button>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: base + 0.88, duration: 0.5 }}
-            className="flex flex-wrap items-center gap-3 mb-10"
-          >
-            <motion.button
-              whileHover={{ scale: 1.04, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={onDownloadResume}
-              disabled={isDownloading}
-              className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold shadow-lg shadow-pink-500/25 hover:shadow-pink-500/45 hover:brightness-110 disabled:opacity-70 disabled:cursor-wait transition-all"
-            >
-              {isDownloading ? (
-                <Loader2 className="w-5 h-5 animate-spin" />
-              ) : (
-                <FileDown className="w-5 h-5" />
-              )}
-              {isDownloading ? "Downloading…" : "Download Resume"}
-            </motion.button>
-
-            <motion.a
-              whileHover={{ scale: 1.04, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              href="/BISMAY DEY.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full bg-white/[0.08] border border-white/20 text-white font-semibold backdrop-blur-md hover:bg-white/[0.15] hover:border-white/40 transition-all"
-            >
-              <FileText className="w-5 h-5" />
-              View Resume
-            </motion.a>
           </motion.div>
 
           {/* stats */}
@@ -348,38 +310,36 @@ export function Hero({
           transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
           className="flex gap-8 whitespace-nowrap w-max"
         >
-          {[...MARQUEE, ...MARQUEE].map((t, i) => (
-            <span
-              key={i}
-              className="text-xs sm:text-sm font-medium text-gray-600 flex items-center gap-8"
-            >
-              {t}
-              <span className="w-1 h-1 rounded-full bg-gray-700" />
-            </span>
-          ))}
+          {[...MARQUEE, ...MARQUEE].map((t, i) => {
+            const logo = techLogo(t);
+            return (
+              <span
+                key={i}
+                className="text-xs sm:text-sm font-medium text-gray-500 flex items-center gap-8"
+              >
+                <span className="flex items-center gap-2">
+                  {logo && (
+                    <img
+                      src={logo.src}
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                      width={16}
+                      height={16}
+                      className={`w-4 h-4 object-contain opacity-70 ${
+                        logo.invert ? "invert" : ""
+                      }`}
+                    />
+                  )}
+                  {t.replace(" CSS", "").replace(" S3", "")}
+                </span>
+                <span className="w-1 h-1 rounded-full bg-gray-700" />
+              </span>
+            );
+          })}
         </motion.div>
       </div>
 
-      {/* scroll cue */}
-      <motion.button
-        onClick={onSeeWork}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        aria-label="Scroll to content"
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 group"
-      >
-        <span className="text-[10px] uppercase tracking-[0.28em] text-gray-600 group-hover:text-gray-400 transition-colors">
-          Scroll
-        </span>
-        <span className="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center p-1.5 group-hover:border-white/40 transition-colors">
-          <motion.span
-            animate={{ y: [0, 8, 0], opacity: [1, 0.2, 1] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-            className="w-1 h-1 rounded-full bg-purple-300"
-          />
-        </span>
-      </motion.button>
     </header>
   );
 }

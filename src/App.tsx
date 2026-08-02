@@ -5,6 +5,7 @@ import { Canvas } from "@react-three/fiber";
 import { Scene } from "./components/Scene";
 import {
   Brain,
+  Loader2,
   Code2,
   Rocket,
   Gamepad2,
@@ -42,6 +43,7 @@ import { ServicesSection } from "./components/ServicesSection";
 import { ExperienceSection } from "./components/ExperienceSection";
 import { Hero } from "./components/Hero";
 import { IntroOverlay } from "./components/IntroOverlay";
+import { ChatWidget } from "./components/ChatWidget";
 import { SITE_URL, useSeo } from "./lib/seo";
 
 const NAV_LINKS = [
@@ -715,8 +717,6 @@ function App() {
           onSeeWork={() =>
             clientProjectsRef.current?.scrollIntoView({ behavior: "smooth" })
           }
-          onDownloadResume={handleDownloadResume}
-          isDownloading={isDownloading}
         />
 
         {/* About Section - Bento Grid Layout */}
@@ -2820,6 +2820,57 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Sticky résumé bar — hidden over the hero so it doesn't sit on top of
+          the hero's own buttons, then rides along for the rest of the page. */}
+      <AnimatePresence>
+        {navScrolled && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 30 }}
+            transition={{ type: "spring", stiffness: 260, damping: 26 }}
+            className="fixed bottom-5 md:bottom-6 left-0 right-0 z-[60] flex justify-center px-4 pointer-events-none"
+          >
+            <div className="flex items-center gap-2 sm:gap-3 p-1.5 rounded-full bg-black/70 backdrop-blur-xl border border-white/15 shadow-2xl shadow-black/60 pointer-events-auto">
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                onClick={handleDownloadResume}
+                disabled={isDownloading}
+                className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white text-sm font-semibold shadow-lg shadow-pink-500/25 hover:brightness-110 disabled:opacity-70 disabled:cursor-wait transition-all"
+              >
+                {isDownloading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <FileDown className="w-4 h-4" />
+                )}
+                <span className="hidden sm:inline">
+                  {isDownloading ? "Downloading…" : "Download Resume"}
+                </span>
+                <span className="sm:hidden">
+                  {isDownloading ? "…" : "Resume"}
+                </span>
+              </motion.button>
+
+              <motion.a
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                href="/BISMAY DEY.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-white text-sm font-semibold hover:bg-white/10 transition-colors"
+              >
+                <FileText className="w-4 h-4" />
+                <span className="hidden sm:inline">View Resume</span>
+                <span className="sm:hidden">View</span>
+              </motion.a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <ChatWidget />
 
       <IntroOverlay />
 

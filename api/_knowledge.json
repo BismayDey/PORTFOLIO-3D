@@ -1,0 +1,1021 @@
+{
+ "core": {
+  "updated": "2026-08-02",
+  "name": "Bismay Dey",
+  "location": "Kolkata, West Bengal, India",
+  "site": "https://www.bismaydey.me",
+  "email": "bismaydey001@gmail.com",
+  "whatsapp": "+91 81003 14152",
+  "github": "https://github.com/BismayDey",
+  "linkedin": "https://www.linkedin.com/in/bismay-dey-634937268/",
+  "availability": "Available for freelance and full-time work",
+  "roles": [
+   "Full-Stack Developer",
+   "Mobile App Developer",
+   "AI / ML Engineer",
+   "Web Game Developer",
+   "Shopify & WordPress Developer",
+   "AI Video Manager",
+   "SEO Specialist"
+  ],
+  "stats": "19+ client platforms, 50+ projects shipped, 12 roles held, 10+ hackathons won",
+  "skills": "Frontend: React, Next.js, TypeScript, Tailwind, Three.js, Framer Motion, Sass, Bootstrap. Backend: Node.js, Express, Python, Java, C, C++, Go, Ruby, PHP. Data: MongoDB, Firebase/Firestore, PostgreSQL, MySQL. DevOps: Docker, Kubernetes, AWS, Azure, GCP, GitHub Actions, Jenkins, Terraform, Ansible, Nginx, Linux, Git, Vercel, Grafana, Prometheus. Platforms: Shopify, WordPress, WooCommerce, Webflow, Wix. Design/media: Figma, Adobe, Canva, After Effects, Premiere Pro, Blender, Unity, Unreal.",
+  "serviceIndex": [
+   "Custom Web Apps [Build] 3–10 weeks",
+   "Website Development [Build] 1–3 weeks",
+   "Mobile Apps [Build] 4–12 weeks",
+   "Web Games [Build] 3–8 weeks",
+   "AI Feature Development [AI & Media] 2–6 weeks",
+   "Chatbots [AI & Media] 1–4 weeks",
+   "AI Video [AI & Media] 3 days–2 weeks",
+   "Video Editing [AI & Media] 2 days–1 week",
+   "Shopify Stores [Commerce, Design & Growth] 1–4 weeks",
+   "WordPress [Commerce, Design & Growth] 1–3 weeks",
+   "Webflow [Commerce, Design & Growth] 1–3 weeks",
+   "Web Design & Figma [Commerce, Design & Growth] 1–3 weeks",
+   "SEO & AI Search Optimisation [Commerce, Design & Growth] Ongoing / 4–12 weeks",
+   "Fixes & Rescues [Rescue & Care] 24h–1 week",
+   "Maintenance & Support [Rescue & Care] Monthly retainer"
+  ],
+  "clientProjectIndex": [
+   "ONCALL LONDON* (E-commerce, 2025) Medical scrubs brand founded by an NHS doctor — size-aware product pages, team and student ordering, and campaign-driven merchandising. /client/oncall-london",
+   "Area 51 Fireworks* (E-commerce, 2025) Fireworks retail storefront with case-based catalog, cart and checkout, brand collections, store locator and Google review integration. /client/area51-fireworks",
+   "The Ecom Lab* (Marketing, 2026) Growth-agency site built around four pillars — paid acquisition, retention, SEO and CRO — with case studies and a strategy-call funnel. /client/ecom-lab",
+   "obo me™* (Media, 2026) Audio storytelling platform — curated stories, creator recording tools, a discovery feed and pro storyteller profiles across languages. /client/obo-me",
+   "Cremsocial* (Marketing, 2026) Digital marketing agency site covering SEO, paid ads, social and creator shadow-operating, with a free-audit lead capture funnel. /client/cremsocial",
+   "Rahat International* (Recruitment, 2026) Nepal-based overseas recruitment agency presenting a 9-step hiring journey, 14+ industries served and client testimonials across 16 countries. /client/rahat-international",
+   "TCI Global Recruitment* (Recruitment, 2025) Leading overseas recruitment company with 24+ years experience in talent deployment across 25+ countries, maintaining a 98% placement success rate. /client/tci-global",
+   "Technotalents AI* (HR Tech, 2025) AI-powered talent acquisition platform leveraging machine learning to match candidates with opportunities efficiently. /client/technotalents-ai",
+   "Consulteasily* (Professional Services, 2025) Comprehensive consulting platform designed to streamline client-consultant interactions with intuitive features and a seamless user experience. /client/consulteasily",
+   "StayZaa (Hospitality, 2025) Hospitality and booking platform providing seamless accommodation search, reservations, and property management solutions. /client/stayzaa",
+   "JustHopOn (Travel Tech, 2025) Adventure booking platform connecting travellers with expert guides and curated global expeditions. /client/justhopon",
+   "Prasanta Kar Institute (Education, 2025) Educational institute platform with course management, enrollment systems, and interactive learning modules for students and educators. /client/prasanta-kar-institute",
+   "Jhore Jole Jongole (Hospitality, 2026) Eco-heritage resort platform — rooms, curated packages, wildlife experiences, gallery and an enquiry-driven booking flow. /client/jhore-jole-jongole",
+   "E-Tuition (EdTech, 2026) Coaching-academy platform running the whole day — Google Meet classes, auto attendance, resumable recordings, AI class notes and verifiable certificates. /client/e-tuition",
+   "AI Se AI Seekho (EdTech, 2026) AI learning platform with a live model playground, prompt lab, structured courses, an AI tutor and a community prompt marketplace. /client/ai-se-ai-seekho",
+   "Techno Talents (EdTech, 2025) Unified ecosystem offering coaching, universities, hostels, meals, courses, mentorship, lifestyle perks and verified outcomes in one platform. /client/techno-talents",
+   "TechnoHR (HR Tech, 2025) AI-powered recruitment platform offering job search, smart employer tools, automated matching and hiring insights. /client/technohr",
+   "Glow (E-commerce, 2025) Modern e-commerce platform for premium cosmetics with stunning product showcases, cart management and secure checkout. /client/glow",
+   "TMSL LMS (Education, 2025) Learning management system for an engineering college — course delivery, study material and student coursework in one portal. /client/tmsl-lms"
+  ],
+  "experience": [
+   "Head of Development & Project Manager at Alphonso Media (OPC) Private Limited (Jan 2026 – Present, Remote) [current]",
+   "Freelance Lead Full-Stack Developer & Product Owner at Coding On The Rocks (Dec 2025 – Present, Remote · Freelance) [current]",
+   "Engineering Data Analyst at Garage Guys (Dec 2025 – Jul 2026, Remote, Tennessee, US)",
+   "Tech Lead & Full-Stack Developer at Techno India Group (Aug 2025 – Present) [current]",
+   "Supply Chain Management Engineer at Addi & Evie Pageant Rentals (Oct 2025 – Aug 2026, Remote, Tennessee, US)",
+   "Web Developer (Independent Contractor) at SINIM Bridge Corp. (Aug 2025 – Nov 2025)",
+   "Freelance Full-Stack Developer at Prasanta Kar Institute (Sep 2025 – Oct 2025)",
+   "Full-Stack Developer at Shashwat Technologies (Sep 2025 – Sep 2025)",
+   "Full-Stack Software Development Engineer Intern at RiseApply (Apr 2025 – Sep 2025)",
+   "Software Development Engineer at Echo of Pink (Aug 2025 – Sep 2025)",
+   "Data Engineer at TaxDeeds (Jan 2025 – Aug 2025)",
+   "Freelance Full-Stack Developer at Consult Easily (Mar 2025 – Apr 2025)"
+  ],
+  "personalProjects": "Health Track (AI wellness), BLACKSTREAM (streaming), MindTrack (mental health), RAGE EFFECT (browser FPS game), Operating System (web OS sim), 3D Solar System (Three.js), PaisaOP (UPI payments), Let's Draw (collaborative canvas), Code Generator, Ask Bro (Q&A), Chatting Room (realtime chat), Advanced Math Solver — all on github.com/BismayDey and linked in the Featured Projects section",
+  "howToHire": "Use the 'Let's Talk' button in the navbar or hero, or 'Contact Me' in the contact section — a short form (name, email, phone, service, details). Bismay replies personally, usually within a day, with scope, timeline and price. WhatsApp available. Pricing is always quoted per project — never state or estimate a rate.",
+  "siteSections": "Hero, About (skills), Services (15 across Build / AI & Media / Commerce-Design-Growth / Rescue & Care), Experience (12 roles), Client Projects (19 case studies at /client/<slug>), Testimonials (13), Featured Projects, Certificates, Contact",
+  "note": "One testimonial has a deliberately withheld client name — never speculate about who it is."
+ },
+ "projectDetail": {
+  "oncall-london": {
+   "name": "ONCALL LONDON",
+   "sector": "E-commerce · Medical Apparel",
+   "year": "2025",
+   "role": "Web Developer",
+   "stack": [
+    "Shopify",
+    "Liquid",
+    "JavaScript",
+    "CSS",
+    "Klaviyo"
+   ],
+   "live": "https://oncall-london.com/",
+   "caseStudy": "https://www.bismaydey.me/client/oncall-london",
+   "brief": "ONCALL LONDON sells technical workwear to a buyer who shops in the ten minutes between shifts. The store needed to communicate fabric, fit and utility fast, serve three very different buyers — individual clinicians, whole hospital teams, and students on a discount — and run aggressive time-boxed campaigns without a developer touching the theme each time.",
+   "whatIBuilt": [
+    "Built size-aware product cards that expose the full size run (XS–XL) and the review score inline, so a buyer can add to cart from the collection grid without a detour into the product page.",
+    "Implemented separate Teams and Students purchase paths, including the 20% student discount programme and bulk ordering for hospital departments.",
+    "Wired campaign merchandising the client can run themselves — countdown banners, best-seller and category rails, and percentage-off badges driven by Shopify metafields rather than hardcoded markup.",
+    "Built the men's and women's category architecture (classic tops, mandarin tops, joggers, trousers) with a shared component set so new ranges drop in without new templates.",
+    "Integrated email capture offering 15% off a first order, with list segmentation by men's/women's preference at signup.",
+    "Optimised the storefront for mobile-first browsing, which is where the majority of shift-time traffic lands."
+   ],
+   "features": [
+    "Inline size selection: Full size run surfaced on the collection grid, cutting the path to cart from three clicks to one.",
+    "Three buyer journeys: Individual, Teams and Students routes with their own pricing logic and ordering flows.",
+    "Self-serve campaigns: Countdown timers, discount badges and promo rails the client configures without code.",
+    "Trust surface: Review scores, free shipping and 30-day return messaging carried through header, PDP and footer."
+   ],
+   "outcomes": [
+    "Storefront live on a custom domain serving UK and international clinicians",
+    "4.7/5 average product rating displayed across the catalogue",
+    "Dedicated B2B route for hospital team orders alongside D2C checkout"
+   ]
+  },
+  "area51-fireworks": {
+   "name": "Area 51 Fireworks",
+   "sector": "E-commerce · Retail",
+   "year": "2025",
+   "role": "Web Developer",
+   "stack": [
+    "WordPress",
+    "WooCommerce",
+    "PHP",
+    "JavaScript",
+    "Google Reviews API"
+   ],
+   "live": "https://area51fireworks.com/",
+   "caseStudy": "https://www.bismaydey.me/client/area51-fireworks",
+   "brief": "Fireworks retail does not work like normal e-commerce. Product is sold by the case in odd configurations (12/1, 4/24, 3/24), inventory is seasonal and spiky, legality varies by county, and most of the revenue still happens in physical stores. The site had to sell online, drive footfall, and keep customers out of legal trouble at the same time.",
+   "whatIBuilt": [
+    "Built a case-quantity catalog that models real pack configurations (CASE 12/1, CASE 4/24) rather than forcing fireworks into a single-unit product schema.",
+    "Implemented cart, checkout and customer accounts across 100+ SKUs spanning 12+ house brands including Alien, Ninja, Reaper's Doom and Excalibur.",
+    "Built weekly-featured and Top 10 merchandising rails with load-more pagination, so the team can re-rank the storefront each week during peak season.",
+    "Developed a store locator for the service-area network, converting online browsers into in-store buyers.",
+    "Integrated Google Reviews to surface the 906-review, 5.0-star rating as live social proof instead of static testimonials.",
+    "Built a shipping and delivery FAQ addressing the case-minimum and direct-shipping questions that dominated customer support."
+   ],
+   "features": [
+    "Case-based product model: Catalog schema built around real pack configurations instead of single units.",
+    "Brand collections: 12+ house brands with their own landing surfaces and cross-sell rails.",
+    "Weekly merchandising: Featured and Top 10 rails the team re-ranks without touching code.",
+    "Store locator: Service-area finder that routes online traffic to the nearest physical store."
+   ],
+   "outcomes": [
+    "100+ SKUs across 12+ house brands live with full checkout",
+    "906+ Google reviews at a 5.0 rating surfaced directly on the storefront",
+    "Online catalog and physical store network unified in one funnel"
+   ]
+  },
+  "ecom-lab": {
+   "name": "The Ecom Lab",
+   "sector": "Marketing · Growth Agency",
+   "year": "2026",
+   "role": "Web Developer",
+   "stack": [
+    "Webflow",
+    "JavaScript",
+    "GSAP",
+    "SEO"
+   ],
+   "live": "https://ecomlab.social/",
+   "caseStudy": "https://www.bismaydey.me/client/ecom-lab",
+   "brief": "Every ecommerce agency site says the same things. The Ecom Lab's pitch is structural — that growth comes from four interconnected pillars working together, not from one channel — and the site had to make that argument visually before a visitor reads a single paragraph, then convert them into a booked strategy call.",
+   "whatIBuilt": [
+    "Built the site architecture around the four-pillar model — Acquisition, Retention, Organic Growth, Growth Optimisation — each with its own service surface and its own proof.",
+    "Developed case-study modules that lead with the number (+383% monthly revenue, +327% conversion rate, 1.2x → 5.4x ROAS) rather than burying it in prose.",
+    "Implemented a partner logo marquee and testimonial system with named founder attribution across four client verticals.",
+    "Built an accordion FAQ handling the objections that stall the sale — contracts, timelines, minimum ad spend, working alongside an in-house team.",
+    "Wired a multi-CTA layout funnelling every scroll depth toward the same action: booking a free growth strategy call.",
+    "Structured the page for SEO around commercial-intent terms rather than vanity keywords."
+   ],
+   "features": [
+    "Four-pillar architecture: Site structure mirrors the agency's growth model so the pitch is legible from the nav alone.",
+    "Number-first case studies: Results modules that lead with the metric, then explain how it was reached.",
+    "Objection-handling FAQ: Eight-question accordion covering the exact concerns that stall agency deals.",
+    "Single-action funnel: Every CTA on the page converges on one outcome — the booked strategy call."
+   ],
+   "outcomes": [
+    "Three published case studies with verified client outcomes",
+    "Full-funnel site from cold traffic to booked strategy call",
+    "Structured for commercial-intent organic search"
+   ]
+  },
+  "obo-me": {
+   "name": "obo me™",
+   "sector": "Media · Creator Platform",
+   "year": "2026",
+   "role": "Full-Stack Developer",
+   "stack": [
+    "Next.js",
+    "React",
+    "Node.js",
+    "MongoDB",
+    "AWS S3"
+   ],
+   "live": "https://www.obome.co/",
+   "caseStudy": "https://www.bismaydey.me/client/obo-me",
+   "brief": "obo me™ is a two-sided platform: professional storytellers need somewhere to record and publish, and listeners need a reason to keep coming back. It also had to work across multiple Indian languages without fragmenting into separate products, and surface a growing catalogue without an editorial team curating every shelf by hand.",
+   "whatIBuilt": [
+    "Built the listener side — featured story carousel, curated obo picks rails, and a discovery feed carrying listen counts, language tags and narrator attribution.",
+    "Developed creator-side recording and publishing flows, so storytellers can produce and release without leaving the platform.",
+    "Implemented the obo pro storyteller directory with individual profiles, an infinite marquee, and a join funnel for new creators.",
+    "Built search spanning both story titles and creator usernames, so a listener can find work by name or by narrator.",
+    "Developed the obo social section — a short-form discovery surface for regional stories and travel content.",
+    "Shipped supporting surfaces: event creation for pro accounts, a help centre, and an app-download funnel."
+   ],
+   "features": [
+    "Two-sided platform: Listener discovery and creator publishing built as one product, not two.",
+    "Multi-language catalogue: Language tagging carried through discovery so regional stories stay findable.",
+    "Creator directory: Pro storyteller profiles with a marquee and join funnel for new narrators.",
+    "Unified search: One search box spanning story titles and creator usernames."
+   ],
+   "outcomes": [
+    "Live catalogue spanning multiple Indian languages",
+    "Pro storyteller network with dedicated creator profiles",
+    "Web platform paired with a native app download funnel"
+   ]
+  },
+  "cremsocial": {
+   "name": "Cremsocial",
+   "sector": "Marketing · Digital Agency",
+   "year": "2026",
+   "role": "Web Developer",
+   "stack": [
+    "Next.js",
+    "React",
+    "Tailwind CSS",
+    "SEO"
+   ],
+   "live": "https://www.cremsocial.com/",
+   "caseStudy": "https://www.bismaydey.me/client/cremsocial",
+   "brief": "Cremsocial's entire positioning is a reaction against agency jargon — their promise is plain English and real numbers. A polished, buzzword-heavy site would have contradicted the pitch. It needed to feel blunt and specific while still converting two very different audiences: local business owners who need the phone to ring, and creators who need a revenue system built behind their content.",
+   "whatIBuilt": [
+    "Built service sections for SEO and local visibility, paid ads, social presence and conversion-focused web development — each listing concrete deliverables rather than abstract capabilities.",
+    "Implemented the 'Shadow Operating for Creators' programme flow: audience deep-dive, offer strategy, backend build, launch and refine, including the revenue-share model.",
+    "Developed a free-marketing-audit lead capture form with qualification fields, so inbound leads arrive pre-scoped instead of as blank enquiries.",
+    "Built a seven-question accordion FAQ covering scope, pricing, timelines and whether a single service can be bought standalone.",
+    "Structured the copy hierarchy so the anti-jargon voice survives the scroll — short lines, concrete claims, no filler sections.",
+    "Optimised the site for local SEO and Google Business Profile alignment, which is the service Cremsocial sells hardest."
+   ],
+   "features": [
+    "Deliverable-led services: Every service section lists what actually gets done, not what it's called.",
+    "Creator shadow-ops flow: Four-step programme surface covering strategy, build, launch and revenue share.",
+    "Qualifying audit form: Lead capture that scopes the enquiry before it reaches the inbox.",
+    "Local SEO structure: Built to rank for the local-intent terms the agency's own clients compete on."
+   ],
+   "outcomes": [
+    "Two distinct audiences served through one site without diluting either",
+    "Qualified lead capture replacing generic contact-form enquiries",
+    "Structured for local search visibility in the GTA market"
+   ]
+  },
+  "rahat-international": {
+   "name": "Rahat International",
+   "sector": "Recruitment · Corporate",
+   "year": "2026",
+   "role": "Web Developer",
+   "stack": [
+    "React",
+    "Next.js",
+    "Tailwind CSS",
+    "Framer Motion"
+   ],
+   "live": "https://www.rahatinternational.com.np/",
+   "caseStudy": "https://www.bismaydey.me/client/rahat-international",
+   "brief": "International recruitment is a compliance-heavy, trust-first business. A prospective client in the Gulf is handing over responsibility for hundreds of workers and needs to see the process, the paperwork and the track record before making contact. The site had to make a nine-stage regulatory pipeline feel navigable rather than bureaucratic.",
+   "whatIBuilt": [
+    "Built an interactive nine-step recruitment journey — demand paperwork and MOFA attestation, pre-approval, advertisement, interview and selection, medical checks, visa stamping, final approval, ticketing and deployment, after-recruitment service.",
+    "Developed a step-by-step navigator so a visitor can walk the pipeline stage by stage instead of reading a wall of process copy.",
+    "Implemented a 14-industry capability grid spanning construction, hospitality, facility management, security, manufacturing, agriculture, oil and gas, aviation and more.",
+    "Built a client logo wall and a nine-entry testimonial carousel with role and organisation attribution for credibility at a glance.",
+    "Surfaced trust metrics — 35 years of operation, 326,866+ placements, presence in 16+ countries — in a scannable proof section.",
+    "Developed the vision, mission and who-we-are surfaces plus a newsletter capture for ongoing opportunity alerts."
+   ],
+   "features": [
+    "Nine-step journey navigator: Interactive pipeline walking clients through every regulatory stage to deployment.",
+    "Industry capability grid: 14+ sectors, each with its own placement track record.",
+    "Trust metrics surface: 35 years, 326,866+ placements and 16+ countries presented as scannable proof.",
+    "Testimonial carousel: Nine client quotes with named roles and organisations."
+   ],
+   "outcomes": [
+    "Full recruitment pipeline made self-explanatory to overseas clients",
+    "14+ industry verticals presented with dedicated capability surfaces",
+    "Three decades of track record translated into a credibility-first layout"
+   ]
+  },
+  "tci-global": {
+   "name": "TCI Global Recruitment",
+   "sector": "Recruitment · Global Workforce",
+   "year": "2025",
+   "role": "Web Developer",
+   "stack": [
+    "React",
+    "Node.js",
+    "Tailwind CSS"
+   ],
+   "live": "https://www.tcibd.com/",
+   "caseStudy": "https://www.bismaydey.me/client/tci-global",
+   "brief": "TCI had two decades of placement history and almost none of it was visible online. Competitors with a fraction of the track record presented better. The brief was to turn 24 years of operational credibility into a digital presence that would hold up next to far larger international agencies.",
+   "whatIBuilt": [
+    "Built the corporate platform presenting 24+ years of operating history, 25+ country coverage and the 98% placement success rate as primary trust signals.",
+    "Developed sector-by-sector capability surfaces so prospective employers can find their own industry immediately.",
+    "Implemented the recruitment process walkthrough covering sourcing, selection, documentation and deployment.",
+    "Built responsive layouts tuned for the Gulf and South Asian markets where the majority of traffic originates.",
+    "Structured the site so credibility metrics appear above the fold on every key landing surface."
+   ],
+   "features": [
+    "Track-record-first layout: 24 years, 25+ countries and 98% placement rate lead every major surface.",
+    "Sector capability pages: Industry-specific surfaces so employers self-identify instantly.",
+    "Process transparency: End-to-end sourcing-to-deployment walkthrough for compliance-minded clients.",
+    "Market-tuned responsive build: Optimised for the mobile-heavy Gulf and South Asian traffic profile."
+   ],
+   "outcomes": [
+    "Two decades of placement history made visible and verifiable online",
+    "25+ country coverage presented as a single navigable capability map",
+    "98% placement success rate established as the headline trust signal"
+   ]
+  },
+  "technotalents-ai": {
+   "name": "Technotalents AI",
+   "sector": "HR Tech · AI",
+   "year": "2025",
+   "role": "Full-Stack Developer",
+   "stack": [
+    "Next.js",
+    "TypeScript",
+    "Node.js",
+    "MongoDB",
+    "AI/ML APIs"
+   ],
+   "live": "https://www.technotalents.ai/",
+   "caseStudy": "https://www.bismaydey.me/client/technotalents-ai",
+   "brief": "Recruiters drown in unstructured CVs. The platform needed to turn free-text resumes and job descriptions into something comparable, then rank matches in a way a human recruiter would actually trust — because an unexplained score gets ignored.",
+   "whatIBuilt": [
+    "Built the candidate-to-opportunity matching platform with machine-learning ranking over parsed CV and job-description data.",
+    "Developed the recruiter-facing interface for reviewing, filtering and shortlisting ranked candidate sets.",
+    "Implemented candidate profile ingestion and normalisation so unstructured resumes become comparable structured records.",
+    "Built the employer surfaces for posting roles and managing pipelines end to end.",
+    "Shipped a responsive interface on a .ai domain positioning the product in the AI recruitment category."
+   ],
+   "features": [
+    "ML-ranked matching: Candidates scored against role requirements rather than keyword-matched.",
+    "Resume normalisation: Unstructured CVs parsed into comparable structured records.",
+    "Recruiter workflow: Review, filter and shortlist ranked candidate sets in one surface.",
+    "Employer pipelines: Role posting through to hire, managed end to end."
+   ],
+   "outcomes": [
+    "Matching engine replacing manual CV screening",
+    "Structured candidate records generated from free-text resumes",
+    "Live on a category-defining .ai domain"
+   ]
+  },
+  "consulteasily": {
+   "name": "Consulteasily",
+   "sector": "Professional Services",
+   "year": "2025",
+   "role": "Freelance Full-Stack Developer",
+   "stack": [
+    "React",
+    "Node.js",
+    "Express",
+    "MongoDB"
+   ],
+   "live": "https://www.consulteasily.com/",
+   "caseStudy": "https://www.bismaydey.me/client/consulteasily",
+   "brief": "Consulteasily needed to go from nothing to a working platform — frontend, backend, database and deployment — inside a two-month window, without cutting the corners that would make it unmaintainable later.",
+   "whatIBuilt": [
+    "Built the entire site from scratch, including responsive UI and the end-to-end client-consultant interaction flow.",
+    "Developed the REST API layer and a scalable backend with secure database integration.",
+    "Owned full-stack delivery through deployment, including performance optimisation on launch.",
+    "Structured the codebase for maintainability so the platform could grow past the initial engagement."
+   ],
+   "features": [
+    "End-to-end build: Frontend, backend, database and deployment delivered by one developer.",
+    "Secure API layer: REST endpoints with authenticated, validated database access.",
+    "Responsive UI: Consistent experience across desktop, tablet and mobile.",
+    "Launch optimisation: Performance tuned before go-live rather than after."
+   ],
+   "outcomes": [
+    "Full platform delivered from zero in a two-month engagement",
+    "Scalable backend architecture with secure data access",
+    "Deployed and performance-optimised at launch"
+   ]
+  },
+  "stayzaa": {
+   "name": "StayZaa",
+   "sector": "Hospitality · Travel",
+   "year": "2025",
+   "role": "Full-Stack Developer",
+   "stack": [
+    "React",
+    "Node.js",
+    "Mapbox GL",
+    "MongoDB"
+   ],
+   "live": "https://stayzaa-about.vercel.app/property/eecd843d-7f9b-4e20-bad1-da746862f9e3",
+   "caseStudy": "https://www.bismaydey.me/client/stayzaa",
+   "brief": "StayZaa's differentiator is an interactive 3D globe for discovering stays — and it was the slowest thing on the site. The globe carried the brand but was costing page performance badly enough to hurt the funnel it was supposed to feed.",
+   "whatIBuilt": [
+    "Profiled and optimised the Mapbox GL globe rendering pipeline, improving render efficiency by 30% and measurably cutting page load times.",
+    "Built and refined frontend and backend features across the booking flow, including the About surface.",
+    "Delivered scalable, maintainable component architecture with consistent design language and responsive behaviour across desktop and mobile.",
+    "Worked with the core team to ship features on release cadence and resolved 90% of the critical bug backlog.",
+    "Held design consistency across the property search, listing and reservation surfaces."
+   ],
+   "features": [
+    "Optimised 3D globe: Mapbox GL rendering pipeline rebuilt for a 30% efficiency gain.",
+    "Booking flow: Search through reservation, built for mobile and desktop parity.",
+    "Property management: Host-side surfaces for listing and managing inventory.",
+    "Release-cadence delivery: Shipped alongside the core team with 90% of critical bugs cleared."
+   ],
+   "outcomes": [
+    "30% improvement in Mapbox GL globe rendering efficiency",
+    "90% of critical bugs resolved during the engagement",
+    "Measurable page performance and load-time gains"
+   ]
+  },
+  "justhopon": {
+   "name": "JustHopOn",
+   "sector": "Travel Tech · Adventure",
+   "year": "2025",
+   "role": "Full-Stack Developer",
+   "stack": [
+    "React",
+    "Next.js",
+    "Node.js",
+    "Tailwind CSS"
+   ],
+   "live": "https://www.justhopon.com/",
+   "caseStudy": "https://www.bismaydey.me/client/justhopon",
+   "brief": "Adventure travel is a high-consideration purchase — people research for weeks before booking a Himalayan trek. The platform had to carry enough detail to close that research loop while keeping the booking path short enough that a decided buyer doesn't drop out.",
+   "whatIBuilt": [
+    "Built the expedition discovery and booking platform connecting travellers with vetted expert guides.",
+    "Developed curated expedition surfaces spanning destinations from the Himalayas to Arctic skies.",
+    "Implemented the guide profile system so travellers can evaluate who they're travelling with, not just where.",
+    "Built responsive, image-forward layouts that carry the destination without stalling load times.",
+    "Shipped the enquiry and booking flow from browse to confirmed trip."
+   ],
+   "features": [
+    "Curated expeditions: Destination-led discovery across a globally spread trip catalogue.",
+    "Guide profiles: Vetted expert profiles so travellers evaluate the guide, not just the route.",
+    "Image-forward, fast: Photography-heavy layouts kept within a real performance budget.",
+    "Short booking path: Deep research content without lengthening the path to booking."
+   ],
+   "outcomes": [
+    "Global expedition catalogue live under one booking flow",
+    "Guide-led trust model built into the product",
+    "Research-depth content paired with a short conversion path"
+   ]
+  },
+  "prasanta-kar-institute": {
+   "name": "Prasanta Kar Institute",
+   "sector": "Education · LMS + Commerce",
+   "year": "2025",
+   "role": "Freelance Full-Stack Developer",
+   "stack": [
+    "Next.js",
+    "Node.js",
+    "MongoDB",
+    "Razorpay"
+   ],
+   "live": "https://www.prasantakarinstitute.com/",
+   "caseStudy": "https://www.bismaydey.me/client/prasanta-kar-institute",
+   "brief": "The institute needed three products at once — a learning management system, an e-commerce store, and an e-book shop — plus admin tooling to run all of it. Built as three systems it would have been unmaintainable; it had to be one platform with one identity, one cart and one dashboard.",
+   "whatIBuilt": [
+    "Developed the entire platform from scratch — frontend, backend, database and deployment — unifying an LMS, e-commerce store and e-book store under one account system.",
+    "Built admin and manager panels with real-time monitoring, analytics dashboards and content management across courses, orders, users and payments.",
+    "Integrated the Razorpay payment gateway with automated course enrolment triggered on successful payment.",
+    "Implemented order management and live tracking on a secure, scalable architecture sustaining 99.9% uptime.",
+    "Delivered fully responsive layouts so students can work through course content on phones."
+   ],
+   "features": [
+    "Three products, one platform: LMS, storefront and e-book shop sharing one account, cart and dashboard.",
+    "Admin + manager panels: Real-time monitoring and analytics over courses, orders, users and payments.",
+    "Automated enrolment: Razorpay payment success triggers course access with no manual step.",
+    "99.9% uptime: Architecture built to hold through enrolment-period traffic spikes."
+   ],
+   "outcomes": [
+    "99.9% uptime sustained on a scalable architecture",
+    "Automated enrolment removing manual admin from every sale",
+    "Three product lines unified under a single platform"
+   ]
+  },
+  "jhore-jole-jongole": {
+   "name": "Jhore Jole Jongole",
+   "sector": "Hospitality · Eco Tourism",
+   "year": "2026",
+   "role": "Full-Stack Developer",
+   "stack": [
+    "Next.js",
+    "React",
+    "Tailwind CSS",
+    "Framer Motion"
+   ],
+   "live": "https://jhore-jole-jungle-production.vercel.app/",
+   "caseStudy": "https://www.bismaydey.me/client/jhore-jole-jongole",
+   "brief": "The resort's real advantage is logistical — it is one of the only Sundarbans properties reachable by car with no river crossing — but that story was invisible online. It also books through enquiry rather than instant payment, so the site had to capture enough detail in one form for the team to quote accurately without a phone tag loop.",
+   "whatIBuilt": [
+    "Built the full marketing and booking site — rooms, curated packages, wildlife and experience sections, amenities, gallery and location guidance.",
+    "Led with the logistics advantage: three hours from Kolkata, no river crossing, Tiger Rescue Centre five minutes away, direct car access and parking.",
+    "Implemented a multi-field reservation enquiry flow capturing dates, guest count, package preference and special requests including wheelchair access and dietary requirements.",
+    "Developed six curated package layouts covering families, day trips, river cruises, school excursions, corporate retreats and senior citizens.",
+    "Built a twelve-item amenities grid and a wildlife section covering the seven species guests actually come to see.",
+    "Shipped responsive image galleries and video sections carrying creator-generated social proof."
+   ],
+   "features": [
+    "Logistics-first positioning: The no-river-crossing advantage surfaced above the fold, not buried in an FAQ.",
+    "Six curated packages: Distinct layouts for families, schools, corporates and senior guests.",
+    "Detailed enquiry capture: Accessibility, dietary and occasion fields so the team can quote in one pass.",
+    "Wildlife and amenity surfaces: Twelve amenities and seven species presented as reasons to book."
+   ],
+   "outcomes": [
+    "Six package types live with a single unified enquiry flow",
+    "Two-hour response commitment supported by pre-qualified enquiries",
+    "Resort's core logistical advantage made the headline message"
+   ]
+  },
+  "e-tuition": {
+   "name": "E-Tuition",
+   "sector": "EdTech · Coaching Platform",
+   "year": "2026",
+   "role": "Full-Stack Developer & Product Owner",
+   "stack": [
+    "Next.js",
+    "Firebase",
+    "Firestore",
+    "Google Meet API",
+    "Google Calendar",
+    "Google Drive"
+   ],
+   "live": "https://e-tution-platform.vercel.app/",
+   "caseStudy": "https://www.bismaydey.me/client/e-tuition",
+   "brief": "Coaching centres run on five apps and a group chat: Zoom links in WhatsApp, recordings on a shared drive, attendance in a paper register, marks across four spreadsheets, certificates in Word. Replacing that meant matching every one of those workflows on day one — a platform that covers 80% of the day is worse than the mess it replaces, because now there are six systems.",
+   "whatIBuilt": [
+    "Integrated Google Meet, Calendar, Drive and Sign-in so classes are scheduled from the course and joined inside the platform — teachers never learn a new video tool.",
+    "Built automatic attendance capture at join time, replacing the register entirely; nobody calls names.",
+    "Implemented recordings that resume to the exact second across devices, with per-student per-lesson completion tracked as they watch.",
+    "Shipped an AI notes pipeline producing transcript, summary, key points and timecoded topics after every session — landing as a draft, never auto-published.",
+    "Gated all AI output behind mandatory teacher review, because unreviewed machine output is not something to hand a student.",
+    "Enforced three strictly separated roles — administrator, teacher, student — in Firestore security rules rather than by hiding buttons in the UI.",
+    "Automated certificate issuance on course completion with serial numbers verifiable at a public URL.",
+    "Built owner reporting recomputed from actual attendance and watch events, never estimated."
+   ],
+   "features": [
+    "Google Meet native: Classes scheduled from the course, joined in-platform, links visible only to enrolled students.",
+    "Attendance at the door: Captured automatically as students join. No register, no roll call.",
+    "AI notes, teacher-reviewed: Transcript, summary, key points and timecodes — published only after a human pass.",
+    "Second-accurate resume: Recordings pick up exactly where a student stopped, on any device.",
+    "Database-enforced roles: Admin, teacher and student separation written into Firestore rules.",
+    "Self-verifying certificates: Issued automatically with serials anyone can check at a public URL."
+   ],
+   "outcomes": [
+    "Seven separate tools and workflows replaced on day one",
+    "Notes turnaround cut from an hour of writing to a fifteen-minute review",
+    "Owner reporting recomputed from real events instead of asked for on Mondays"
+   ]
+  },
+  "ai-se-ai-seekho": {
+   "name": "AI Se AI Seekho",
+   "sector": "EdTech · AI",
+   "year": "2026",
+   "role": "Full-Stack Developer",
+   "stack": [
+    "Next.js",
+    "TypeScript",
+    "LLM APIs",
+    "Tailwind CSS"
+   ],
+   "live": "https://ai-se-ai-seekho.vercel.app/",
+   "caseStudy": "https://www.bismaydey.me/client/ai-se-ai-seekho",
+   "brief": "You cannot learn prompt engineering by reading about prompt engineering. The platform had to put a live model in front of a learner within seconds of landing, then build structure around that experimentation so it becomes a curriculum rather than a toy.",
+   "whatIBuilt": [
+    "Built an interactive AI playground with live prompt execution, adjustable model parameters and a one-click prompt enhancer — reachable from the hero without signing up.",
+    "Developed a structured course system spanning beginner fundamentals through advanced LLM techniques and fine-tuning.",
+    "Implemented the Prompt Lab with version control and performance scoring, so learners can iterate on a prompt and see whether it improved.",
+    "Built an AI tutor delivering personalised guidance and instant feedback on learner work.",
+    "Developed a community prompt marketplace for browsing, sharing and monetising prompts, with ratings and category filtering.",
+    "Shipped separate learner, dashboard and admin surfaces on one account system."
+   ],
+   "features": [
+    "Zero-friction playground: Live model execution from the landing page, no signup wall.",
+    "Prompt Lab with versioning: Iterate prompts with version history and performance scoring.",
+    "AI tutor: Personalised guidance and instant feedback, available around the clock.",
+    "Prompt marketplace: Community browsing, sharing and monetisation with ratings."
+   ],
+   "outcomes": [
+    "Live model experimentation available before signup",
+    "Structured curriculum from fundamentals to fine-tuning",
+    "Community marketplace turning learners into contributors"
+   ]
+  },
+  "techno-talents": {
+   "name": "Techno Talents",
+   "sector": "EdTech · Student Ecosystem",
+   "year": "2025",
+   "role": "Full-Stack Developer",
+   "stack": [
+    "Next.js",
+    "React",
+    "Node.js",
+    "MongoDB"
+   ],
+   "live": "https://techno-talents.vercel.app/",
+   "caseStudy": "https://www.bismaydey.me/client/techno-talents",
+   "brief": "A student moving cities for education deals with a dozen unrelated vendors — coaching, admission, hostel, food, mentorship. The platform had to consolidate that into one account without becoming an unnavigable directory.",
+   "whatIBuilt": [
+    "Built the unified platform spanning coaching, universities, hostels, meals, courses, mentorship and lifestyle perks under one student account.",
+    "Developed distinct surfaces for the three audiences — students, parents and institutions — without splitting the product.",
+    "Implemented a verified-outcomes system so claims made on the platform are backed by evidence.",
+    "Built discovery and comparison flows across service categories.",
+    "Shipped responsive layouts for a predominantly mobile student user base."
+   ],
+   "features": [
+    "Single student account: Coaching, housing, meals and mentorship consolidated into one login.",
+    "Three audiences, one product: Student, parent and institution surfaces without fragmenting the platform.",
+    "Verified outcomes: Evidence-backed claims rather than unverified marketing numbers.",
+    "Cross-category discovery: Compare across service types in a single browsing flow."
+   ],
+   "outcomes": [
+    "Seven service categories unified into one student account",
+    "Parent and institution surfaces served without a separate build",
+    "Outcome verification built into the platform model"
+   ]
+  },
+  "technohr": {
+   "name": "TechnoHR",
+   "sector": "HR Tech · AI",
+   "year": "2025",
+   "role": "Full-Stack Developer",
+   "stack": [
+    "Next.js",
+    "React",
+    "Node.js",
+    "MongoDB",
+    "AI APIs"
+   ],
+   "live": "https://technohr.vercel.app/",
+   "caseStudy": "https://www.bismaydey.me/client/technohr",
+   "brief": "Job boards fail both sides at once: candidates apply into a void, employers drown in unqualified applications. TechnoHR needed automated matching that actually reduces volume on the employer side while raising signal on the candidate side.",
+   "whatIBuilt": [
+    "Built the AI-powered job search experience with automated candidate-to-role matching.",
+    "Developed smart employer tooling for posting, screening and pipeline management.",
+    "Implemented hiring insights and analytics surfaces for employers tracking funnel health.",
+    "Built the candidate profile system feeding the matching engine.",
+    "Shipped a responsive platform connecting talent with global opportunities."
+   ],
+   "features": [
+    "Automated matching: Roles and candidates paired by fit rather than keyword overlap.",
+    "Employer tooling: Posting, screening and pipeline management in one surface.",
+    "Hiring insights: Funnel analytics so employers see where candidates drop.",
+    "Global reach: Cross-border opportunity discovery for candidates."
+   ],
+   "outcomes": [
+    "Automated matching reducing unqualified application volume",
+    "End-to-end employer pipeline from posting to hire",
+    "Analytics surfacing funnel health in real time"
+   ]
+  },
+  "glow": {
+   "name": "Glow",
+   "sector": "E-commerce · Beauty",
+   "year": "2025",
+   "role": "Full-Stack Developer",
+   "stack": [
+    "Next.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "Stripe"
+   ],
+   "live": "https://glow-2-o.vercel.app/",
+   "caseStudy": "https://www.bismaydey.me/client/glow",
+   "brief": "Cosmetics sell on presentation — the product photography has to dominate — but heavy imagery is the fastest way to kill a mobile conversion rate. The build had to keep the visual impact without the load cost.",
+   "whatIBuilt": [
+    "Built the storefront with image-forward product showcases tuned to keep cosmetics photography sharp without blocking first paint.",
+    "Implemented cart management with persistent state across sessions.",
+    "Developed the secure checkout flow end to end.",
+    "Built responsive category and product surfaces for a mobile-majority beauty audience.",
+    "Optimised image delivery so the visual quality survives the performance budget."
+   ],
+   "features": [
+    "Image-forward, fast: Product photography kept sharp without blocking first paint.",
+    "Persistent cart: Cart state survives across sessions and devices.",
+    "Secure checkout: End-to-end payment flow with validated order handling.",
+    "Mobile-majority build: Tuned for the phone-first beauty shopping pattern."
+   ],
+   "outcomes": [
+    "Visual-first storefront within a real performance budget",
+    "Full cart-to-checkout flow shipped end to end",
+    "Responsive experience across the mobile-heavy beauty audience"
+   ]
+  },
+  "tmsl-lms": {
+   "name": "TMSL LMS",
+   "sector": "Education · LMS",
+   "year": "2025",
+   "role": "Full-Stack Developer",
+   "stack": [
+    "Next.js",
+    "React",
+    "Firebase",
+    "Tailwind CSS"
+   ],
+   "live": "https://tmsl-lms-main.vercel.app/",
+   "caseStudy": "https://www.bismaydey.me/client/tmsl-lms",
+   "brief": "College course material lived across email threads, shared drives and departmental noticeboards. Students missed deadlines because nothing was in one place, and faculty had no view of who had actually accessed what.",
+   "whatIBuilt": [
+    "Built the learning management portal unifying course delivery, study material distribution and student coursework.",
+    "Developed faculty surfaces for publishing material and tracking student engagement.",
+    "Implemented the student-facing course view with material access and submission flows.",
+    "Built role separation between faculty and student accounts.",
+    "Shipped responsive layouts so students can access coursework from phones."
+   ],
+   "features": [
+    "Unified course portal: Material, delivery and coursework in one place instead of three.",
+    "Faculty publishing: Upload and distribute material without IT involvement.",
+    "Engagement visibility: Faculty can see what students have actually accessed.",
+    "Role separation: Faculty and student accounts with distinct permissions."
+   ],
+   "outcomes": [
+    "Course material consolidated from three channels into one portal",
+    "Faculty visibility into student engagement",
+    "Mobile access for coursework and submissions"
+   ]
+  }
+ },
+ "serviceDetail": {
+  "Custom Web Apps": {
+   "category": "Build",
+   "what": "Production applications in Next.js, React and Node — auth, dashboards, payments, real-time data and the APIs behind them.",
+   "includes": [
+    "System architecture & database design",
+    "Role-based auth and permissions",
+    "Payment and third-party integrations",
+    "CI/CD, monitoring and handover docs"
+   ],
+   "timeline": "3–10 weeks"
+  },
+  "Website Development": {
+   "category": "Build",
+   "what": "Fast, responsive, SEO-ready marketing sites and landing pages that load in under two seconds and convert on a phone.",
+   "includes": [
+    "Design to pixel-accurate build",
+    "Core Web Vitals tuning",
+    "Schema markup and meta",
+    "CMS your team can actually edit"
+   ],
+   "timeline": "1–3 weeks"
+  },
+  "Mobile Apps": {
+   "category": "Build",
+   "what": "Cross-platform apps sharing one codebase and one backend with your web product — no duplicated logic.",
+   "includes": [
+    "iOS + Android from one codebase",
+    "Push notifications & deep links",
+    "Offline-first data layer",
+    "Store submission support"
+   ],
+   "timeline": "4–12 weeks"
+  },
+  "Web Games": {
+   "category": "Build",
+   "what": "Browser games and interactive 3D experiences built with Phaser.js, Three.js and WebGL that run without a download.",
+   "includes": [
+    "Game loop and physics",
+    "Asset pipeline & sprite atlases",
+    "Leaderboards and save state",
+    "60fps on mid-range hardware"
+   ],
+   "timeline": "3–8 weeks"
+  },
+  "AI Feature Development": {
+   "category": "AI & Media",
+   "what": "LLM features wired into your product — summarisation, semantic search, generation and agentic workflows, with humans kept in the loop where it matters.",
+   "includes": [
+    "Model selection and prompt design",
+    "RAG pipelines over your own data",
+    "Streaming responses and caching",
+    "Cost controls and usage limits"
+   ],
+   "timeline": "2–6 weeks"
+  },
+  "Chatbots": {
+   "category": "AI & Media",
+   "what": "Support and sales bots trained on your own content, deployed to web, WhatsApp or Slack — with handoff to a human when they get stuck.",
+   "includes": [
+    "Knowledge base ingestion",
+    "Multi-channel deployment",
+    "Human escalation path",
+    "Conversation analytics"
+   ],
+   "timeline": "1–4 weeks"
+  },
+  "AI Video": {
+   "category": "AI & Media",
+   "what": "AI-generated video for ads, explainers and social — script to finished cut, in your brand's voice.",
+   "includes": [
+    "Script and storyboard",
+    "Generated scenes and voiceover",
+    "Brand-matched grading",
+    "Platform-ready exports"
+   ],
+   "timeline": "3 days–2 weeks"
+  },
+  "Video Editing": {
+   "category": "AI & Media",
+   "what": "Reels, YouTube edits, promos and motion graphics cut in Premiere Pro and After Effects.",
+   "includes": [
+    "Multi-cam edit and colour",
+    "Motion graphics and titles",
+    "Sound design and mix",
+    "Vertical + horizontal cuts"
+   ],
+   "timeline": "2 days–1 week"
+  },
+  "Shopify Stores": {
+   "category": "Commerce, Design & Growth",
+   "what": "Theme development, custom sections, app integration and a checkout tuned for conversion — merchandising your team controls.",
+   "includes": [
+    "Custom theme or heavy customisation",
+    "Metafield-driven sections",
+    "App integration and migration",
+    "Checkout and upsell tuning"
+   ],
+   "timeline": "1–4 weeks"
+  },
+  "WordPress": {
+   "category": "Commerce, Design & Growth",
+   "what": "Custom themes, plugin work, migrations and rescue jobs — with none of the page-builder bloat left behind.",
+   "includes": [
+    "Custom theme development",
+    "WooCommerce setup",
+    "Speed and security hardening",
+    "Content migration"
+   ],
+   "timeline": "1–3 weeks"
+  },
+  "Webflow": {
+   "category": "Commerce, Design & Growth",
+   "what": "Pixel-accurate Webflow builds with CMS collections and interactions your marketing team can edit alone.",
+   "includes": [
+    "Design to Webflow build",
+    "CMS collection structure",
+    "Scroll and hover interactions",
+    "Team training on edits"
+   ],
+   "timeline": "1–3 weeks"
+  },
+  "Web Design & Figma": {
+   "category": "Commerce, Design & Growth",
+   "what": "Full visual direction — layout, type, colour and motion — designed to be built, not just admired. Handoff-ready components, not flat mockups.",
+   "includes": [
+    "Wireframes to high-fidelity",
+    "Design system & components",
+    "Responsive breakpoints specced",
+    "Developer handoff files"
+   ],
+   "timeline": "1–3 weeks"
+  },
+  "SEO & AI Search Optimisation": {
+   "category": "Commerce, Design & Growth",
+   "what": "Technical SEO, on-page structure and content strategy that gets you ranking for terms buyers actually search — plus AISEO so you surface inside AI answers, not just the blue links.",
+   "includes": [
+    "Technical audit and fixes",
+    "Keyword and intent mapping",
+    "Schema markup and Core Web Vitals",
+    "Google Business Profile and local SEO",
+    "AI search (AISEO) optimisation",
+    "Monthly ranking and traffic reporting"
+   ],
+   "timeline": "Ongoing / 4–12 weeks"
+  },
+  "Fixes & Rescues": {
+   "category": "Rescue & Care",
+   "what": "Broken builds, blank white pages, failing deploys, hacked sites, plugin conflicts and performance disasters — diagnosed properly, then fixed at the root.",
+   "includes": [
+    "Root-cause diagnosis, not a patch",
+    "Malware cleanup and hardening",
+    "Deploy pipeline repair",
+    "Written post-mortem"
+   ],
+   "timeline": "24h–1 week"
+  },
+  "Maintenance & Support": {
+   "category": "Rescue & Care",
+   "what": "Ongoing backend, server and site upkeep — updates, backups, monitoring and uptime you can stop thinking about.",
+   "includes": [
+    "Scheduled updates and backups",
+    "Uptime and error monitoring",
+    "Monthly performance report",
+    "Priority response window"
+   ],
+   "timeline": "Monthly retainer"
+  }
+ },
+ "experienceDetail": {
+  "Alphonso Media (OPC) Private Limited": {
+   "title": "Head of Development & Project Manager",
+   "period": "Jan 2026 – Present",
+   "location": "Remote",
+   "highlights": [
+    "Leading end-to-end delivery of software products — from technical strategy and system architecture to project planning, sprint execution, and successful client delivery.",
+    "Coordinating cross-functional teams across frontend, backend, UI/UX, QA, and DevOps, while owning code quality, technical reviews, deployment strategy, and product releases.",
+    "Working directly with clients to gather requirements and define scope, preparing SRS documents, roadmaps, and delivery plans that translate business needs into technical solutions.",
+    "Identifying and mitigating project risks, driving Agile process improvements, and mentoring developers to sustain a culture of collaboration and continuous improvement."
+   ]
+  },
+  "Coding On The Rocks": {
+   "title": "Freelance Lead Full-Stack Developer & Product Owner",
+   "period": "Dec 2025 – Present",
+   "location": "Remote · Freelance",
+   "highlights": [
+    "Owning the complete product lifecycle — ideation, requirements analysis, system architecture, development, testing, deployment, and post-launch optimization.",
+    "Building full-stack applications with Next.js, React, Node.js, Firebase, MongoDB, and AWS — REST/GraphQL APIs, optimized schemas, and secure role-based access control.",
+    "Leading cross-functional teams across frontend, backend, UI/UX, and QA, and designing responsive, accessible interfaces that hold brand consistency under real performance budgets.",
+    "Setting up CI/CD pipelines, automated testing, and environment management for fast, reliable releases — plus code reviews and mentoring to keep engineering standards high."
+   ]
+  },
+  "Garage Guys": {
+   "title": "Engineering Data Analyst",
+   "period": "Dec 2025 – Jul 2026",
+   "location": "Remote, Tennessee, US",
+   "highlights": [
+    "Analyzed building and construction permit data for residential and commercial infrastructure projects, extracting permit types, property identifiers, contractor details, and site records.",
+    "Applied systematic validation, cleaning, and normalization across large datasets to keep accuracy, completeness, and consistency intact at volume.",
+    "Interpreted permit documentation to classify engineering-relevant work (new construction, remodeling, plumbing, electrical) and flagged anomalies before they reached downstream systems."
+   ]
+  },
+  "Techno India Group": {
+   "title": "Tech Lead & Full-Stack Developer",
+   "period": "Aug 2025 – Present",
+   "location": null,
+   "highlights": [
+    "Overseeing and managing all technical operations for Techno India Group, including frontend and backend development, database design, domain & DNS configuration, server management, and deployment pipelines, ensuring seamless performance and reliability across all projects.",
+    "Leading a multidisciplinary development team to plan, architect, and deliver modern, scalable web platforms — handling everything from wireframing and system architecture to integration, optimization, and security.",
+    "Driving innovation and technical excellence by implementing best practices, maintaining high system uptime, and ensuring every project aligns with the group's long-term digital transformation goals."
+   ]
+  },
+  "Addi & Evie Pageant Rentals": {
+   "title": "Supply Chain Management Engineer",
+   "period": "Oct 2025 – Aug 2026",
+   "location": "Remote, Tennessee, US",
+   "highlights": [
+    "Oversee end-to-end inventory operations, including stock tracking, transfers, and logistics coordination for efficient order fulfillment.",
+    "Maintain accurate real-time inventory records and optimize stock levels to prevent shortages and overstock.",
+    "Implement systematic labeling and categorization for enhanced traceability and reduced errors.",
+    "Collaborate with teams to streamline material flow and support data-driven forecasting and reporting."
+   ]
+  },
+  "SINIM Bridge Corp.": {
+   "title": "Web Developer (Independent Contractor)",
+   "period": "Aug 2025 – Nov 2025",
+   "location": null,
+   "highlights": [
+    "Developing, maintaining, and publishing SINIM Bridge's official website, digital platforms, and web applications, ensuring high performance, accessibility, and responsiveness across all devices.",
+    "Collaborating with HR and recruitment teams to design and manage career pages and job listings, supporting global hiring operations through optimized workflows and automated postings.",
+    "Enhancing company branding and digital presence by ensuring all content, visuals, and communication assets remain accurate, updated, and aligned with organizational goals."
+   ]
+  },
+  "Prasanta Kar Institute": {
+   "title": "Freelance Full-Stack Developer",
+   "period": "Sep 2025 – Oct 2025",
+   "location": null,
+   "highlights": [
+    "Developed the entire platform from scratch, including frontend, backend, database, and deployment — delivering a fully responsive LMS + e-commerce + e-book store with seamless user experience across all devices.",
+    "Developed admin and manager panels with real-time monitoring, analytics dashboards, and content management, enabling efficient control over courses, orders, users, and payments.",
+    "Integrated Razorpay payment gateway, automated course enrollment, order management, and live tracking systems while ensuring secure, scalable, and high-performing architecture with 99.9% uptime."
+   ]
+  },
+  "Shashwat Technologies": {
+   "title": "Full-Stack Developer",
+   "period": "Sep 2025 – Sep 2025",
+   "location": null,
+   "highlights": [
+    "Built and optimized Stayzaa's frontend and backend, designing the About page and improving Mapbox GL globe rendering efficiency by 30%, boosting page performance and load times.",
+    "Delivered 100% scalable and maintainable code, ensuring design consistency, responsive UI, and a smooth user experience across desktop and mobile platforms.",
+    "Collaborated with core team to ship new features, resolve 90% of critical bugs, and deliver releases on time with a focus on quality and ownership."
+   ]
+  },
+  "RiseApply": {
+   "title": "Full-Stack Software Development Engineer Intern",
+   "period": "Apr 2025 – Sep 2025",
+   "location": null,
+   "highlights": [
+    "Led the automation of manual workflows, boosting operational efficiency by 90%.",
+    "Built and scaled recruitment tools, marketing platforms, and website builders using Next.js, Node.js, and MongoDB.",
+    "Developed and maintained scrapers, website, databases, and a browser extension for automated job data extraction."
+   ]
+  },
+  "Echo of Pink": {
+   "title": "Software Development Engineer",
+   "period": "Aug 2025 – Sep 2025",
+   "location": null,
+   "highlights": [
+    "Led the design, development, and optimization of Echo of Pink's e-commerce platform on Shopify, delivering a modern, fully responsive, and conversion-focused shopping experience.",
+    "Built custom Shopify themes, automated workflows, and API integrations for products, orders, and payments — improving checkout efficiency and boosting conversion rates by 20%.",
+    "Continuously enhanced site performance, implemented data-driven UX improvements, and collaborated with stakeholders to launch new features that increased customer engagement and online sales."
+   ]
+  },
+  "TaxDeeds": {
+   "title": "Data Engineer",
+   "period": "Jan 2025 – Aug 2025",
+   "location": null,
+   "highlights": [
+    "Managed project timelines, reducing delivery times by 30%.",
+    "Spearheaded the adoption of cutting-edge engineering software, improving project accuracy by 15%.",
+    "Collaborated with cross-functional teams, enhancing project success rates by 10%."
+   ]
+  },
+  "Consult Easily": {
+   "title": "Freelance Full-Stack Developer",
+   "period": "Mar 2025 – Apr 2025",
+   "location": null,
+   "highlights": [
+    "Built the entire website from scratch, including responsive UI and seamless user experience.",
+    "Developed robust APIs and set up a scalable backend with secure database integration.",
+    "Handled full-stack development end-to-end, including deployment and performance optimization."
+   ]
+  }
+ }
+}
