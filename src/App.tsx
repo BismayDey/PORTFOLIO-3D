@@ -1,10 +1,9 @@
 "use client";
 
-import { Suspense, useEffect, useRef, useState } from "react";
-import { Canvas } from "@react-three/fiber";
-import { Scene } from "./components/Scene";
+import { useEffect, useRef, useState } from "react";
 import {
   Brain,
+  CalendarDays,
   Loader2,
   Code2,
   Rocket,
@@ -38,12 +37,19 @@ import {
   featuredClientProjects,
 } from "./data/clientProjects";
 import { ClientProjectCard } from "./components/ClientProjectCard";
+import {
+  ClientProjectFilters,
+  useClientProjectFilters,
+} from "./components/ClientProjectFilters";
 import { ContactModal } from "./components/ContactModal";
 import { ServicesSection } from "./components/ServicesSection";
 import { ExperienceSection } from "./components/ExperienceSection";
 import { Hero } from "./components/Hero";
 import { IntroOverlay } from "./components/IntroOverlay";
 import { ChatWidget } from "./components/ChatWidget";
+import { Background3D } from "./components/Background3D";
+import { BookingModal } from "./components/BookingModal";
+import { track } from "./lib/analytics";
 import { SITE_URL, useSeo } from "./lib/seo";
 
 const NAV_LINKS = [
@@ -70,6 +76,7 @@ function App() {
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [showAllClientProjects, setShowAllClientProjects] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
   const [navScrolled, setNavScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
   const scrollToId = (id: string) => {
@@ -548,24 +555,23 @@ function App() {
     },
   ];
 
+  const filters = useClientProjectFilters(clientProjects);
+  // When a filter is on, show every match. Otherwise keep the featured 9 until
+  // "Read More" is pressed.
+  const visibleClientProjects = filters.active
+    ? filters.filtered
+    : showAllClientProjects
+      ? clientProjects
+      : featuredClientProjects;
+
   const displayedProjects = showAllProjects
     ? allProjects
     : allProjects.slice(0, 6);
 
   return (
     <div className="relative w-full min-h-screen bg-black overflow-x-hidden">
-      {/* 3D Background */}
-      <div className="fixed inset-0">
-        <Canvas
-          className="pointer-events-auto"
-          eventSource={canvasEventSource ?? undefined}
-          eventPrefix="client"
-        >
-          <Suspense fallback={null}>
-            <Scene />
-          </Suspense>
-        </Canvas>
-      </div>
+      {/* 3D Background — lazy, idle-mounted, skipped on reduced-motion/low-end */}
+      <Background3D eventSource={canvasEventSource} />
 
       {/* Navigation */}
       <motion.div
@@ -627,7 +633,10 @@ function App() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => setContactModalOpen(true)}
+              onClick={() => {
+                setBookingOpen(true);
+                track("cta_click", { where: "navbar" });
+              }}
               className="hidden sm:inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white text-sm font-semibold shadow-lg shadow-purple-500/25 hover:shadow-purple-500/45 hover:brightness-110 transition-all"
             >
               <span className="relative flex h-2 w-2">
@@ -694,7 +703,8 @@ function App() {
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
-                    setContactModalOpen(true);
+                    setBookingOpen(true);
+                    track("cta_click", { where: "mobile-menu" });
                   }}
                   className="mt-3 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white font-semibold shadow-lg shadow-purple-500/25"
                 >
@@ -713,7 +723,10 @@ function App() {
       {/* Main Content */}
       <div className="relative z-10">
         <Hero
-          onTalk={() => setContactModalOpen(true)}
+          onTalk={() => {
+            setBookingOpen(true);
+            track("cta_click", { where: "hero" });
+          }}
           onSeeWork={() =>
             clientProjectsRef.current?.scrollIntoView({ behavior: "smooth" })
           }
@@ -1457,7 +1470,12 @@ function App() {
           </motion.div>
         </div>
 
-        <ServicesSection onEnquire={() => setContactModalOpen(true)} />
+        <ServicesSection
+          onEnquire={() => {
+            setBookingOpen(true);
+            track("cta_click", { where: "services" });
+          }}
+        />
 
         <ExperienceSection ref={experienceRef} />
 
@@ -1507,20 +1525,37 @@ function App() {
               </motion.p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {(showAllClientProjects
-                ? clientProjects
-                : featuredClientProjects
-              ).map((project, index) => (
-                <ClientProjectCard
-                  key={project.slug}
-                  project={project}
-                  index={index}
-                />
-              ))}
-            </div>
+            <ClientProjectFilters f={filters} total={clientProjects.length} />
+
+            {visibleClientProjects.length === 0 ? (
+              <div className="py-16 text-center">
+                <p className="text-xl text-white font-semibold mb-2">
+                  Nothing matches that yet
+                </p>
+                <p className="text-gray-400 mb-6">
+                  Try a different industry or stack — or just ask BD's Helper.
+                </p>
+                <button
+                  onClick={filters.clear}
+                  className="px-6 py-3 rounded-full bg-indigo-600 text-white font-semibold hover:brightness-110 transition-all"
+                >
+                  Clear filters
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                {visibleClientProjects.map((project, index) => (
+                  <ClientProjectCard
+                    key={project.slug}
+                    project={project}
+                    index={index}
+                  />
+                ))}
+              </div>
+            )}
 
             {/* See More / Show Less Client Projects */}
+            {!filters.active && visibleClientProjects.length > 0 && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -1556,6 +1591,7 @@ function App() {
                 </motion.div>
               </motion.button>
             </motion.div>
+          )}
           </motion.div>
         </div>
 
@@ -2546,15 +2582,28 @@ function App() {
                   <motion.button
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
-                    onClick={() => setContactModalOpen(true)}
+                    onClick={() => {
+                      setContactModalOpen(true);
+                      track("cta_click", { where: "contact-form" });
+                    }}
                     className="mt-6 w-full inline-flex items-center justify-center gap-3 px-7 py-4 rounded-full bg-gradient-to-r from-emerald-600 to-green-600 text-white font-semibold shadow-lg hover:shadow-emerald-500/25 hover:shadow-xl transition-all"
                   >
                     <Mail className="w-5 h-5" />
                     <span className="text-base">Contact Me</span>
                   </motion.button>
+                  <button
+                    onClick={() => {
+                      setBookingOpen(true);
+                      track("cta_click", { where: "contact-book" });
+                    }}
+                    className="mt-3 w-full inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-white/[0.06] border border-white/20 text-white font-semibold hover:bg-white/[0.12] hover:border-white/40 transition-all"
+                  >
+                    <CalendarDays className="w-5 h-5" />
+                    Or book a 30-min call
+                  </button>
                   <p className="mt-3 text-center text-xs text-gray-500">
-                    Takes a minute — tell me what you need and I'll reply with
-                    scope and pricing.
+                    Form for details, call for a conversation — either reaches me
+                    directly.
                   </p>
                 </div>
 
@@ -2869,6 +2918,15 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <BookingModal
+        open={bookingOpen}
+        onClose={() => setBookingOpen(false)}
+        onUseForm={() => {
+          setBookingOpen(false);
+          setContactModalOpen(true);
+        }}
+      />
 
       <ChatWidget />
 

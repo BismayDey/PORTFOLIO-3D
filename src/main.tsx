@@ -3,6 +3,8 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App.tsx";
 import "./index.css";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 // Case-study pages are a separate chunk — the 3D-heavy home page should not
 // pay for them, and they should not pay for three.js.
@@ -24,6 +26,8 @@ createRoot(document.getElementById("root")!).render(
           <Route path="*" element={<App />} />
         </Routes>
       </Suspense>
+      <Analytics />
+      <SpeedInsights />
     </BrowserRouter>
   </StrictMode>
 );

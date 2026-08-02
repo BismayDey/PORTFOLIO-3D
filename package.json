@@ -5,15 +5,18 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs",
+    "build": "node scripts/gen-knowledge.mjs && vite build && node scripts/prerender.mjs",
     "build:only": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
     "@react-three/drei": "^9.99.5",
     "@react-three/fiber": "^8.15.16",
     "@types/canvas-confetti": "^1.9.0",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "canvas-confetti": "^1.9.4",
     "framer-motion": "^11.0.8",
     "lucide-react": "^0.344.0",

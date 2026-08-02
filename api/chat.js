@@ -4,6 +4,7 @@
 // prefixed VITE_ would ship the key to every visitor and it would be drained
 // within days. Nothing in this file reaches the browser.
 import knowledge from "./_knowledge.json" with { type: "json" };
+import { logConversation } from "./_log.js";
 
 // Tried in order. gpt-oss-120b gives the best answers; the llama models have
 // far higher free-tier throughput, so they keep the bot alive when the primary
@@ -47,6 +48,11 @@ Bismay Dey: his work, services, client projects, experience, skills, availabilit
 - Always steer a genuine hiring/project conversation toward the contact form ("Let's Talk" button) or WhatsApp.
 - If asked something adjacent but reasonable (e.g. "can you build X?"), answer from his services and experience, then invite them to send details.
 - British/neutral spelling is fine. Never use emoji more than once per reply, if at all.
+
+## FOLLOW-UPS (required)
+End EVERY reply with a line starting exactly with "FOLLOWUPS:" then 2-3 short questions a visitor would plausibly ask next, separated by " | ". Write them from the visitor's point of view, max 6 words each, no numbering.
+Example: FOLLOWUPS: See the case study | What would this cost? | How long would it take?
+This line is stripped before display — never mention it, and never put anything after it.
 
 ## KNOWLEDGE (authoritative — everything you know)
 ${JSON.stringify(knowledge.core)}`;
@@ -163,7 +169,7 @@ export default async function handler(req, res) {
       ...history,
     ];
 
-    let data = null;
+    let streamed = false;
     let lastStatus = 0;
     for (const model of MODELS) {
       const payload = {
@@ -172,10 +178,8 @@ export default async function handler(req, res) {
         temperature: 0.4,
         max_completion_tokens: 900,
         top_p: 1,
-        stream: false,
+        stream: true,
       };
-      // gpt-oss is a reasoning model — without this it spends the whole budget
-      // thinking and hands back an empty content field. Other models reject it.
       if (model.startsWith("openai/gpt-oss")) payload.reasoning_effort = "low";
 
       const upstream = await fetch(GROQ_URL, {
@@ -187,35 +191,63 @@ export default async function handler(req, res) {
         body: JSON.stringify(payload),
       });
 
-      if (upstream.ok) {
-        const json = await upstream.json();
-        const text = json.choices?.[0]?.message?.content?.trim();
-        if (text) {
-          data = { reply: text, model };
+      if (!upstream.ok || !upstream.body) {
+        lastStatus = upstream.status;
+        const detail = await upstream.text().catch(() => "");
+        console.error(`groq ${model} -> ${upstream.status}`, detail.slice(0, 200));
+        if (upstream.status !== 429 && upstream.status < 500 && upstream.status !== 413)
           break;
-        }
-        lastStatus = 204; // empty completion — try the next model
         continue;
       }
 
-      lastStatus = upstream.status;
-      const detail = await upstream.text().catch(() => "");
-      console.error(`groq ${model} -> ${upstream.status}`, detail.slice(0, 200));
-      // 4xx that is not throughput-related will fail the same way downstream
-      if (upstream.status !== 429 && upstream.status < 500 && upstream.status !== 413)
-        break;
+      // Stream Groq's SSE straight through as plain text chunks.
+      res.setHeader("Content-Type", "text/plain; charset=utf-8");
+      res.setHeader("Cache-Control", "no-store");
+      res.setHeader("X-Accel-Buffering", "no");
+
+      const reader = upstream.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let full = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() ?? "";
+        for (const line of lines) {
+          if (!line.startsWith("data:")) continue;
+          const payloadLine = line.slice(5).trim();
+          if (!payloadLine || payloadLine === "[DONE]") continue;
+          try {
+            const token = JSON.parse(payloadLine).choices?.[0]?.delta?.content;
+            if (token) {
+              full += token;
+              res.write(token);
+            }
+          } catch {
+            /* partial frame — the next chunk completes it */
+          }
+        }
+      }
+
+      if (full.trim()) {
+        streamed = true;
+        logConversation(ip, last.content, full, model);
+        res.end();
+        return;
+      }
+      lastStatus = 204; // empty completion, fall through to the next model
     }
 
-    if (!data) {
+    if (!streamed) {
       const friendly =
         lastStatus === 429 || lastStatus === 413
           ? "I'm getting a lot of questions right now — give me about a minute and ask again, or use the contact form."
           : "I couldn't reach my brain just now. Try again, or use the contact form and Bismay will reply personally.";
       return res.status(502).json({ error: friendly, upstream: lastStatus });
     }
-
-    res.setHeader("Cache-Control", "no-store");
-    return res.status(200).json({ reply: data.reply });
   } catch (err) {
     console.error("chat handler failed", err);
     return res.status(500).json({

@@ -5,14 +5,49 @@ import {
   Copy,
   Maximize2,
   MessageCircle,
+  Mic,
+  MicOff,
   Minimize2,
   RotateCcw,
   Send,
   Sparkles,
   X,
 } from "lucide-react";
+import { track } from "../lib/analytics";
 
-type Msg = { role: "user" | "assistant"; content: string; id: number };
+type SpeechRecognitionLike = {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  start: () => void;
+  stop: () => void;
+  onresult: ((e: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null;
+  onend: (() => void) | null;
+  onerror: (() => void) | null;
+};
+
+type Msg = {
+  role: "user" | "assistant";
+  content: string;
+  id: number;
+  /** follow-up chips the model proposed for this reply */
+  followups?: string[];
+};
+
+/** Splits the model's trailing "FOLLOWUPS: a | b | c" marker off the reply. */
+function splitFollowups(raw: string) {
+  const i = raw.lastIndexOf("FOLLOWUPS:");
+  if (i === -1) return { content: raw.trim(), followups: [] as string[] };
+  return {
+    content: raw.slice(0, i).trim(),
+    followups: raw
+      .slice(i + 10)
+      .split("|")
+      .map((t) => t.trim().replace(/^[-*\d.\s]+/, ""))
+      .filter((t) => t.length > 2 && t.length < 60)
+      .slice(0, 3),
+  };
+}
 
 const STORE = "bd-helper-thread";
 
@@ -104,6 +139,9 @@ export function ChatWidget() {
     return [{ role: "assistant", content: WELCOME, id: 0 }];
   });
 
+  const [listening, setListening] = useState(false);
+  const recognition = useRef<SpeechRecognitionLike | null>(null);
+
   const scroller = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -126,15 +164,47 @@ export function ChatWidget() {
     if (open) setTimeout(() => inputRef.current?.focus(), 320);
   }, [open, full]);
 
-  // one gentle nudge so the widget gets noticed
+  // Proactive nudge: fires once, and only when someone is actually engaged —
+  // 30s dwelling on a case study, or 45s of scrolling the home page.
+  const [nudgeText, setNudgeText] = useState(
+    "Questions about Bismay's work? Ask me anything."
+  );
   useEffect(() => {
     if (sessionStorage.getItem("bd-helper-nudged")) return;
-    const t = setTimeout(() => {
-      setNudge(true);
-      sessionStorage.setItem("bd-helper-nudged", "1");
-      setTimeout(() => setNudge(false), 7000);
-    }, 6000);
-    return () => clearTimeout(t);
+
+    const onCaseStudy = window.location.pathname.startsWith("/client/");
+    const slug = onCaseStudy
+      ? decodeURIComponent(window.location.pathname.split("/client/")[1] ?? "")
+          .replace(/-/g, " ")
+          .replace(/\b\w/g, (c) => c.toUpperCase())
+      : "";
+
+    let scrolled = false;
+    const onScroll = () => {
+      if (window.scrollY > 600) scrolled = true;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    const t = setTimeout(
+      () => {
+        if (!onCaseStudy && !scrolled) return; // not engaged yet, stay quiet
+        setNudgeText(
+          onCaseStudy
+            ? `Want to know how ${slug} was built — or what something similar would take?`
+            : "Looking for something specific? I know every project on this site."
+        );
+        setNudge(true);
+        sessionStorage.setItem("bd-helper-nudged", "1");
+        track("chat_nudge_shown", { page: onCaseStudy ? "case-study" : "home" });
+        setTimeout(() => setNudge(false), 12000);
+      },
+      onCaseStudy ? 30000 : 45000
+    );
+
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -171,6 +241,9 @@ export function ChatWidget() {
       ];
       setMsgs(next);
       setBusy(true);
+      track("chat_message", { q: q.slice(0, 80) });
+
+      const replyId = Date.now() + 1;
       try {
         const res = await fetch("/api/chat", {
           method: "POST",
@@ -181,26 +254,53 @@ export function ChatWidget() {
               .map(({ role, content }) => ({ role, content })),
           }),
         });
-        const data = await res.json().catch(() => ({}));
-        setMsgs((m) => [
-          ...m,
-          {
-            role: "assistant",
-            content:
-              data.reply ||
-              data.error ||
-              "Something went wrong. Please use the contact form and Bismay will reply personally.",
-            id: Date.now() + 1,
-          },
-        ]);
+
+        // Errors come back as JSON; a good answer streams as plain text.
+        const type = res.headers.get("content-type") ?? "";
+        if (!res.ok || type.includes("application/json") || !res.body) {
+          const data = await res.json().catch(() => ({}));
+          setMsgs((m) => [
+            ...m,
+            {
+              role: "assistant",
+              id: replyId,
+              ...splitFollowups(
+                data.reply ||
+                  data.error ||
+                  "Something went wrong. Please use the contact form and Bismay will reply personally."
+              ),
+            },
+          ]);
+          return;
+        }
+
+        // Paint tokens as they arrive so there is no dead pause.
+        setMsgs((m) => [...m, { role: "assistant", content: "", id: replyId }]);
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let raw = "";
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          raw += decoder.decode(value, { stream: true });
+          // hide the marker while it is still being typed out
+          const visible = raw.split("FOLLOWUPS:")[0];
+          setMsgs((m) =>
+            m.map((x) => (x.id === replyId ? { ...x, content: visible } : x))
+          );
+        }
+        const parsed = splitFollowups(raw);
+        setMsgs((m) =>
+          m.map((x) => (x.id === replyId ? { ...x, ...parsed } : x))
+        );
       } catch {
         setMsgs((m) => [
-          ...m,
+          ...m.filter((x) => x.id !== replyId),
           {
             role: "assistant",
+            id: replyId,
             content:
               "I couldn't connect just now. Please use the **Let's Talk** form — Bismay replies personally, usually within a day.",
-            id: Date.now() + 1,
           },
         ]);
       } finally {
@@ -209,6 +309,40 @@ export function ChatWidget() {
     },
     [msgs, busy]
   );
+
+  // Voice input — Web Speech API, Chrome/Edge/Safari. Hidden where unsupported.
+  const voiceSupported =
+    typeof window !== "undefined" &&
+    ("SpeechRecognition" in window || "webkitSpeechRecognition" in window);
+
+  const toggleVoice = () => {
+    if (!voiceSupported) return;
+    if (listening) {
+      recognition.current?.stop();
+      setListening(false);
+      return;
+    }
+    const Ctor =
+      (window as unknown as { SpeechRecognition?: new () => SpeechRecognitionLike })
+        .SpeechRecognition ??
+      (window as unknown as { webkitSpeechRecognition?: new () => SpeechRecognitionLike })
+        .webkitSpeechRecognition;
+    if (!Ctor) return;
+    const rec = new Ctor();
+    rec.continuous = false;
+    rec.interimResults = true;
+    rec.lang = "en-IN";
+    rec.onresult = (e) => {
+      const said = Array.from({ length: e.results.length }, (_, i) => e.results[i][0].transcript).join("");
+      setInput(said);
+    };
+    rec.onend = () => setListening(false);
+    rec.onerror = () => setListening(false);
+    recognition.current = rec;
+    rec.start();
+    setListening(true);
+    track("chat_voice_used");
+  };
 
   const reset = () => {
     const fresh: Msg[] = [{ role: "assistant", content: WELCOME, id: 0 }];
@@ -234,7 +368,10 @@ export function ChatWidget() {
           transition={{ delay: 1.2, type: "spring", stiffness: 260, damping: 18 }}
           whileHover={{ scale: 1.07 }}
           whileTap={{ scale: 0.94 }}
-          onClick={() => setOpen((o) => !o)}
+          onClick={() => {
+            setOpen((o) => !o);
+            if (!open) track("chat_opened");
+          }}
           aria-label={open ? "Close BD's Helper" : "Open BD's Helper"}
           style={{ width: "60px", height: "60px" }}
           className="relative rounded-full bg-gradient-to-br from-purple-600 to-fuchsia-600 shadow-2xl hover:shadow-[0_8px_30px_rgba(168,85,247,0.45)] transition-all duration-300 flex items-center justify-center text-white overflow-hidden"
@@ -274,7 +411,7 @@ export function ChatWidget() {
               onClick={() => setOpen(true)}
               className="mb-2 max-w-[210px] text-left px-3.5 py-2.5 rounded-2xl rounded-bl-sm bg-[#15151b] border border-white/15 shadow-xl text-xs text-gray-200"
             >
-              Questions about Bismay's work? Ask me anything.
+              {nudgeText}
             </motion.button>
           )}
         </AnimatePresence>
@@ -334,7 +471,10 @@ export function ChatWidget() {
                 <RotateCcw className="w-4 h-4" />
               </button>
               <button
-                onClick={() => setFull((f) => !f)}
+                onClick={() => {
+                setFull((f) => !f);
+                track("chat_fullscreen");
+              }}
                 aria-label={full ? "Exit full screen" : "Expand to full screen"}
                 title={full ? "Exit full screen" : "Full screen"}
                 className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
@@ -400,6 +540,31 @@ export function ChatWidget() {
                     </div>
                   </motion.div>
                 ))}
+
+                {/* follow-ups from the last reply keep the conversation moving */}
+                {!busy &&
+                  (() => {
+                    const lastMsg = msgs[msgs.length - 1];
+                    if (lastMsg?.role !== "assistant" || !lastMsg.followups?.length)
+                      return null;
+                    return (
+                      <motion.div
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex flex-wrap gap-2 pt-1"
+                      >
+                        {lastMsg.followups.map((f) => (
+                          <button
+                            key={f}
+                            onClick={() => send(f)}
+                            className="px-3 py-1.5 rounded-full text-xs bg-purple-500/15 border border-purple-400/30 text-purple-200 hover:bg-purple-500/30 hover:border-purple-400/60 hover:text-white transition-colors"
+                          >
+                            {f}
+                          </button>
+                        ))}
+                      </motion.div>
+                    );
+                  })()}
 
                 {busy && (
                   <div className="flex justify-start">
@@ -473,6 +638,30 @@ export function ChatWidget() {
                     maxLength={500}
                     className="flex-1 resize-none px-4 py-2.5 rounded-2xl bg-white/[0.06] border border-white/15 text-white text-sm placeholder:text-gray-500 focus:outline-none focus:border-purple-400/70 focus:ring-2 focus:ring-purple-400/20 transition-colors max-h-28"
                   />
+                  {voiceSupported && (
+                    <button
+                      type="button"
+                      onClick={toggleVoice}
+                      aria-label={listening ? "Stop listening" : "Speak your question"}
+                      title={listening ? "Stop listening" : "Speak"}
+                      className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center border transition-all ${
+                        listening
+                          ? "bg-red-500/20 border-red-400/50 text-red-300"
+                          : "bg-white/[0.06] border-white/15 text-gray-400 hover:text-white hover:border-white/35"
+                      }`}
+                    >
+                      {listening ? (
+                        <motion.span
+                          animate={{ scale: [1, 1.18, 1] }}
+                          transition={{ duration: 1, repeat: Infinity }}
+                        >
+                          <MicOff className="w-4 h-4" />
+                        </motion.span>
+                      ) : (
+                        <Mic className="w-4 h-4" />
+                      )}
+                    </button>
+                  )}
                   <button
                     type="submit"
                     disabled={!input.trim() || busy}
