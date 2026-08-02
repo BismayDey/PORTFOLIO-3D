@@ -10,7 +10,10 @@ import react from "@vitejs/plugin-react";
 function apiDevServer(mode: string): Plugin {
   const env = loadEnv(mode, process.cwd(), "");
   const attach = (server: { middlewares: import("connect").Server }) => {
-    server.middlewares.use("/api/chat", async (req, res) => {
+    server.middlewares.use("/api", async (req, res, next) => {
+      // route /api/<name> to api/<name>.js, mirroring Vercel's convention
+      const name = (req.url ?? "").split("?")[0].replace(/^\/+/, "").replace(/\/$/, "");
+      if (!/^[a-z0-9-]+$/i.test(name)) return next();
       // guard the assignments: process.env coerces undefined to "undefined"
       if (env.GROQ_API_KEY) process.env.GROQ_API_KEY ||= env.GROQ_API_KEY;
       if (env.GROQ_MODEL) process.env.GROQ_MODEL ||= env.GROQ_MODEL;
@@ -19,7 +22,7 @@ function apiDevServer(mode: string): Plugin {
         for await (const c of req) chunks.push(c as Buffer);
         const raw = Buffer.concat(chunks).toString("utf8");
 
-        const { default: handler } = await import("./api/chat.js");
+        const { default: handler } = await import(`./api/${name}.js`);
         await handler(
           { method: req.method, headers: req.headers, body: raw || "{}" },
           {

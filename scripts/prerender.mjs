@@ -33,7 +33,7 @@ async function loadProjects() {
 }
 
 const projects = await loadProjects();
-const routes = ["/", ...projects.map((p) => `/client/${p.slug}`)];
+const routes = ["/", "/play", ...projects.map((p) => `/client/${p.slug}`)];
 console.log(`SEO: ${routes.length} routes`);
 
 // -------------------------------------------------------------- head builder
@@ -45,6 +45,17 @@ const esc = (v = "") =>
     .replace(/"/g, "&quot;");
 
 function metaFor(route) {
+  if (route === "/play") {
+    return {
+      title:
+        "Playable Demos — Browser Games by Bismay Dey | Web Game Developer",
+      description:
+        "Four playable browser games built with Three.js, WebGL and Canvas, plus a live client build in progress. Proof that Bismay Dey ships real web games. Play free, no signup.",
+      image: `${SITE_URL}/og-default.jpg`,
+      type: "website",
+      jsonLd: null,
+    };
+  }
   if (route === "/") {
     return {
       title:

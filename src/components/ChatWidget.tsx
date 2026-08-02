@@ -32,13 +32,19 @@ type Msg = {
   id: number;
   /** follow-up chips the model proposed for this reply */
   followups?: string[];
+  /** the model judged this a real enquiry worth capturing */
+  wantsLead?: boolean;
 };
 
-/** Splits the model's trailing "FOLLOWUPS: a | b | c" marker off the reply. */
+/** Splits the model's trailing markers off the reply. */
 function splitFollowups(raw: string) {
+  const wantsLead = /SHOWLEAD:\s*1/.test(raw);
+  raw = raw.replace(/SHOWLEAD:\s*1/g, "");
   const i = raw.lastIndexOf("FOLLOWUPS:");
-  if (i === -1) return { content: raw.trim(), followups: [] as string[] };
+  if (i === -1)
+    return { content: raw.trim(), followups: [] as string[], wantsLead };
   return {
+    wantsLead,
     content: raw.slice(0, i).trim(),
     followups: raw
       .slice(i + 10)
@@ -139,6 +145,9 @@ export function ChatWidget() {
     return [{ role: "assistant", content: WELCOME, id: 0 }];
   });
 
+  const [leadSent, setLeadSent] = useState(false);
+  const [lead, setLead] = useState({ name: "", email: "" });
+  const [leadState, setLeadState] = useState<"idle" | "sending" | "done">("idle");
   const [listening, setListening] = useState(false);
   const recognition = useRef<SpeechRecognitionLike | null>(null);
 
@@ -284,7 +293,7 @@ export function ChatWidget() {
           if (done) break;
           raw += decoder.decode(value, { stream: true });
           // hide the marker while it is still being typed out
-          const visible = raw.split("FOLLOWUPS:")[0];
+          const visible = raw.split("FOLLOWUPS:")[0].replace(/SHOWLEAD:\s*1/g, "");
           setMsgs((m) =>
             m.map((x) => (x.id === replyId ? { ...x, content: visible } : x))
           );
@@ -344,9 +353,53 @@ export function ChatWidget() {
     track("chat_voice_used");
   };
 
+  /** Sends the visitor's details plus the transcript so the enquiry has context. */
+  const submitLead = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (leadState === "sending") return;
+    setLeadState("sending");
+    try {
+      const transcript = msgs
+        .filter((m) => m.id !== 0)
+        .map((m) => `${m.role === "user" ? "Them" : "Bot"}: ${m.content}`)
+        .join("\n\n")
+        .slice(0, 4000);
+      await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: "chatbot",
+          name: lead.name,
+          email: lead.email,
+          meta: {
+            asked: msgs.filter((m) => m.role === "user").map((m) => m.content).join(" | ").slice(0, 400),
+            transcript,
+            page: window.location.href,
+          },
+        }),
+      });
+      setLeadState("done");
+      setLeadSent(true);
+      track("chat_lead_captured");
+      setMsgs((m) => [
+        ...m,
+        {
+          role: "assistant",
+          id: Date.now() + 2,
+          content: `Thanks${lead.name ? ", " + lead.name.split(" ")[0] : ""} — Bismay has your details and the whole conversation, and will come back personally. Anything else in the meantime?`,
+        },
+      ]);
+    } catch {
+      setLeadState("idle");
+    }
+  };
+
   const reset = () => {
     const fresh: Msg[] = [{ role: "assistant", content: WELCOME, id: 0 }];
     setMsgs(fresh);
+    setLeadSent(false);
+    setLeadState("idle");
+    setLead({ name: "", email: "" });
     sessionStorage.setItem(STORE, JSON.stringify(fresh));
   };
 
@@ -540,6 +593,56 @@ export function ChatWidget() {
                     </div>
                   </motion.div>
                 ))}
+
+                {/* inline capture — only when the model judged this a real enquiry */}
+                {!busy &&
+                  !leadSent &&
+                  msgs[msgs.length - 1]?.role === "assistant" &&
+                  msgs[msgs.length - 1]?.wantsLead && (
+                    <motion.form
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      onSubmit={submitLead}
+                      className="rounded-2xl border border-purple-400/30 bg-purple-500/10 p-3.5 space-y-2.5"
+                    >
+                      <p className="text-xs text-purple-100 font-medium">
+                        Leave your details and Bismay will follow up personally.
+                      </p>
+                      <div className="grid grid-cols-2 gap-2">
+                        <input
+                          value={lead.name}
+                          onChange={(e) => setLead({ ...lead, name: e.target.value })}
+                          placeholder="Name"
+                          maxLength={60}
+                          className="px-3 py-2 rounded-lg bg-black/40 border border-white/20 text-white text-xs placeholder:text-gray-500 focus:outline-none focus:border-purple-400"
+                        />
+                        <input
+                          type="email"
+                          required
+                          value={lead.email}
+                          onChange={(e) => setLead({ ...lead, email: e.target.value })}
+                          placeholder="Email"
+                          className="px-3 py-2 rounded-lg bg-black/40 border border-white/20 text-white text-xs placeholder:text-gray-500 focus:outline-none focus:border-purple-400"
+                        />
+                      </div>
+                      <div className="flex gap-2">
+                        <button
+                          type="submit"
+                          disabled={leadState === "sending"}
+                          className="flex-1 px-3 py-2 rounded-lg bg-purple-500 text-white text-xs font-semibold hover:bg-purple-400 disabled:opacity-60 transition-colors"
+                        >
+                          {leadState === "sending" ? "Sending…" : "Send to Bismay"}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setLeadSent(true)}
+                          className="px-3 py-2 rounded-lg text-xs text-gray-400 hover:text-white transition-colors"
+                        >
+                          No thanks
+                        </button>
+                      </div>
+                    </motion.form>
+                  )}
 
                 {/* follow-ups from the last reply keep the conversation moving */}
                 {!busy &&

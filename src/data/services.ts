@@ -73,7 +73,7 @@ export const serviceGroups: ServiceGroup[] = [
         title: "Web Games",
         icon: "Gamepad2",
         description:
-          "Browser games and interactive 3D experiences built with Phaser.js, Three.js and WebGL that run without a download.",
+          "Browser games and interactive 3D experiences built with Three.js, WebGL and Canvas that run without a download. Four playable demos live at /play.",
         deliverables: [
           "Game loop and physics",
           "Asset pipeline & sprite atlases",

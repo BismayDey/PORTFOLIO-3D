@@ -9,6 +9,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 // Case-study pages are a separate chunk — the 3D-heavy home page should not
 // pay for them, and they should not pay for three.js.
 const ClientProjectPage = lazy(() => import("./pages/ClientProjectPage.tsx"));
+const PlayPage = lazy(() => import("./pages/PlayPage.tsx"));
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -23,6 +24,7 @@ createRoot(document.getElementById("root")!).render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/client/:slug" element={<ClientProjectPage />} />
+          <Route path="/play" element={<PlayPage />} />
           <Route path="*" element={<App />} />
         </Routes>
       </Suspense>

@@ -630,6 +630,14 @@ function App() {
           </div>
 
           <div className="flex items-center gap-2">
+            <a
+              href="/play"
+              onClick={() => track("nav_play_click")}
+              className="hidden xl:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-medium text-gray-300 hover:text-purple-300 transition-colors"
+            >
+              <Gamepad2 className="w-4 h-4" />
+              Play
+            </a>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -700,6 +708,12 @@ function App() {
                     {link.label}
                   </motion.button>
                 ))}
+                <a
+                  href="/play"
+                  className="text-left px-4 py-3 rounded-2xl font-medium text-gray-300 hover:bg-white/5 hover:text-purple-300 transition-colors"
+                >
+                  Play the games
+                </a>
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);

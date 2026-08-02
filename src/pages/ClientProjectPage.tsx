@@ -17,6 +17,8 @@ import {
 import { clientProjects, getClientProject } from "../data/clientProjects";
 import { ACCENTS } from "../components/ClientProjectCard";
 import { SiteClip } from "../components/SiteClip";
+import { ExitIntent } from "../components/ExitIntent";
+import { BookingModal } from "../components/BookingModal";
 import { techLogo } from "../data/techLogos";
 import { SITE_URL, useSeo } from "../lib/seo";
 
@@ -24,6 +26,7 @@ export default function ClientProjectPage() {
   const { slug } = useParams();
   const project = getClientProject(slug);
   const [lightbox, setLightbox] = useState<string | null>(null);
+  const [booking, setBooking] = useState(false);
 
   const workRef = useRef<HTMLElement>(null);
   const { scrollYProgress: workScroll } = useScroll({
@@ -670,6 +673,16 @@ export default function ClientProjectPage() {
           </div>
         </section>
       </div>
+
+      <ExitIntent onBook={() => setBooking(true)} />
+      <BookingModal
+        open={booking}
+        onClose={() => setBooking(false)}
+        onUseForm={() => {
+          setBooking(false);
+          window.location.href = "/#contact";
+        }}
+      />
 
       {/* Lightbox */}
       <AnimatePresence>
