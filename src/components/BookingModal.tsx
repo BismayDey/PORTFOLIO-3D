@@ -79,7 +79,7 @@ export function BookingModal({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 280, damping: 26 }}
-            className="relative w-full max-w-5xl h-[92vh] sm:h-[88vh] flex flex-col bg-[#0b0b10] border border-purple-500/30 rounded-3xl shadow-2xl shadow-purple-900/40 overflow-hidden"
+            className="relative w-full max-w-5xl h-auto max-h-[94vh] flex flex-col bg-[#0b0b10] border border-purple-500/30 rounded-3xl shadow-2xl shadow-purple-900/40 overflow-hidden"
           >
             <div className="flex items-center gap-3 px-5 py-4 border-b border-white/10 bg-gradient-to-r from-purple-600/20 to-fuchsia-600/10 flex-shrink-0">
               <span className="w-9 h-9 rounded-xl bg-purple-500/20 flex items-center justify-center flex-shrink-0">
@@ -112,7 +112,7 @@ export function BookingModal({
               </button>
             </div>
 
-            <div className="flex-1 min-h-0 bg-[#0b0b10] [&_iframe]:!h-full [&>div]:!h-full">
+            <div className="min-h-0 overflow-y-auto overscroll-contain bg-[#0b0b10] max-h-[calc(94vh-76px)]">
               <Suspense
                 fallback={
                   <div className="h-full flex items-center justify-center bg-[#0b0b10]">
@@ -124,13 +124,12 @@ export function BookingModal({
                   <Cal
                     namespace={CAL_NAMESPACE}
                     calLink={CAL_LINK}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      overflow: "auto",
-                    }}
+                    // no height — the embed measures its own content and
+                    // resizes, so the modal wraps it with no dead band
+                    style={{ width: "100%" }}
                     config={{
                       layout: "month_view",
+                      theme: "dark",
                       useSlotsViewOnSmallScreen: "true",
                     }}
                   />
