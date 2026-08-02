@@ -257,9 +257,9 @@ export function ChatWidget() {
                 src="/chatbot.png"
                 alt=""
                 aria-hidden="true"
-                width={60}
-                height={60}
-                className="w-full h-full object-cover rounded-full"
+                width={44}
+                height={44}
+                className="w-[74%] h-[74%] object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.35)]"
               />
             )}
           </motion.div>
@@ -308,12 +308,12 @@ export function ChatWidget() {
           >
             {/* header */}
             <div className="flex items-center gap-3 px-4 py-3 border-b border-white/10 bg-gradient-to-r from-purple-600/20 to-fuchsia-600/10 flex-shrink-0">
-              <span className="relative w-9 h-9 rounded-xl overflow-hidden flex-shrink-0 ring-1 ring-white/20">
+              <span className="relative w-9 h-9 rounded-xl flex-shrink-0 ring-1 ring-white/20 bg-white/10 flex items-center justify-center overflow-hidden">
                 <img
                   src="/chatbot.png"
                   alt=""
                   aria-hidden="true"
-                  className="w-full h-full object-cover"
+                  className="w-[80%] h-[80%] object-contain"
                 />
               </span>
               <div className="min-w-0 flex-1">
