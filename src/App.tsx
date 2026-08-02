@@ -67,6 +67,9 @@ function App() {
   // Process profile image: auto-crop center square and produce a data URL
   const [processedProfile, setProcessedProfile] = useState<string | null>(null);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const [perView, setPerView] = useState(3);
+  const TESTIMONIAL_COUNT = 13;
+  const maxTestimonialIndex = Math.max(0, TESTIMONIAL_COUNT - perView);
 
   useEffect(() => {
     let cancelled = false;
@@ -114,11 +117,28 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const apply = () => {
+      const w = window.innerWidth;
+      setPerView(w >= 1024 ? 3 : w >= 768 ? 2 : 1);
+    };
+    apply();
+    window.addEventListener("resize", apply);
+    return () => window.removeEventListener("resize", apply);
+  }, []);
+
+  // never leave the track parked past the last full row
+  useEffect(() => {
+    setTestimonialIndex((i) => Math.min(i, maxTestimonialIndex));
+  }, [maxTestimonialIndex]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
-      setTestimonialIndex((prev) => (prev + 1) % 4);
+      setTestimonialIndex((prev) =>
+        prev >= maxTestimonialIndex ? 0 : prev + 1
+      );
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [maxTestimonialIndex]);
 
   useSeo({
     title:
@@ -1352,6 +1372,15 @@ function App() {
                 Additional Skills
               </h3>
               <div className="flex flex-wrap gap-2">
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-sky-500/20 text-sky-300 rounded-full text-xs md:text-sm border border-sky-500/30">
+                  <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg"
+                    alt="WordPress logo"
+                    loading="lazy"
+                    className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                  />
+                  WordPress
+                </span>
                 <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-500/20 text-emerald-300 rounded-full text-xs md:text-sm border border-emerald-500/30">
                   <img
                     src="https://cdn.jsdelivr.net/npm/simple-icons@13/icons/shopify.svg"
@@ -1446,6 +1475,8 @@ function App() {
             </motion.div>
           </motion.div>
         </div>
+
+        <ServicesSection onEnquire={() => setContactModalOpen(true)} />
 
         {/* Experience Section - Timeline Layout */}
         <div
@@ -2413,8 +2444,6 @@ function App() {
           </motion.div>
         </div>
 
-        <ServicesSection onEnquire={() => setContactModalOpen(true)} />
-
         {/* Client Projects Section - Enhanced */}
         <div
           ref={clientProjectsRef}
@@ -2555,9 +2584,14 @@ function App() {
             </div>
 
             <div className="relative overflow-hidden">
-              <div className="flex transition-transform duration-1000 ease-in-out" style={{ transform: `translateX(-${testimonialIndex * 100}%)` }}>
-                <div className="flex-shrink-0 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              <div
+                className="flex items-start transition-transform duration-700 ease-out -mx-3 md:-mx-4"
+                style={{
+                  transform: `translateX(-${(testimonialIndex * 100) / perView}%)`,
+                }}
+              >
               {/* Testimonial 1 - Prasanta Kar for Consult Easily */}
+              <div className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3 md:px-4">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -2596,8 +2630,10 @@ function App() {
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-indigo-500/20 rounded-full blur-2xl group-hover:bg-indigo-500/40 transition-all duration-500" />
               </motion.div>
+              </div>
 
               {/* Testimonial 2 - Shiv Saha for Consult Easily */}
+              <div className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3 md:px-4">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -2636,8 +2672,10 @@ function App() {
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-blue-500/20 rounded-full blur-2xl group-hover:bg-blue-500/40 transition-all duration-500" />
               </motion.div>
+              </div>
 
               {/* Testimonial 3 - Sayyed Owais for Trade Care International (TCI) */}
+              <div className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3 md:px-4">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -2676,10 +2714,10 @@ function App() {
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-amber-500/20 rounded-full blur-2xl group-hover:bg-amber-500/40 transition-all duration-500" />
               </motion.div>
+              </div>
 
-                </div>
-                <div className="flex-shrink-0 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {/* Testimonial 4 - Bruteswar Parida for JustHopon */}
+              <div className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3 md:px-4">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -2718,8 +2756,10 @@ function App() {
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-teal-500/20 rounded-full blur-2xl group-hover:bg-teal-500/40 transition-all duration-500" />
               </motion.div>
+              </div>
 
               {/* Testimonial 5 - Samrat De for Techno AI, Techno HR and Techno Talents */}
+              <div className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3 md:px-4">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -2758,8 +2798,10 @@ function App() {
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-purple-500/20 rounded-full blur-2xl group-hover:bg-purple-500/40 transition-all duration-500" />
               </motion.div>
+              </div>
 
               {/* Testimonial 6 - Jayatri Chakraborty for Glow */}
+              <div className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3 md:px-4">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -2798,10 +2840,10 @@ function App() {
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-rose-500/20 rounded-full blur-2xl group-hover:bg-rose-500/40 transition-all duration-500" />
               </motion.div>
+              </div>
 
-                </div>
-                <div className="flex-shrink-0 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {/* Testimonial 7 - Jithendhar Reddy for RiseApply */}
+              <div className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3 md:px-4">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -2840,8 +2882,10 @@ function App() {
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-lime-500/20 rounded-full blur-2xl group-hover:bg-lime-500/40 transition-all duration-500" />
               </motion.div>
+              </div>
 
               {/* Testimonial 8 - Varun S for coding on the Rocks */}
+              <div className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3 md:px-4">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -2880,8 +2924,10 @@ function App() {
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-cyan-500/20 rounded-full blur-2xl group-hover:bg-cyan-500/40 transition-all duration-500" />
               </motion.div>
+              </div>
 
               {/* Testimonial 9 - Kevin Kapoor for Alphonso Media */}
+              <div className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3 md:px-4">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -2918,12 +2964,12 @@ function App() {
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-violet-500/20 rounded-full blur-2xl group-hover:bg-violet-500/40 transition-all duration-500" />
               </motion.div>
+              </div>
 
-                </div>
 
                 {/* Slide 4 */}
-                <div className="flex-shrink-0 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {/* Testimonial 10 - Rahat International (name withheld) */}
+              <div className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3 md:px-4">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -2972,8 +3018,10 @@ function App() {
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-red-500/20 rounded-full blur-2xl group-hover:bg-red-500/40 transition-all duration-500" />
               </motion.div>
+              </div>
 
               {/* Testimonial 11 - Anish Popat for The Ecom Lab */}
+              <div className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3 md:px-4">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -3010,8 +3058,10 @@ function App() {
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-orange-500/20 rounded-full blur-2xl group-hover:bg-orange-500/40 transition-all duration-500" />
               </motion.div>
+              </div>
 
               {/* Testimonial 12 - Anish Popat for ONCALL LONDON */}
+              <div className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3 md:px-4">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -3050,8 +3100,10 @@ function App() {
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-teal-500/20 rounded-full blur-2xl group-hover:bg-teal-500/40 transition-all duration-500" />
               </motion.div>
+              </div>
 
               {/* Testimonial 13 - Amit for obo me */}
+              <div className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3 md:px-4">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -3088,7 +3140,7 @@ function App() {
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-purple-500/20 rounded-full blur-2xl group-hover:bg-purple-500/40 transition-all duration-500" />
               </motion.div>
-                </div>
+              </div>
               </div>
 
             </div>
@@ -3096,14 +3148,22 @@ function App() {
             {/* Navigation Buttons */}
             <div className="flex justify-center mt-8 gap-4">
               <button
-                onClick={() => setTestimonialIndex((prev) => (prev - 1 + 4) % 4)}
+                onClick={() =>
+                  setTestimonialIndex((prev) =>
+                    prev <= 0 ? maxTestimonialIndex : prev - 1
+                  )
+                }
                 className="bg-gradient-to-r from-pink-400/70 to-rose-400/70 hover:from-pink-500/80 hover:to-rose-500/80 text-white p-3 rounded-full transition-all duration-300 shadow-lg shadow-pink-400/30"
                 aria-label="Previous testimonials"
               >
                 <ChevronLeft className="w-6 h-6" />
               </button>
               <button
-                onClick={() => setTestimonialIndex((prev) => (prev + 1) % 4)}
+                onClick={() =>
+                  setTestimonialIndex((prev) =>
+                    prev >= maxTestimonialIndex ? 0 : prev + 1
+                  )
+                }
                 className="bg-gradient-to-r from-rose-400/70 to-pink-400/70 hover:from-rose-500/80 hover:to-pink-500/80 text-white p-3 rounded-full transition-all duration-300 shadow-lg shadow-rose-400/30"
                 aria-label="Next testimonials"
               >

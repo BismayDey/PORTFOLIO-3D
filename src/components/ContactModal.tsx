@@ -3,7 +3,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import confetti from "canvas-confetti";
 import {
   ArrowRight,
+  Check,
   CheckCircle2,
+  ChevronDown,
   Loader2,
   MessageCircle,
   Send,
@@ -36,6 +38,123 @@ export const SERVICES = [
   "Maintenance & Support",
   "Something else",
 ];
+
+
+/** Red asterisk marking a mandatory field. */
+function Req() {
+  return (
+    <span className="text-red-500 font-bold" aria-hidden="true">
+      *
+    </span>
+  );
+}
+
+/**
+ * Custom listbox — a native <select> renders OS-chrome options that ignore the
+ * dark theme entirely and look broken on this panel.
+ */
+function ServiceSelect({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const wrap = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      if (!wrap.current?.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.stopPropagation();
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey, true);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey, true);
+    };
+  }, [open]);
+
+  return (
+    <div ref={wrap} className="relative">
+      {/* keeps native required-field validation on submit */}
+      <input
+        tabIndex={-1}
+        required
+        value={value}
+        onChange={() => {}}
+        aria-hidden="true"
+        className="absolute opacity-0 w-full h-0 pointer-events-none"
+      />
+      <button
+        type="button"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-labelledby="cm-service-label"
+        onClick={() => setOpen((o) => !o)}
+        className={`w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-white/5 border text-left transition-colors ${
+          open
+            ? "border-emerald-400/70 ring-2 ring-emerald-400/20"
+            : "border-white/15 hover:border-white/30"
+        }`}
+      >
+        <span className={value ? "text-white" : "text-gray-500"}>
+          {value || "Select a service"}
+        </span>
+        <ChevronDown
+          className={`w-4 h-4 flex-shrink-0 text-gray-400 transition-transform duration-200 ${
+            open ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.ul
+            role="listbox"
+            initial={{ opacity: 0, y: -6, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.98 }}
+            transition={{ duration: 0.15 }}
+            className="absolute z-20 bottom-full mb-2 sm:bottom-auto sm:top-full sm:mt-2 sm:mb-0 w-full max-h-52 overflow-y-auto rounded-xl border border-white/15 bg-[#0d1210] shadow-2xl shadow-black/80 p-1.5 scrollbar-thin"
+          >
+            {SERVICES.map((s) => {
+              const on = s === value;
+              return (
+                <li key={s}>
+                  <button
+                    type="button"
+                    role="option"
+                    aria-selected={on}
+                    onClick={() => {
+                      onChange(s);
+                      setOpen(false);
+                    }}
+                    className={`w-full flex items-center justify-between gap-2 px-3 py-2.5 rounded-lg text-sm text-left transition-colors ${
+                      on
+                        ? "bg-emerald-500/20 text-emerald-200"
+                        : "text-gray-300 hover:bg-white/10 hover:text-white"
+                    }`}
+                  >
+                    <span>{s}</span>
+                    {on && <Check className="w-4 h-4 flex-shrink-0" />}
+                  </button>
+                </li>
+              );
+            })}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 type Status = "idle" | "sending" | "done" | "error";
 
@@ -149,7 +268,7 @@ export function ContactModal({
   };
 
   const field =
-    "w-full px-4 py-3.5 rounded-xl bg-black/60 border border-white/25 text-white placeholder:text-gray-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40 focus:bg-black/80 transition-all";
+    "w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder:text-gray-500 focus:outline-none focus:border-emerald-400/70 focus:ring-2 focus:ring-emerald-400/20 transition-colors";
 
   return (
     <AnimatePresence>
@@ -159,7 +278,7 @@ export function ContactModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={(e) => e.target === e.currentTarget && onClose()}
-          className="fixed inset-0 z-[90] bg-black/92 backdrop-blur-lg flex items-start md:items-center justify-center p-4 overflow-y-auto"
+          className="fixed inset-0 z-[90] bg-black/80 backdrop-blur-md flex items-start md:items-center justify-center p-3 sm:p-4 overflow-y-auto"
         >
           <motion.div
             ref={dialogRef}
@@ -170,15 +289,12 @@ export function ContactModal({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 300, damping: 28 }}
-            className="relative w-full max-w-lg my-8 bg-[#0b0f0d] border border-emerald-400/40 rounded-3xl shadow-2xl shadow-emerald-500/20 overflow-hidden"
+            className="relative w-full max-w-2xl my-4 md:my-6 bg-gradient-to-br from-gray-900 to-black border border-emerald-500/30 rounded-3xl shadow-2xl shadow-emerald-500/10 overflow-hidden"
           >
-            {/* accent rail so the panel separates from the page behind it */}
-            <div className="h-1 w-full bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400" />
-
             <button
               onClick={onClose}
               aria-label="Close contact form"
-              className="absolute top-5 right-4 z-10 p-2 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors"
+              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/5 hover:bg-white/15 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -199,7 +315,7 @@ export function ContactModal({
                 >
                   Thanks, {form.name.split(" ")[0] || "there"}!
                 </h2>
-                <p className="text-gray-300 mb-8 leading-relaxed">
+                <p className="text-gray-400 mb-8 leading-relaxed">
                   Your enquiry is in. I reply to every message personally —
                   usually within a few hours.
                 </p>
@@ -227,39 +343,44 @@ export function ContactModal({
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="p-6 md:p-8">
+              <form onSubmit={handleSubmit} className="p-5 sm:p-7 md:p-8">
                 <h2
                   id="contact-modal-title"
-                  className="text-3xl md:text-4xl font-bold mb-2 text-white tracking-tight"
+                  className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-emerald-400 to-green-400 bg-clip-text text-transparent"
                 >
                   Let's build something
                 </h2>
-                <p className="text-[15px] text-gray-300 mb-7 leading-relaxed">
-                  Tell me what you need. I'll come back with scope, a timeline
-                  and a price — usually within a day.
+                <p className="text-sm text-gray-400 mb-5">
+                  Tell me what you need. I'll come back with scope, timeline and
+                  a price.
                 </p>
 
-                <div className="space-y-4">
-                  <div>
-                    <label htmlFor="cm-name" className="sr-only">
-                      Your name
-                    </label>
-                    <input
-                      id="cm-name"
-                      required
-                      value={form.name}
-                      onChange={(e) =>
-                        setForm({ ...form, name: e.target.value })
-                      }
-                      placeholder="Your name *"
-                      className={field}
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-3.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                     <div>
-                      <label htmlFor="cm-email" className="sr-only">
-                        Email address
+                      <label
+                        htmlFor="cm-name"
+                        className="block text-xs font-medium text-gray-400 mb-1.5"
+                      >
+                        Your name <Req />
+                      </label>
+                      <input
+                        id="cm-name"
+                        required
+                        value={form.name}
+                        onChange={(e) =>
+                          setForm({ ...form, name: e.target.value })
+                        }
+                        placeholder="Jane Doe"
+                        className={field}
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="cm-email"
+                        className="block text-xs font-medium text-gray-400 mb-1.5"
+                      >
+                        Email <Req />
                       </label>
                       <input
                         id="cm-email"
@@ -269,13 +390,19 @@ export function ContactModal({
                         onChange={(e) =>
                           setForm({ ...form, email: e.target.value })
                         }
-                        placeholder="Email *"
+                        placeholder="you@company.com"
                         className={field}
                       />
                     </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                     <div>
-                      <label htmlFor="cm-phone" className="sr-only">
-                        Phone number
+                      <label
+                        htmlFor="cm-phone"
+                        className="block text-xs font-medium text-gray-400 mb-1.5"
+                      >
+                        Phone / WhatsApp <Req />
                       </label>
                       <input
                         id="cm-phone"
@@ -285,50 +412,40 @@ export function ContactModal({
                         onChange={(e) =>
                           setForm({ ...form, phone: e.target.value })
                         }
-                        placeholder="Phone / WhatsApp *"
+                        placeholder="+91 00000 00000"
                         className={field}
+                      />
+                    </div>
+                    <div>
+                      <span
+                        id="cm-service-label"
+                        className="block text-xs font-medium text-gray-400 mb-1.5"
+                      >
+                        What do you need? <Req />
+                      </span>
+                      <ServiceSelect
+                        value={form.service}
+                        onChange={(v) => setForm({ ...form, service: v })}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="cm-service" className="sr-only">
-                      Service needed
-                    </label>
-                    <select
-                      id="cm-service"
-                      required
-                      value={form.service}
-                      onChange={(e) =>
-                        setForm({ ...form, service: e.target.value })
-                      }
-                      className={`${field} ${
-                        form.service ? "text-white" : "text-gray-500"
-                      }`}
+                    <label
+                      htmlFor="cm-message"
+                      className="block text-xs font-medium text-gray-400 mb-1.5"
                     >
-                      <option value="" disabled className="bg-gray-900">
-                        What do you need? *
-                      </option>
-                      {SERVICES.map((s) => (
-                        <option key={s} value={s} className="bg-gray-900">
-                          {s}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="cm-message" className="sr-only">
-                      Project details
+                      Project details{" "}
+                      <span className="text-gray-600">(optional)</span>
                     </label>
                     <textarea
                       id="cm-message"
-                      rows={4}
+                      rows={3}
                       value={form.message}
                       onChange={(e) =>
                         setForm({ ...form, message: e.target.value })
                       }
-                      placeholder="Anything else — budget, deadline, links to what you have now"
+                      placeholder="Budget, deadline, links to what you have now"
                       className={`${field} resize-none`}
                     />
                   </div>
@@ -353,7 +470,7 @@ export function ContactModal({
                 <button
                   type="submit"
                   disabled={status === "sending"}
-                  className="mt-7 w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-emerald-400 text-black font-bold text-base shadow-lg shadow-emerald-500/25 hover:bg-emerald-300 hover:shadow-emerald-400/40 disabled:opacity-60 disabled:cursor-not-allowed transition-all"
+                  className="mt-5 w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 text-white font-semibold shadow-lg hover:brightness-110 disabled:opacity-60 disabled:cursor-not-allowed transition-all"
                 >
                   {status === "sending" ? (
                     <>
@@ -368,7 +485,7 @@ export function ContactModal({
                   )}
                 </button>
 
-                <p className="mt-4 text-center text-xs text-gray-400">
+                <p className="mt-3.5 text-center text-xs text-gray-500">
                   Prefer to talk?{" "}
                   <a
                     href={`https://wa.me/${WHATSAPP_NUMBER}`}

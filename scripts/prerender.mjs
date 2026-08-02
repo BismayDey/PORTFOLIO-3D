@@ -1,82 +1,144 @@
-// Post-build step: renders every route in headless Chromium and writes the
-// resulting HTML to dist/<route>/index.html, plus a sitemap and an OG image.
+// Post-build SEO step. Writes a real HTML file per route so crawlers that do
+// not run JavaScript (LinkedIn, WhatsApp, Slack, Twitter) still get correct
+// titles, canonicals, Open Graph tags and JSON-LD.
 //
-// Why: the app is a client-rendered SPA. Google executes JS, but LinkedIn,
-// WhatsApp, Slack, Twitter and most other crawlers do not — without this the
-// case-study pages would share as a bare URL with the generic home-page title.
-import { chromium } from "file:///C:/Users/bisma/AppData/Local/npm-cache/_npx/9833c18b2d85bc59/node_modules/playwright-core/index.mjs";
-import { spawn } from "node:child_process";
+// Each route gets a copy of index.html with its own <title>, description,
+// canonical, Open Graph/Twitter tags and JSON-LD stamped into the head. The
+// body still hydrates client-side. No browser needed, so this runs identically
+// on a laptop and on Vercel.
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 
-const CHROME =
-  "C:/Users/bisma/AppData/Local/ms-playwright/chromium-1228/chrome-win64/chrome.exe";
-const PORT = 4188;
-const ORIGIN = `http://localhost:${PORT}`;
 const SITE_URL = "https://www.bismaydey.me";
 const DIST = "dist";
 
-// Slugs come straight from the data file so the two can never drift.
-const dataSrc = readFileSync("src/data/clientProjects.ts", "utf8");
-const slugs = [...dataSrc.matchAll(/^\s{4}slug: "([^"]+)",$/gm)].map((m) => m[1]);
-if (!slugs.length) throw new Error("no client slugs found — check the regex");
+const require = createRequire(import.meta.url);
 
-const routes = ["/", ...slugs.map((s) => `/client/${s}`)];
-console.log(`Prerendering ${routes.length} routes…`);
-
-const server = spawn(
-  process.platform === "win32" ? "npx.cmd" : "npx",
-  ["vite", "preview", "--port", String(PORT), "--strictPort"],
-  { stdio: "ignore", shell: process.platform === "win32" }
-);
-
-const browser = await chromium.launch({ executablePath: CHROME });
-const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
-
-async function waitForServer(page) {
-  for (let i = 0; i < 40; i++) {
-    try {
-      await page.goto(ORIGIN, { timeout: 2000 });
-      return true;
-    } catch {
-      await page.waitForTimeout(500);
-    }
-  }
-  return false;
+// ---------------------------------------------------------------- load data
+// esbuild ships with Vite, so the TypeScript data file can be transpiled and
+// imported instead of regex-scraped.
+async function loadProjects() {
+  const esbuild = require("esbuild");
+  const out = esbuild.buildSync({
+    entryPoints: ["src/data/clientProjects.ts"],
+    bundle: true,
+    format: "esm",
+    platform: "node",
+    write: false,
+  });
+  const code = Buffer.from(out.outputFiles[0].text).toString("base64");
+  const mod = await import(`data:text/javascript;base64,${code}`);
+  return mod.clientProjects;
 }
 
-try {
-  const page = await ctx.newPage();
-  if (!(await waitForServer(page))) throw new Error("preview server never came up");
+const projects = await loadProjects();
+const routes = ["/", ...projects.map((p) => `/client/${p.slug}`)];
+console.log(`SEO: ${routes.length} routes`);
 
-  for (const route of routes) {
-    await page.goto(`${ORIGIN}${route}`, { waitUntil: "networkidle", timeout: 60000 });
-    // give useSeo's effect a tick to stamp the head
-    await page.waitForTimeout(route === "/" ? 3500 : 1200);
+// -------------------------------------------------------------- head builder
+const esc = (v = "") =>
+  String(v)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 
-    const html = await page.content();
-    const outPath =
-      route === "/" ? join(DIST, "index.html") : join(DIST, route, "index.html");
-    mkdirSync(dirname(outPath), { recursive: true });
-    writeFileSync(outPath, html);
-    console.log(`  ✓ ${route}`);
+function metaFor(route) {
+  if (route === "/") {
+    return {
+      title:
+        "Bismay Dey — Full-Stack Developer in Kolkata | Web Apps, Shopify, AI",
+      description:
+        "Full-stack developer in Kolkata building web apps, e-commerce stores and AI features. 19+ client projects delivered across EdTech, HR Tech, retail and hospitality. Available for freelance and full-time work.",
+      image: `${SITE_URL}/og-default.jpg`,
+      type: "website",
+      jsonLd: null,
+    };
   }
+  const p = projects.find((x) => `/client/${x.slug}` === route);
+  return {
+    title: `${p.name} — ${p.sector} Case Study | Bismay Dey`,
+    description: `${p.summary} Built by Bismay Dey — ${p.role}, ${p.stack
+      .slice(0, 4)
+      .join(", ")}.`,
+    image: p.screenshots[0]
+      ? `${SITE_URL}${p.screenshots[0]}`
+      : `${SITE_URL}/og-default.jpg`,
+    type: "article",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      name: p.name,
+      headline: `${p.name} — ${p.sector} case study`,
+      description: p.summary,
+      url: `${SITE_URL}${route}`,
+      image: p.screenshots.map((s) => `${SITE_URL}${s}`),
+      dateCreated: p.year,
+      keywords: [...p.tags, ...p.stack].join(", "),
+      creator: {
+        "@type": "Person",
+        name: "Bismay Dey",
+        jobTitle: "Full-Stack Developer",
+        url: SITE_URL,
+      },
+      about: { "@type": "Thing", name: p.sector },
+      mainEntityOfPage: `${SITE_URL}${route}`,
+    },
+  };
+}
 
-  // Open Graph image: the hero, cropped to the 1.91:1 ratio social cards use.
-  const og = await ctx.newPage();
-  await og.setViewportSize({ width: 1200, height: 630 });
-  await og.goto(ORIGIN, { waitUntil: "networkidle", timeout: 60000 });
-  await og.waitForTimeout(5000);
-  await og.screenshot({ path: join(DIST, "og-default.jpg"), type: "jpeg", quality: 85 });
-  writeFileSync(
-    "public/og-default.jpg",
-    readFileSync(join(DIST, "og-default.jpg"))
+function stampHead(html, route) {
+  const m = metaFor(route);
+  const url = `${SITE_URL}${route}`;
+  let head = html;
+
+  head = head.replace(
+    /<title>[\s\S]*?<\/title>/,
+    `<title>${esc(m.title)}</title>`
   );
-  console.log("  ✓ og-default.jpg");
+  const set = (attr, key, value) => {
+    const re = new RegExp(`<meta ${attr}="${key}"[^>]*>`);
+    const tag = `<meta ${attr}="${key}" content="${esc(value)}">`;
+    head = re.test(head) ? head.replace(re, tag) : head.replace("</head>", `  ${tag}\n</head>`);
+  };
+  set("name", "description", m.description);
+  set("property", "og:title", m.title);
+  set("property", "og:description", m.description);
+  set("property", "og:url", url);
+  set("property", "og:image", m.image);
+  set("property", "og:type", m.type);
+  set("name", "twitter:title", m.title);
+  set("name", "twitter:description", m.description);
+  set("name", "twitter:image", m.image);
 
-  const today = new Date().toISOString().slice(0, 10);
-  const NS = "http://www.sitemaps.org/schemas/sitemap/0.9";
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+  head = head.replace(
+    /<link rel="canonical"[^>]*>/,
+    `<link rel="canonical" href="${url}">`
+  );
+  if (m.jsonLd) {
+    head = head.replace(
+      "</head>",
+      `  <script type="application/ld+json">${JSON.stringify(m.jsonLd)}</script>\n</head>`
+    );
+  }
+  return head;
+}
+
+// ------------------------------------------------------------------- outputs
+const indexHtml = readFileSync(join(DIST, "index.html"), "utf8");
+for (const route of routes) {
+  const out =
+    route === "/" ? join(DIST, "index.html") : join(DIST, route, "index.html");
+  mkdirSync(dirname(out), { recursive: true });
+  writeFileSync(out, stampHead(indexHtml, route));
+}
+console.log(`  ✓ per-route <head> written for ${routes.length} routes`);
+
+// -------------------------------------------------------------- sitemap etc.
+const today = new Date().toISOString().slice(0, 10);
+const NS = "http://www.sitemaps.org/schemas/sitemap/0.9";
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="${NS}">
 ${routes
   .map(
@@ -90,13 +152,9 @@ ${routes
   .join("\n")}
 </urlset>
 `;
-  writeFileSync(join(DIST, "sitemap.xml"), sitemap);
-  writeFileSync("public/sitemap.xml", sitemap);
-  console.log(`  ✓ sitemap.xml (${routes.length} urls)`);
-} finally {
-  await browser.close();
-  server.kill();
-}
-
-console.log("Prerender complete.");
+writeFileSync(join(DIST, "sitemap.xml"), sitemap);
+writeFileSync("public/sitemap.xml", sitemap);
+console.log(`  ✓ sitemap.xml (${routes.length} urls)`);
+console.log("SEO complete.");
+// never fail a deploy over SEO extras
 process.exit(0);

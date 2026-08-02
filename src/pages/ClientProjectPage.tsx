@@ -11,8 +11,8 @@ import {
   Layers,
   Sparkles,
   Target,
+  TrendingUp,
   X,
-  Zap,
 } from "lucide-react";
 import { clientProjects, getClientProject } from "../data/clientProjects";
 import { ACCENTS } from "../components/ClientProjectCard";
@@ -261,15 +261,32 @@ export default function ClientProjectPage() {
           viewport={{ once: true, margin: "-60px" }}
           className="mb-20 md:mb-28"
         >
-          <div className="flex items-center gap-3 mb-6">
-            <span className={`w-2 h-2 rounded-full ${a.iconText.replace("text", "bg")}`} />
-            <h2 className="text-xs uppercase tracking-[0.25em] text-gray-500">
-              The brief
-            </h2>
+          <div className="relative rounded-3xl border border-purple-400/30 bg-gradient-to-br from-purple-950/60 via-[#140d20] to-[#0d0a14] p-6 sm:p-9 md:p-12 overflow-hidden shadow-2xl shadow-purple-900/30">
+            <div className="absolute -top-24 -left-16 w-72 h-72 bg-purple-500/25 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute -bottom-28 -right-16 w-80 h-80 bg-fuchsia-500/15 rounded-full blur-[110px] pointer-events-none" />
+
+            <div className="relative z-10">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="w-2 h-2 rounded-full bg-purple-300 animate-pulse" />
+                <h2 className="text-[11px] sm:text-xs uppercase tracking-[0.28em] font-semibold text-purple-200">
+                  The brief
+                </h2>
+                <span className="h-px flex-1 bg-gradient-to-r from-purple-400/40 to-transparent" />
+              </div>
+
+              <div className="flex gap-4 sm:gap-6">
+                <span
+                  aria-hidden="true"
+                  className="hidden sm:block text-6xl md:text-7xl leading-[0.8] font-serif text-purple-400/40 select-none"
+                >
+                  &ldquo;
+                </span>
+                <p className="text-lg sm:text-xl md:text-2xl lg:text-[28px] leading-[1.55] text-purple-50 font-light">
+                  {project.challenge}
+                </p>
+              </div>
+            </div>
           </div>
-          <p className="text-2xl md:text-3xl leading-[1.5] text-gray-100 max-w-4xl font-light">
-            {project.challenge}
-          </p>
         </motion.section>
 
         {/* What I built */}
@@ -363,7 +380,7 @@ export default function ClientProjectPage() {
           >
             Key features
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 items-stretch">
             {project.features.map((f, i) => (
               <motion.div
                 key={f.title}
@@ -371,18 +388,24 @@ export default function ClientProjectPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: (i % 2) * 0.08 }}
-                className="group relative bg-white/[0.03] border border-white/10 rounded-2xl p-6 md:p-7 overflow-hidden hover:bg-white/[0.06] hover:border-white/25 hover:-translate-y-1 transition-all duration-300"
+                className="group relative flex gap-5 bg-[#0e0e11] border border-white/[0.14] rounded-2xl p-6 md:p-7 overflow-hidden shadow-xl shadow-black/60 hover:border-white/30 hover:-translate-y-1 transition-all duration-300"
               >
-                <div
-                  className={`absolute -right-10 -top-10 w-32 h-32 ${a.glow} rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                {/* accent rail — reads as a solid card edge instead of an outline on black */}
+                <span
+                  className={`absolute left-0 top-6 bottom-6 w-[3px] rounded-r-full ${a.iconBg.split(" ")[0]} opacity-70 group-hover:opacity-100 group-hover:top-3 group-hover:bottom-3 transition-all duration-300`}
                 />
-                <div className="relative z-10">
-                  <div
-                    className={`p-2.5 w-fit rounded-xl ${a.iconBg} mb-5 group-hover:scale-110 transition-transform duration-300`}
-                  >
-                    <Zap className={`w-5 h-5 ${a.iconText}`} />
-                  </div>
-                  <h3 className="text-lg md:text-xl font-bold mb-2">
+                <div
+                  className={`absolute -right-12 -top-12 w-32 h-32 ${a.glow} rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                />
+
+                <span
+                  className={`relative z-10 flex-shrink-0 font-mono text-sm ${a.iconText} opacity-50 group-hover:opacity-100 transition-opacity pt-0.5`}
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+
+                <div className="relative z-10 min-w-0">
+                  <h3 className="text-lg md:text-xl font-bold mb-2 leading-snug">
                     {f.title}
                   </h3>
                   <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors">
@@ -395,14 +418,20 @@ export default function ClientProjectPage() {
         </section>
 
         {/* Stack + outcome */}
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-20 md:mb-28">
+        <section className="grid grid-cols-1 lg:grid-cols-5 gap-4 md:gap-5 mb-20 md:mb-28">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            className="lg:col-span-2 rounded-3xl border border-white/[0.14] bg-[#0e0e11] p-6 sm:p-7 md:p-8 shadow-xl shadow-black/60"
           >
-            <h2 className="text-2xl font-bold mb-6">Tech stack</h2>
-            <div className="flex flex-wrap gap-2.5">
+            <div className="flex items-center gap-2.5 mb-6">
+              <Layers className={`w-4 h-4 ${a.iconText}`} />
+              <h2 className="text-sm uppercase tracking-[0.18em] font-semibold text-gray-400">
+                Tech stack
+              </h2>
+            </div>
+            <div className="flex flex-wrap gap-2 sm:gap-2.5">
               {project.stack.map((tech, i) => (
                 <motion.span
                   key={tech}
@@ -410,35 +439,48 @@ export default function ClientProjectPage() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.04 }}
-                  className={`px-4 py-2 rounded-full text-sm font-medium border ${a.chip} hover:scale-105 transition-transform`}
+                  className={`px-3.5 sm:px-4 py-2 rounded-full text-[13px] sm:text-sm font-medium border ${a.chip} hover:scale-105 transition-transform`}
                 >
                   {tech}
                 </motion.span>
               ))}
             </div>
+            <p className="mt-6 pt-5 border-t border-white/10 text-xs text-gray-500 leading-relaxed">
+              Chosen for what this product needed — not for what was trendy.
+            </p>
           </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ delay: 0.08 }}
+            className="lg:col-span-3 rounded-3xl border border-white/[0.14] bg-[#0e0e11] p-6 sm:p-7 md:p-8 shadow-xl shadow-black/60"
           >
-            <h2 className="text-2xl font-bold mb-6">Outcome</h2>
-            <ul className="space-y-4">
+            <div className="flex items-center gap-2.5 mb-6">
+              <TrendingUp className={`w-4 h-4 ${a.iconText}`} />
+              <h2 className="text-sm uppercase tracking-[0.18em] font-semibold text-gray-400">
+                Outcome
+              </h2>
+            </div>
+            <ul className="divide-y divide-white/10 -my-1">
               {project.results.map((r, i) => (
                 <motion.li
                   key={r}
-                  initial={{ opacity: 0, x: 20 }}
+                  initial={{ opacity: 0, x: 16 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
-                  className="flex gap-4 text-gray-300"
+                  className="flex gap-4 py-4 text-gray-300"
                 >
                   <span
-                    className={`flex-shrink-0 w-6 h-6 rounded-full ${a.iconBg} flex items-center justify-center text-[11px] font-bold ${a.iconText}`}
+                    className={`flex-shrink-0 w-7 h-7 rounded-full ${a.iconBg} flex items-center justify-center text-[11px] font-bold ${a.iconText}`}
                   >
                     {i + 1}
                   </span>
-                  <span className="leading-relaxed">{r}</span>
+                  <span className="leading-relaxed text-sm sm:text-base">
+                    {r}
+                  </span>
                 </motion.li>
               ))}
             </ul>
