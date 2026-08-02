@@ -1,10 +1,10 @@
 "use client";
 
-import type React from "react";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Scene } from "./components/Scene";
 import {
+  ArrowRight,
   Brain,
   Code2,
   Rocket,
@@ -13,11 +13,8 @@ import {
   Mail,
   Users,
   Github,
-  BarChart3,
   Linkedin,
   Instagram,
-  Globe,
-  Briefcase,
   Award,
   ExternalLink,
   FileText,
@@ -35,7 +32,7 @@ import {
   Server,
   Lock,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import {
   clientProjects,
   featuredClientProjects,
@@ -43,7 +40,18 @@ import {
 import { ClientProjectCard } from "./components/ClientProjectCard";
 import { ContactModal } from "./components/ContactModal";
 import { ServicesSection } from "./components/ServicesSection";
+import { ExperienceSection } from "./components/ExperienceSection";
 import { SITE_URL, useSeo } from "./lib/seo";
+
+const NAV_LINKS = [
+  { id: "about", label: "About" },
+  { id: "services", label: "Services" },
+  { id: "experience", label: "Experience" },
+  { id: "client-projects", label: "Client Work" },
+  { id: "projects", label: "Projects" },
+  { id: "certificates", label: "Certificates" },
+  { id: "contact", label: "Contact" },
+];
 
 function App() {
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -59,6 +67,19 @@ function App() {
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [showAllClientProjects, setShowAllClientProjects] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [navScrolled, setNavScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("about");
+  const { scrollYProgress } = useScroll();
+  const pageProgress = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  const scrollToId = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setMobileMenuOpen(false);
+  };
   const clientProjectsRef = useRef<HTMLDivElement>(null);
   // introComplete removed — heading kept static inside Scene
   const [canvasEventSource, setCanvasEventSource] =
@@ -226,6 +247,31 @@ function App() {
     ],
   });
 
+  useEffect(() => {
+    const onScroll = () => setNavScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // highlight whichever section owns the middle of the viewport
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        const hit = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (hit) setActiveSection(hit.target.id);
+      },
+      { rootMargin: "-45% 0px -45% 0px", threshold: [0, 0.25, 0.5, 1] }
+    );
+    NAV_LINKS.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
+    return () => io.disconnect();
+  }, []);
+
   // Deep links from the case-study pages arrive as /#contact
   useEffect(() => {
     if (window.location.hash !== "#contact") return;
@@ -303,11 +349,6 @@ function App() {
       isPdf: true,
     },
   ];
-
-  const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
-    ref.current?.scrollIntoView({ behavior: "smooth" });
-    setMobileMenuOpen(false);
-  };
 
   const handleDownloadResume = () => {
     setIsDownloading(true);
@@ -534,126 +575,146 @@ function App() {
       </div>
 
       {/* Navigation */}
-      <div className="fixed top-0 left-0 right-0 p-4 md:p-6 z-50">
-        <nav className="max-w-7xl mx-auto flex justify-between items-center text-white backdrop-blur-md bg-black/30 rounded-full px-6 md:px-8 py-3 md:py-4 border border-white/10">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="relative flex items-center gap-3"
+      <motion.div
+        initial={{ y: -24, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 180, damping: 24 }}
+        className="fixed top-0 left-0 right-0 px-4 md:px-6 z-50"
+      >
+        <nav
+          className={`max-w-7xl mx-auto flex justify-between items-center text-white rounded-full border transition-all duration-300 ${
+            navScrolled
+              ? "bg-black/80 backdrop-blur-xl border-white/15 shadow-2xl shadow-black/50 mt-2 px-5 md:px-6 py-2.5 md:py-3"
+              : "bg-black/30 backdrop-blur-md border-white/10 mt-4 px-6 md:px-8 py-3 md:py-4"
+          }`}
+        >
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="relative flex items-center gap-3 group"
+            aria-label="Back to top"
           >
-            <span className="text-2xl md:text-3xl font-black uppercase tracking-wide bg-gradient-to-r from-purple-300 via-pink-400 to-rose-400 bg-clip-text text-transparent drop-shadow-[0_0_18px_rgba(244,114,182,0.45)]">
+            <span
+              className={`font-black uppercase tracking-wide bg-gradient-to-r from-purple-300 via-pink-400 to-rose-400 bg-clip-text text-transparent drop-shadow-[0_0_18px_rgba(244,114,182,0.45)] transition-all duration-300 ${
+                navScrolled ? "text-xl md:text-2xl" : "text-2xl md:text-3xl"
+              }`}
+            >
               Bismay Dey
             </span>
-          </motion.div>
+          </button>
 
           {/* Desktop Menu */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="hidden md:flex space-x-8"
-          >
-            <button
-              onClick={() => scrollToSection(aboutRef)}
-              className="hover:text-purple-400 transition-colors font-medium"
-            >
-              About
-            </button>
-            <button
-              onClick={() => scrollToSection(experienceRef)}
-              className="hover:text-purple-400 transition-colors font-medium"
-            >
-              Experience
-            </button>
-            <button
-              onClick={() => scrollToSection(projectsRef)}
-              className="hover:text-purple-400 transition-colors font-medium"
-            >
-              Projects
-            </button>
-            <button
-              onClick={() => scrollToSection(certificatesRef)}
-              className="hover:text-purple-400 transition-colors font-medium"
-            >
-              Certificates
-            </button>
-            <button
-              onClick={() => scrollToSection(contactRef)}
-              className="hover:text-purple-400 transition-colors font-medium"
-            >
-              Contact
-            </button>
-          </motion.div>
+          <div className="hidden lg:flex items-center gap-1">
+            {NAV_LINKS.map((link) => {
+              const active = activeSection === link.id;
+              return (
+                <button
+                  key={link.id}
+                  onClick={() => scrollToId(link.id)}
+                  aria-current={active ? "true" : undefined}
+                  className={`relative px-3.5 py-2 rounded-full text-sm font-medium transition-colors ${
+                    active ? "text-white" : "text-gray-400 hover:text-white"
+                  }`}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="nav-pill"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      className="absolute inset-0 rounded-full bg-white/10 border border-white/15"
+                    />
+                  )}
+                  <span className="relative z-10">{link.label}</span>
+                </button>
+              );
+            })}
+          </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2"
-          >
-            <div className="w-6 h-5 flex flex-col justify-between">
-              <span
-                className={`w-full h-0.5 bg-white transition-all ${
-                  mobileMenuOpen ? "rotate-45 translate-y-2" : ""
-                }`}
-              />
-              <span
-                className={`w-full h-0.5 bg-white transition-all ${
-                  mobileMenuOpen ? "opacity-0" : ""
-                }`}
-              />
-              <span
-                className={`w-full h-0.5 bg-white transition-all ${
-                  mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-                }`}
-              />
-            </div>
-          </button>
+          <div className="flex items-center gap-2">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setContactModalOpen(true)}
+              className="hidden sm:inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full bg-white text-black text-sm font-bold shadow-lg hover:shadow-white/20 transition-shadow"
+            >
+              Hire me
+              <ArrowRight className="w-4 h-4" />
+            </motion.button>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-2"
+              aria-label="Toggle menu"
+              aria-expanded={mobileMenuOpen}
+            >
+              <div className="w-6 h-5 flex flex-col justify-between">
+                <span
+                  className={`w-full h-0.5 bg-white transition-all ${
+                    mobileMenuOpen ? "rotate-45 translate-y-2" : ""
+                  }`}
+                />
+                <span
+                  className={`w-full h-0.5 bg-white transition-all ${
+                    mobileMenuOpen ? "opacity-0" : ""
+                  }`}
+                />
+                <span
+                  className={`w-full h-0.5 bg-white transition-all ${
+                    mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
+                  }`}
+                />
+              </div>
+            </button>
+          </div>
         </nav>
+
+        {/* scroll progress hairline */}
+        <motion.div
+          style={{ scaleX: pageProgress }}
+          className="max-w-7xl mx-auto mt-1.5 h-[2px] origin-left rounded-full bg-gradient-to-r from-purple-400 via-pink-400 to-rose-400"
+        />
 
         {/* Mobile Menu */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: -16 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="md:hidden mt-4 backdrop-blur-md bg-black/30 rounded-2xl p-6 border border-white/10"
+              exit={{ opacity: 0, y: -16 }}
+              className="lg:hidden mt-3 backdrop-blur-xl bg-black/85 rounded-3xl p-4 border border-white/15 shadow-2xl shadow-black/60"
             >
-              <div className="flex flex-col space-y-4 text-white">
+              <div className="flex flex-col text-white">
+                {NAV_LINKS.map((link, i) => (
+                  <motion.button
+                    key={link.id}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.04 }}
+                    onClick={() => scrollToId(link.id)}
+                    className={`text-left px-4 py-3 rounded-2xl font-medium transition-colors ${
+                      activeSection === link.id
+                        ? "bg-white/10 text-white"
+                        : "text-gray-300 hover:bg-white/5 hover:text-white"
+                    }`}
+                  >
+                    {link.label}
+                  </motion.button>
+                ))}
                 <button
-                  onClick={() => scrollToSection(aboutRef)}
-                  className="text-left hover:text-purple-400 transition-colors font-medium"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setContactModalOpen(true);
+                  }}
+                  className="mt-3 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-white text-black font-bold"
                 >
-                  About
-                </button>
-                <button
-                  onClick={() => scrollToSection(experienceRef)}
-                  className="text-left hover:text-purple-400 transition-colors font-medium"
-                >
-                  Experience
-                </button>
-                <button
-                  onClick={() => scrollToSection(projectsRef)}
-                  className="text-left hover:text-purple-400 transition-colors font-medium"
-                >
-                  Projects
-                </button>
-                <button
-                  onClick={() => scrollToSection(certificatesRef)}
-                  className="text-left hover:text-purple-400 transition-colors font-medium"
-                >
-                  Certificates
-                </button>
-                <button
-                  onClick={() => scrollToSection(contactRef)}
-                  className="text-left hover:text-purple-400 transition-colors font-medium"
-                >
-                  Contact
+                  Hire me
+                  <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
+
 
       {/* Resume Buttons */}
       <div className="fixed bottom-6 md:bottom-8 left-0 right-0 z-50 flex justify-center px-4">
@@ -742,6 +803,7 @@ function App() {
         {/* About Section - Bento Grid Layout */}
         <div
           ref={aboutRef}
+          id="about"
           className="min-h-screen bg-gradient-to-b from-black via-purple-900/10 to-black px-4 md:px-8 py-16 md:py-24"
         >
           <motion.div
@@ -1478,975 +1540,12 @@ function App() {
 
         <ServicesSection onEnquire={() => setContactModalOpen(true)} />
 
-        {/* Experience Section - Timeline Layout */}
-        <div
-          ref={experienceRef}
-          className="min-h-screen bg-gradient-to-b from-black via-blue-900/10 to-black px-4 md:px-8 py-16 md:py-24"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-6xl mx-auto text-white"
-          >
-            <motion.h2
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-12 md:mb-16 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"
-            >
-              Experience
-            </motion.h2>
-
-            {/* Timeline */}
-            <div className="relative">
-              {/* Timeline Line - Hidden on mobile */}
-              <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-blue-500/50 via-purple-500/50 to-pink-500/50" />
-
-              {/* Experience Items */}
-              <div className="space-y-12 md:space-y-16">
-                {/* Item 0 - Alphonso Media */}
-                <motion.div
-                  initial={{ opacity: 0, x: -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="relative md:mr-[50%] md:pr-12"
-                >
-                  <div className="hidden md:block absolute right-0 top-8 w-4 h-4 bg-violet-500 rounded-full border-4 border-black transform translate-x-[calc(50%+1.5rem)]" />
-
-                  <motion.div
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    className="bg-gradient-to-br from-violet-900/40 to-fuchsia-900/40 p-6 md:p-8 rounded-2xl backdrop-blur-sm border border-violet-500/30 shadow-lg shadow-violet-500/10"
-                  >
-                    <div className="flex items-start gap-4 mb-4 flex-row-reverse">
-                      <div className="p-3 bg-violet-500/20 rounded-xl">
-                        <Users className="w-6 h-6 text-violet-400" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl md:text-2xl font-bold mb-2">
-                          Head of Development &amp; Project Manager
-                        </h3>
-                        <a
-                          href="https://alphonsomedia.com/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-violet-400 hover:text-violet-300 transition-colors font-semibold flex items-center gap-2 mb-2"
-                        >
-                          Alphonso Media (OPC) Private Limited
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                        <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            Jan 2026 – Present
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <MapPin className="w-4 h-4" />
-                            Remote
-                          </span>
-                        </div>
-                        <ul className="text-gray-300 leading-relaxed space-y-3">
-                          <li className="flex gap-3">
-                            <span className="text-violet-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Leading end-to-end delivery of software products —
-                              from technical strategy and system architecture to
-                              project planning, sprint execution, and successful
-                              client delivery.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-violet-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Coordinating cross-functional teams across
-                              frontend, backend, UI/UX, QA, and DevOps, while
-                              owning code quality, technical reviews, deployment
-                              strategy, and product releases.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-violet-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Working directly with clients to gather
-                              requirements and define scope, preparing SRS
-                              documents, roadmaps, and delivery plans that
-                              translate business needs into technical solutions.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-violet-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Identifying and mitigating project risks, driving
-                              Agile process improvements, and mentoring
-                              developers to sustain a culture of collaboration
-                              and continuous improvement.
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-
-                {/* Item 0b - Coding On The Rocks */}
-                <motion.div
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="relative md:ml-[50%] md:pl-12"
-                >
-                  <div className="hidden md:block absolute left-0 top-8 w-4 h-4 bg-amber-500 rounded-full border-4 border-black transform -translate-x-[calc(50%+1.5rem)]" />
-
-                  <motion.div
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    className="bg-gradient-to-br from-amber-900/40 to-orange-900/40 p-6 md:p-8 rounded-2xl backdrop-blur-sm border border-amber-500/30 shadow-lg shadow-amber-500/10"
-                  >
-                    <div className="flex items-start gap-4 mb-4 flex-row-reverse">
-                      <div className="p-3 bg-amber-500/20 rounded-xl">
-                        <Code2 className="w-6 h-6 text-amber-400" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl md:text-2xl font-bold mb-2">
-                          Freelance Lead Full-Stack Developer &amp; Product Owner
-                        </h3>
-                        <a
-                          href="https://codingontherocks.com/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-amber-400 hover:text-amber-300 transition-colors font-semibold flex items-center gap-2 mb-2"
-                        >
-                          Coding On The Rocks
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                        <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            Dec 2025 – Present
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <MapPin className="w-4 h-4" />
-                            Remote · Freelance
-                          </span>
-                        </div>
-                        <ul className="text-gray-300 leading-relaxed space-y-3">
-                          <li className="flex gap-3">
-                            <span className="text-amber-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Owning the complete product lifecycle — ideation,
-                              requirements analysis, system architecture,
-                              development, testing, deployment, and post-launch
-                              optimization.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-amber-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Building full-stack applications with Next.js,
-                              React, Node.js, Firebase, MongoDB, and AWS —
-                              REST/GraphQL APIs, optimized schemas, and secure
-                              role-based access control.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-amber-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Leading cross-functional teams across frontend,
-                              backend, UI/UX, and QA, and designing responsive,
-                              accessible interfaces that hold brand consistency
-                              under real performance budgets.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-amber-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Setting up CI/CD pipelines, automated testing, and
-                              environment management for fast, reliable releases
-                              — plus code reviews and mentoring to keep
-                              engineering standards high.
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-
-                {/* Item 0c - Garage Guys */}
-                <motion.div
-                  initial={{ opacity: 0, x: -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="relative md:mr-[50%] md:pr-12"
-                >
-                  <div className="hidden md:block absolute right-0 top-8 w-4 h-4 bg-sky-500 rounded-full border-4 border-black transform translate-x-[calc(50%+1.5rem)]" />
-
-                  <motion.div
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    className="bg-gradient-to-br from-sky-900/40 to-slate-900/40 p-6 md:p-8 rounded-2xl backdrop-blur-sm border border-sky-500/30 shadow-lg shadow-sky-500/10"
-                  >
-                    <div className="flex items-start gap-4 mb-4 flex-row-reverse">
-                      <div className="p-3 bg-sky-500/20 rounded-xl">
-                        <BarChart3 className="w-6 h-6 text-sky-400" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl md:text-2xl font-bold mb-2">
-                          Engineering Data Analyst
-                        </h3>
-                        <div className="text-sky-400 font-semibold mb-2">
-                          Garage Guys
-                        </div>
-                        <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            Dec 2025 – Jul 2026
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <MapPin className="w-4 h-4" />
-                            Remote, Tennessee, US
-                          </span>
-                        </div>
-                        <ul className="text-gray-300 leading-relaxed space-y-3">
-                          <li className="flex gap-3">
-                            <span className="text-sky-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Analyzed building and construction permit data for
-                              residential and commercial infrastructure
-                              projects, extracting permit types, property
-                              identifiers, contractor details, and site records.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-sky-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Applied systematic validation, cleaning, and
-                              normalization across large datasets to keep
-                              accuracy, completeness, and consistency intact at
-                              volume.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-sky-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Interpreted permit documentation to classify
-                              engineering-relevant work (new construction,
-                              remodeling, plumbing, electrical) and flagged
-                              anomalies before they reached downstream systems.
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-
-                {/* Item 1 - Techno India Group */}
-                <motion.div
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="relative md:ml-[50%] md:pl-12"
-                >
-                  <div className="hidden md:block absolute left-0 top-8 w-4 h-4 bg-emerald-500 rounded-full border-4 border-black transform -translate-x-[calc(50%+1.5rem)]" />
-
-                  <motion.div
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    className="bg-gradient-to-br from-emerald-900/40 to-teal-900/40 p-6 md:p-8 rounded-2xl backdrop-blur-sm border border-emerald-500/30 shadow-lg shadow-emerald-500/10"
-                  >
-                    <div className="flex items-start gap-4 mb-4 flex-row-reverse">
-                      <div className="p-3 bg-emerald-500/20 rounded-xl">
-                        <Briefcase className="w-6 h-6 text-emerald-400" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl md:text-2xl font-bold mb-2">
-                          Tech Lead & Full-Stack Developer
-                        </h3>
-                        <a
-                          href="https://technoindiagroup.in/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-emerald-400 hover:text-emerald-300 transition-colors font-semibold flex items-center gap-2 mb-2"
-                        >
-                          Techno India Group
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                        <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            Aug 2025 – Present
-                          </span>
-                        </div>
-                        <ul className="text-gray-300 leading-relaxed space-y-3">
-                          <li className="flex gap-3">
-                            <span className="text-emerald-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Overseeing and managing all technical operations
-                              for Techno India Group, including frontend and
-                              backend development, database design, domain & DNS
-                              configuration, server management, and deployment
-                              pipelines, ensuring seamless performance and
-                              reliability across all projects.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-emerald-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Leading a multidisciplinary development team to
-                              plan, architect, and deliver modern, scalable web
-                              platforms — handling everything from wireframing
-                              and system architecture to integration,
-                              optimization, and security.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-emerald-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Driving innovation and technical excellence by
-                              implementing best practices, maintaining high
-                              system uptime, and ensuring every project aligns
-                              with the group's long-term digital transformation
-                              goals.
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-  {/* Item 2 - Addi & Evie Pageant Rentals */}
-                <motion.div
-                  initial={{ opacity: 0, x: -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="relative md:mr-[50%] md:pr-12"
-                >
-                  <div className="hidden md:block absolute right-0 top-8 w-4 h-4 bg-green-500 rounded-full border-4 border-black transform translate-x-[calc(50%+1.5rem)]" />
-
-                  <motion.div
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    className="bg-gradient-to-br from-green-900/40 to-emerald-900/40 p-6 md:p-8 rounded-2xl backdrop-blur-sm border border-green-500/30 shadow-lg shadow-green-500/10"
-                  >
-                    <div className="flex items-start gap-4 mb-4 flex-row-reverse">
-                      <div className="p-3 bg-green-500/20 rounded-xl">
-                        <Briefcase className="w-6 h-6 text-green-400" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl md:text-2xl font-bold mb-2">
-                          Supply Chain Management Engineer
-                        </h3>
-                        <a
-                          href="https://www.aepageantrentals.com/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-green-400 hover:text-green-300 transition-colors font-semibold flex items-center gap-2 mb-2"
-                        >
-                          Addi & Evie Pageant Rentals
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                        <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            Oct 2025 – Aug 2026
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <MapPin className="w-4 h-4" />
-                            Remote, Tennessee, US
-                          </span>
-                        </div>
-                        <ul className="text-gray-300 leading-relaxed space-y-3">
-                          <li className="flex gap-3">
-                            <span className="text-green-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Oversee end-to-end inventory operations, including stock tracking, transfers, and logistics coordination for efficient order fulfillment.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-green-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Maintain accurate real-time inventory records and optimize stock levels to prevent shortages and overstock.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-green-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Implement systematic labeling and categorization for enhanced traceability and reduced errors.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-green-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Collaborate with teams to streamline material flow and support data-driven forecasting and reporting.
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-
-                {/* Item 5 - SINIM Bridge Corp */}
-                <motion.div
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="relative md:ml-[50%] md:pl-12"
-                >
-                  <div className="hidden md:block absolute left-0 top-8 w-4 h-4 bg-cyan-500 rounded-full border-4 border-black transform -translate-x-[calc(50%+1.5rem)]" />
-
-                  <motion.div
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    className="bg-gradient-to-br from-cyan-900/40 to-blue-900/40 p-6 md:p-8 rounded-2xl backdrop-blur-sm border border-cyan-500/30 shadow-lg shadow-cyan-500/10"
-                  >
-                    <div className="flex items-start gap-4 mb-4 flex-row-reverse">
-                      <div className="p-3 bg-cyan-500/20 rounded-xl">
-                        <Code2 className="w-6 h-6 text-cyan-400" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl md:text-2xl font-bold mb-2">
-                          Web Developer (Independent Contractor)
-                        </h3>
-                        <div className="text-cyan-400 font-semibold mb-2">
-                          SINIM Bridge Corp.
-                        </div>
-                        <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            Aug 2025 – Nov 2025
-                          </span>
-                        </div>
-                        <ul className="text-gray-300 leading-relaxed space-y-3">
-                          <li className="flex gap-3">
-                            <span className="text-cyan-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Developing, maintaining, and publishing SINIM
-                              Bridge's official website, digital platforms, and
-                              web applications, ensuring high performance,
-                              accessibility, and responsiveness across all
-                              devices.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-cyan-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Collaborating with HR and recruitment teams to
-                              design and manage career pages and job listings,
-                              supporting global hiring operations through
-                              optimized workflows and automated postings.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-cyan-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Enhancing company branding and digital presence by
-                              ensuring all content, visuals, and communication
-                              assets remain accurate, updated, and aligned with
-                              organizational goals.
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-
-                {/* Item 4 - PKL */}
-                <motion.div
-                  initial={{ opacity: 0, x: -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="relative md:mr-[50%] md:pr-12"
-                >
-                  <div className="hidden md:block absolute right-0 top-8 w-4 h-4 bg-blue-500 rounded-full border-4 border-black transform translate-x-[calc(50%+1.5rem)]" />
-
-                  <motion.div
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    className="bg-gradient-to-br from-blue-900/40 to-cyan-900/40 p-6 md:p-8 rounded-2xl backdrop-blur-sm border border-blue-500/30 shadow-lg shadow-blue-500/10"
-                  >
-                    <div className="flex items-start gap-4 mb-4 flex-row-reverse">
-                      <div className="p-3 bg-blue-500/20 rounded-xl">
-                        <Briefcase className="w-6 h-6 text-blue-400" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl md:text-2xl font-bold mb-2">
-                          Freelance Full-Stack Developer
-                        </h3>
-                        <a
-                          href="https://www.prasantakarinstitute.com/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-400 hover:text-blue-300 transition-colors font-semibold flex items-center gap-2 mb-2"
-                        >
-                          Prasanta Kar Institute
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                        <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            Sep 2025 – Oct 2025
-                          </span>
-                        </div>
-                        <ul className="text-gray-300 leading-relaxed space-y-3">
-                          <li className="flex gap-3">
-                            <span className="text-blue-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Developed the entire platform from scratch,
-                              including frontend, backend, database, and
-                              deployment — delivering a fully responsive LMS +
-                              e-commerce + e-book store with seamless user
-                              experience across all devices.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-blue-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Developed admin and manager panels with real-time
-                              monitoring, analytics dashboards, and content
-                              management, enabling efficient control over
-                              courses, orders, users, and payments.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-blue-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Integrated Razorpay payment gateway, automated
-                              course enrollment, order management, and live
-                              tracking systems while ensuring secure, scalable,
-                              and high-performing architecture with 99.9%
-                              uptime.
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-
-              
-                {/* Item 3 - Shashwat Technologies */}
-                <motion.div
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="relative md:ml-[50%] md:pl-12"
-                >
-                  <div className="hidden md:block absolute left-0 top-8 w-4 h-4 bg-purple-500 rounded-full border-4 border-black transform -translate-x-[calc(50%+1.5rem)]" />
-
-                  <motion.div
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    className="bg-gradient-to-br from-purple-900/40 to-pink-900/40 p-6 md:p-8 rounded-2xl backdrop-blur-sm border border-purple-500/30 shadow-lg shadow-purple-500/10"
-                  >
-                    <div className="flex items-start gap-4 mb-4 flex-row-reverse">
-                      <div className="p-3 bg-purple-500/20 rounded-xl">
-                        <Code2 className="w-6 h-6 text-purple-400" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl md:text-2xl font-bold mb-2">
-                          Full-Stack Developer
-                        </h3>
-                            <a
-                          href="https://stayzaa.com/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-purple-400 hover:text-purple-300 transition-colors font-semibold flex items-center gap-2 mb-2"
-                        >
-                          Shashwat Technologies
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                        <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            Sep 2025 – Sep 2025
-                          </span>
-                        </div>
-                        <ul className="text-gray-300 leading-relaxed space-y-3">
-                          <li className="flex gap-3">
-                            <span className="text-purple-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Built and optimized Stayzaa's frontend and
-                              backend, designing the About page and improving
-                              Mapbox GL globe rendering efficiency by 30%,
-                              boosting page performance and load times.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-purple-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Delivered 100% scalable and maintainable code,
-                              ensuring design consistency, responsive UI, and a
-                              smooth user experience across desktop and mobile
-                              platforms.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-purple-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Collaborated with core team to ship new features,
-                              resolve 90% of critical bugs, and deliver releases
-                              on time with a focus on quality and ownership.
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-
-                {/* Item 6 - RiseApply */}
-                <motion.div
-                  initial={{ opacity: 0, x: -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="relative md:mr-[50%] md:pr-12"
-                >
-                  <div className="hidden md:block absolute right-0 top-8 w-4 h-4 bg-cyan-500 rounded-full border-4 border-black transform translate-x-[calc(50%+1.5rem)]" />
-
-                  <motion.div
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    className="bg-gradient-to-br from-cyan-900/40 to-teal-900/40 p-6 md:p-8 rounded-2xl backdrop-blur-sm border border-cyan-500/30 shadow-lg shadow-cyan-500/10"
-                  >
-                    <div className="flex items-start gap-4 mb-4 flex-row-reverse">
-                      <div className="p-3 bg-cyan-500/20 rounded-xl">
-                        <Rocket className="w-6 h-6 text-cyan-400" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl md:text-2xl font-bold mb-2">
-                          Full-Stack Software Development Engineer Intern
-                        </h3>
-                        <a
-                          href="https://riseapply.netlify.app/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-cyan-400 hover:text-cyan-300 transition-colors font-semibold flex items-center gap-2 mb-2"
-                        >
-                          RiseApply
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                        <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            Apr 2025 – Sep 2025
-                          </span>
-                        </div>
-                        <ul className="text-gray-300 leading-relaxed space-y-3">
-                          <li className="flex gap-3">
-                            <span className="text-cyan-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Led the automation of manual workflows, boosting
-                              operational efficiency by 90%.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-cyan-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Built and scaled recruitment tools, marketing
-                              platforms, and website builders using Next.js,
-                              Node.js, and MongoDB.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-cyan-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Developed and maintained scrapers, website,
-                              databases, and a browser extension for automated
-                              job data extraction.
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-
-                {/* Item 7 - Echo of Pink */}
-                <motion.div
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="relative md:ml-[50%] md:pl-12"
-                >
-                  <div className="hidden md:block absolute left-0 top-8 w-4 h-4 bg-pink-500 rounded-full border-4 border-black transform -translate-x-[calc(50%+1.5rem)]" />
-
-                  <motion.div
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    className="bg-gradient-to-br from-pink-900/40 to-rose-900/40 p-6 md:p-8 rounded-2xl backdrop-blur-sm border border-pink-500/30 shadow-lg shadow-pink-500/10"
-                  >
-                    <div className="flex items-start gap-4 mb-4 flex-row-reverse">
-                      <div className="p-3 bg-pink-500/20 rounded-xl">
-                        <Globe className="w-6 h-6 text-pink-400" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl md:text-2xl font-bold mb-2">
-                          Software Development Engineer
-                        </h3>
-                        <a
-                          href="https://www.echoofpink.com/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-pink-400 hover:text-pink-300 transition-colors font-semibold flex items-center gap-2 mb-2"
-                        >
-                          Echo of Pink
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                        <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            Aug 2025 – Sep 2025
-                          </span>
-                        </div>
-                        <ul className="text-gray-300 leading-relaxed space-y-3">
-                          <li className="flex gap-3">
-                            <span className="text-pink-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Led the design, development, and optimization of
-                              Echo of Pink's e-commerce platform on Shopify,
-                              delivering a modern, fully responsive, and
-                              conversion-focused shopping experience.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-pink-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Built custom Shopify themes, automated workflows,
-                              and API integrations for products, orders, and
-                              payments — improving checkout efficiency and
-                              boosting conversion rates by 20%.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-pink-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Continuously enhanced site performance,
-                              implemented data-driven UX improvements, and
-                              collaborated with stakeholders to launch new
-                              features that increased customer engagement and
-                              online sales.
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-
-                {/* Item 8 - TaxDeeds */}
-                <motion.div
-                  initial={{ opacity: 0, x: -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="relative md:mr-[50%] md:pr-12"
-                >
-                  <div className="hidden md:block absolute right-0 top-8 w-4 h-4 bg-emerald-500 rounded-full border-4 border-black transform translate-x-[calc(50%+1.5rem)]" />
-
-                  <motion.div
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    className="bg-gradient-to-br from-emerald-900/40 to-green-900/40 p-6 md:p-8 rounded-2xl backdrop-blur-sm border border-emerald-500/30 shadow-lg shadow-emerald-500/10"
-                  >
-                    <div className="flex items-start gap-4 mb-4 flex-row-reverse">
-                      <div className="p-3 bg-emerald-500/20 rounded-xl">
-                        <BarChart3 className="w-6 h-6 text-emerald-400" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl md:text-2xl font-bold mb-2">
-                          Data Engineer
-                        </h3>
-                        <div className="text-emerald-400 font-semibold mb-2">
-                          TaxDeeds
-                        </div>
-                        <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            Jan 2025 – Aug 2025
-                          </span>
-                        </div>
-                        <ul className="text-gray-300 leading-relaxed space-y-3">
-                          <li className="flex gap-3">
-                            <span className="text-emerald-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Managed project timelines, reducing delivery times
-                              by 30%.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-emerald-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Spearheaded the adoption of cutting-edge
-                              engineering software, improving project accuracy
-                              by 15%.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-emerald-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Collaborated with cross-functional teams,
-                              enhancing project success rates by 10%.
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-
-                {/* Item 9 - Consult Easily */}
-                <motion.div
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="relative md:ml-[50%] md:pl-12"
-                >
-                  <div className="hidden md:block absolute left-0 top-8 w-4 h-4 bg-orange-500 rounded-full border-4 border-black transform -translate-x-[calc(50%+1.5rem)]" />
-
-                  <motion.div
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    className="bg-gradient-to-br from-orange-900/40 to-amber-900/40 p-6 md:p-8 rounded-2xl backdrop-blur-sm border border-orange-500/30 shadow-lg shadow-orange-500/10"
-                  >
-                    <div className="flex items-start gap-4 mb-4 flex-row-reverse">
-                      <div className="p-3 bg-orange-500/20 rounded-xl">
-                        <Globe className="w-6 h-6 text-orange-400" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl md:text-2xl font-bold mb-2">
-                          Freelance Full-Stack Developer
-                        </h3>
-                        <a
-                          href="https://consulteasily.com"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-orange-400 hover:text-orange-300 transition-colors font-semibold flex items-center gap-2 mb-2"
-                        >
-                          Consult Easily
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                        <div className="flex flex-wrap gap-3 text-sm text-gray-400 mb-4">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            Mar 2025 – Apr 2025
-                          </span>
-                        </div>
-                        <ul className="text-gray-300 leading-relaxed space-y-3">
-                          <li className="flex gap-3">
-                            <span className="text-orange-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Built the entire website from scratch, including
-                              responsive UI and seamless user experience.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-orange-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Developed robust APIs and set up a scalable
-                              backend with secure database integration.
-                            </span>
-                          </li>
-                          <li className="flex gap-3">
-                            <span className="text-orange-400 mt-1.5 flex-shrink-0">
-                              •
-                            </span>
-                            <span>
-                              Handled full-stack development end-to-end,
-                              including deployment and performance optimization.
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
+        <ExperienceSection ref={experienceRef} />
 
         {/* Client Projects Section - Enhanced */}
         <div
           ref={clientProjectsRef}
+          id="client-projects"
           className="relative min-h-screen bg-gradient-to-b from-black via-indigo-900/10 to-black px-4 md:px-8 py-16 md:py-24 overflow-hidden"
         >
           {/* Decorative Background Elements */}
@@ -3176,6 +2275,7 @@ function App() {
         {/* Projects Section - Masonry Grid */}
         <div
           ref={projectsRef}
+          id="projects"
           className="min-h-screen bg-gradient-to-b from-black via-pink-900/10 to-black px-4 md:px-8 py-16 md:py-24"
         >
           <motion.div
@@ -3311,6 +2411,7 @@ function App() {
         {/* Certificates Section - Card Grid */}
         <div
           ref={certificatesRef}
+          id="certificates"
           className="min-h-screen bg-gradient-to-b from-black via-cyan-900/10 to-black px-4 md:px-8 py-16 md:py-24"
         >
           <motion.div
