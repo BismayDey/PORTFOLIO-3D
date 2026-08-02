@@ -11,6 +11,7 @@ import {
   LayoutTemplate,
   MessageSquare,
   Palette,
+  Search,
   Server,
   ShoppingCart,
   Smartphone,
@@ -29,6 +30,7 @@ const ICONS = {
   LayoutTemplate,
   MessageSquare,
   Palette,
+  Search,
   Server,
   ShoppingCart,
   Smartphone,
@@ -165,7 +167,7 @@ export function ServicesSection({ onEnquire }: { onEnquire: () => void }) {
           >
             {[
               ["19+", "client platforms shipped"],
-              ["14", "services under one roof"],
+              ["15", "services under one roof"],
               ["24h", "typical first response"],
             ].map(([n, label]) => (
               <div key={label} className="flex items-baseline gap-2">
@@ -215,6 +217,10 @@ export function ServicesSection({ onEnquire }: { onEnquire: () => void }) {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-5 items-stretch">
                   {group.services.map((s, i) => {
                     const Icon = ICONS[s.icon as keyof typeof ICONS] ?? Code2;
+                    // an odd count would leave a gap in a 2-up grid
+                    const spanFull =
+                      group.services.length % 2 === 1 &&
+                      i === group.services.length - 1;
                     return (
                       <motion.article
                         key={s.title}
@@ -222,7 +228,7 @@ export function ServicesSection({ onEnquire }: { onEnquire: () => void }) {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-40px" }}
                         transition={{ delay: (i % 2) * 0.08 }}
-                        className={`group relative flex flex-col rounded-3xl border border-white/[0.14] bg-[#0e0e11] p-6 sm:p-7 md:p-8 overflow-hidden transition-all duration-300 shadow-xl shadow-black/60 ${t.ring} hover:bg-white/[0.06] hover:-translate-y-1`}
+                        className={`group relative flex flex-col rounded-3xl border border-white/[0.14] bg-[#0e0e11] p-6 sm:p-7 md:p-8 overflow-hidden transition-all duration-300 shadow-xl shadow-black/60 ${t.ring} hover:bg-white/[0.06] hover:-translate-y-1 ${spanFull ? "lg:col-span-2" : ""}`}
                       >
                         <div
                           className={`absolute inset-x-0 -top-24 h-48 bg-gradient-to-b ${t.grad} opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-500 pointer-events-none`}
@@ -248,7 +254,11 @@ export function ServicesSection({ onEnquire }: { onEnquire: () => void }) {
                             {s.description}
                           </p>
 
-                          <ul className="mt-auto grid sm:grid-cols-2 gap-x-5 gap-y-2.5 pt-5 border-t border-white/10">
+                          <ul
+                            className={`mt-auto grid gap-x-5 gap-y-2.5 pt-5 border-t border-white/10 ${
+                              spanFull ? "sm:grid-cols-3" : "sm:grid-cols-2"
+                            }`}
+                          >
                             {s.deliverables.map((d) => (
                               <li
                                 key={d}

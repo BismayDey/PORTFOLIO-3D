@@ -10,15 +10,19 @@ import {
   Loader2,
   Mail,
   MapPin,
+  MessageCircle,
   MousePointerClick,
+  LayoutGrid,
 } from "lucide-react";
 
 const ROLES = [
   "Full-Stack Developer",
-  "Head of Development",
-  "Product Owner",
-  "AI Feature Engineer",
-  "Shopify & WordPress Dev",
+  "Mobile App Developer",
+  "AI / ML Engineer",
+  "Web Game Developer",
+  "Shopify & WordPress Developer",
+  "AI Video Manager",
+  "SEO Specialist",
 ];
 
 const STATS = [
@@ -207,9 +211,9 @@ export function Hero({
             transition={{ delay: base + 0.68, duration: 0.5 }}
             className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed max-w-2xl mb-9"
           >
-            I build web products end to end — architecture, code, deployment and
-            the maintenance afterwards. From Shopify storefronts doing real
-            revenue to platforms with AI wired into the workflow.
+            I build products end to end — web platforms, mobile apps, AI
+            features and browser games. Architecture through deployment, then
+            the maintenance and search visibility that keep them working.
           </motion.p>
 
           {/* actions */}
@@ -217,52 +221,61 @@ export function Hero({
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: base + 0.8, duration: 0.5 }}
+            className="flex flex-wrap items-center gap-3 mb-4"
+          >
+            <motion.button
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={onTalk}
+              className="group inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white font-semibold shadow-lg shadow-purple-500/30 hover:shadow-purple-500/55 hover:brightness-110 transition-all"
+            >
+              <MessageCircle className="w-5 h-5" />
+              Let's Talk
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={onSeeWork}
+              className="group inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full bg-white/[0.08] border border-white/20 text-white font-semibold backdrop-blur-md hover:bg-white/[0.15] hover:border-white/40 transition-all"
+            >
+              <LayoutGrid className="w-5 h-5" />
+              See my work
+            </motion.button>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: base + 0.88, duration: 0.5 }}
             className="flex flex-wrap items-center gap-3 mb-10"
           >
             <motion.button
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={onTalk}
-              className="inline-flex items-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white font-semibold shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 hover:brightness-110 transition-all"
-            >
-              Let's Talk
-              <ArrowRight className="w-4 h-4" />
-            </motion.button>
-
-            <motion.button
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={onSeeWork}
-              className="inline-flex items-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full bg-white/[0.06] border border-white/20 text-white font-semibold backdrop-blur-md hover:bg-white/[0.12] hover:border-white/40 transition-all"
-            >
-              See my work
-            </motion.button>
-
-            <motion.button
-              whileHover={{ scale: 1.04 }}
+              whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
               onClick={onDownloadResume}
               disabled={isDownloading}
-              className="inline-flex items-center gap-2.5 px-5 py-3.5 rounded-full text-gray-300 font-medium hover:text-white transition-colors disabled:opacity-60"
+              className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold shadow-lg shadow-pink-500/25 hover:shadow-pink-500/45 hover:brightness-110 disabled:opacity-70 disabled:cursor-wait transition-all"
             >
               {isDownloading ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <Loader2 className="w-5 h-5 animate-spin" />
               ) : (
-                <FileDown className="w-4 h-4" />
+                <FileDown className="w-5 h-5" />
               )}
-              {isDownloading ? "Downloading…" : "Résumé"}
+              {isDownloading ? "Downloading…" : "Download Resume"}
             </motion.button>
 
             <motion.a
-              whileHover={{ scale: 1.04 }}
+              whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
               href="/BISMAY DEY.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 px-5 py-3.5 rounded-full text-gray-400 font-medium hover:text-white transition-colors"
+              className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full bg-white/[0.08] border border-white/20 text-white font-semibold backdrop-blur-md hover:bg-white/[0.15] hover:border-white/40 transition-all"
             >
-              <FileText className="w-4 h-4" />
-              View
+              <FileText className="w-5 h-5" />
+              View Resume
             </motion.a>
           </motion.div>
 

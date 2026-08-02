@@ -149,10 +149,10 @@ export const serviceGroups: ServiceGroup[] = [
   },
   {
     id: "commerce",
-    label: "Commerce & Design",
-    headline: "Storefronts and the design behind them",
+    label: "Commerce, Design & Growth",
+    headline: "Storefronts, the design behind them, and the traffic to fill them",
     blurb:
-      "Platforms your team can run without a developer, on visuals built to convert.",
+      "Platforms your team can run without a developer, visuals built to convert, and the search visibility that feeds both.",
     accent: "fuchsia",
     services: [
       {
@@ -207,6 +207,21 @@ export const serviceGroups: ServiceGroup[] = [
         ],
         timeline: "1–3 weeks",
         span: "wide",
+      },
+      {
+        title: "SEO & AI Search Optimisation",
+        icon: "Search",
+        description:
+          "Technical SEO, on-page structure and content strategy that gets you ranking for terms buyers actually search — plus AISEO so you surface inside AI answers, not just the blue links.",
+        deliverables: [
+          "Technical audit and fixes",
+          "Keyword and intent mapping",
+          "Schema markup and Core Web Vitals",
+          "Google Business Profile and local SEO",
+          "AI search (AISEO) optimisation",
+          "Monthly ranking and traffic reporting",
+        ],
+        timeline: "Ongoing / 4–12 weeks",
       },
     ],
   },
